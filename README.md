@@ -90,7 +90,6 @@ var urlTester = new UrlTester(
     );
 
 var testResult = await urlTester.TestAsync(myProfile);
-
 Console.WriteLine($"Success: {testResult.Success}, Delay: {testResult.Delay}");
 ```
 Parallel:
@@ -109,8 +108,6 @@ var parallelTester = new ParallelUrlTester(
             // url to test using the proxy, defauts to http://cp.cloudflare.com, optional
             null
     );
-
-
 
 List<ProfileItem> profilesToTest = GetMyProfilesFormSomewhere();
 var results = new ConcurrentBag<UrlTestResult>();
