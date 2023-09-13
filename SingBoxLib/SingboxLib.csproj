@@ -15,15 +15,19 @@
 
 	<PropertyGroup>
 		<PackageId>SingBoxLib</PackageId>
-		<Version>1.0.1</Version>
+		<Version>1.0.3</Version>
 		<Title>SingBoxLib</Title>
 		<Authors>MahdiBayat</Authors>
 		<Description>
 			Configure and run sing-box with ease. Based on sing-box's official documentation.
 		</Description>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<RepositoryUrl>https://github.com/Mahdi0024/SingBoxLib</RepositoryUrl>
 		<PackageTags>singbox proxy v2ray sagernet</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
-
+	<ItemGroup>
+		<None Include="..\readme.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 </Project>
