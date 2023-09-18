@@ -344,7 +344,7 @@ public static class ProfileParser
         url.Append('#')
            .Append(profile.Name);
 
-        return HttpUtility.UrlEncode(url.ToString());
+        return url.ToString();
     }
 
     private static string ProfileToVMessUrl(ProfileItem profile)
