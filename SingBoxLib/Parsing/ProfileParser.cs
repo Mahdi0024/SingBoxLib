@@ -280,7 +280,7 @@ public static class ProfileParser
         };
 
         var builder = new UriBuilder(protocol, $"{profile.Id}@{profile.Address}", (int)profile.Port!);
-        builder.Fragment = HttpUtility.UrlEncode(profile.Name);
+        builder.Fragment = profile.Name;
 
         var args = new Dictionary<string, string?>
         {
