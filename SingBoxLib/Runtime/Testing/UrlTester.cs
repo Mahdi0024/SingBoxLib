@@ -1,5 +1,6 @@
 ﻿using SingBoxLib.Configuration;
 using SingBoxLib.Configuration.Inbound;
+using SingBoxLib.Configuration.Outbound.Abstract;
 using SingBoxLib.Parsing;
 using System.Net;
 
@@ -24,6 +25,16 @@ public class UrlTester
 
     public async Task<UrlTestResult> TestAsync(ProfileItem profile)
     {
+        OutboundConfig? outbound;
+        try
+        {
+            outbound = profile.ToOutboundConfig();
+        }
+        catch
+        {
+            return new UrlTestResult();
+        }
+
         var config = new SingBoxConfig
         {
             Inbounds = new()
@@ -40,7 +51,7 @@ public class UrlTester
             },
             Outbounds = new()
             {
-                profile.ToOutboundConfig()
+                outbound
             }
         };
 
