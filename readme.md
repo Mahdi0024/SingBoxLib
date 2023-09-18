@@ -96,7 +96,7 @@ Parallel:
 ```cs
 var parallelTester = new ParallelUrlTester(
         new SingBoxWrapper("sing-box-path"),
-    // A list of open local port, must be at equal of bigger that total test thread count
+    // A list of open local ports, must be equal or bigger than total test thread count
     // make sure they are not occupied by other applications running on your system
     new int[] { 2080, 2081, 2082, 2083, 2084, 2085 },
     // max number of concurrent testing
