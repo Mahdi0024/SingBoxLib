@@ -32,8 +32,8 @@ public abstract class InboundConfig
     [JsonProperty("sniff_timeout")]
     public string? SniffTimeout { get; set; }
 
-    [JsonProperty("domain_stategy")]
-    public string? DomainStategy { get; set; }
+    [JsonProperty("domain_strategy")]
+    public string? DomainStrategy { get; set; }
 
     [JsonProperty("udp_timeout")]
     public int? UdpTimeout { get; set; }
