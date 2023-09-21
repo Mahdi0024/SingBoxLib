@@ -8,17 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Runtime\Api\Clash\ClashApiWrapper.cs" />
-	  <Compile Remove="Runtime\Api\Clash\Models\ConfigInfo.cs" />
-	  <Compile Remove="Runtime\Api\Clash\Models\LogInfo.cs" />
-	  <Compile Remove="Runtime\Api\Clash\Models\ProxyDelayInfo.cs" />
-	  <Compile Remove="Runtime\Api\Clash\Models\ProxyInfo.cs" />
-	  <Compile Remove="Runtime\Api\Clash\Models\RuleInfo.cs" />
-	  <Compile Remove="Runtime\Api\Clash\Models\TrafficInfo.cs" />
-	  <Compile Remove="Runtime\Api\Clash\Models\VersionInfo.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="CliWrap" Version="3.6.4" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="UrlBase64" Version="1.0.0" />
@@ -26,7 +15,7 @@
 
 	<PropertyGroup>
 		<PackageId>SingBoxLib</PackageId>
-		<Version>1.0.7</Version>
+		<Version>1.0.9</Version>
 		<Title>SingBoxLib</Title>
 		<Authors>MahdiBayat</Authors>
 		<Description>
@@ -40,13 +29,5 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\readme.md" Pack="true" PackagePath="\" />
-		<None Include="Runtime\Api\Clash\ClashApiWrapper.cs" />
-		<None Include="Runtime\Api\Clash\Models\ConfigInfo.cs" />
-		<None Include="Runtime\Api\Clash\Models\LogInfo.cs" />
-		<None Include="Runtime\Api\Clash\Models\ProxyDelayInfo.cs" />
-		<None Include="Runtime\Api\Clash\Models\ProxyInfo.cs" />
-		<None Include="Runtime\Api\Clash\Models\RuleInfo.cs" />
-		<None Include="Runtime\Api\Clash\Models\TrafficInfo.cs" />
-		<None Include="Runtime\Api\Clash\Models\VersionInfo.cs" />
 	</ItemGroup>
 </Project>
