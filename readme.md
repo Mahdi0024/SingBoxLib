@@ -3,6 +3,8 @@
 
 ![Nuget](https://img.shields.io/nuget/v/SingBoxLib)
 ![Nuget](https://img.shields.io/nuget/dt/SingBoxLib)
+![GitHub](https://img.shields.io/github/license/Mahdi0024/singboxlib)
+
 
 </div>
 
