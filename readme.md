@@ -1,4 +1,11 @@
 ﻿# SingBoxLib
+<div align="center">
+
+![Nuget](https://img.shields.io/nuget/v/SingBoxLib)
+![Nuget](https://img.shields.io/nuget/dt/SingBoxLib)
+
+</div>
+
 Configure and run sing-box with ease.
 Based on sing-box's [official documentation](http://sing-box.sagernet.org/configuration/).
 ## Usage examples
