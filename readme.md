@@ -1,15 +1,17 @@
-﻿# SingBoxLib
+﻿
 <div align="center">
+
+# SingBoxLib
+Configure and run sing-box with ease.  
+Based on sing-box's [official documentation](http://sing-box.sagernet.org/configuration/).
 
 ![Nuget](https://img.shields.io/nuget/v/SingBoxLib)
 ![Nuget](https://img.shields.io/nuget/dt/SingBoxLib)
 ![GitHub](https://img.shields.io/github/license/Mahdi0024/singboxlib)
 
-
 </div>
 
-Configure and run sing-box with ease.
-Based on sing-box's [official documentation](http://sing-box.sagernet.org/configuration/).
+
 ## Usage examples
 ### Mixed inbound with Trojan outbound and grpc transport with tls:
 ```cs
