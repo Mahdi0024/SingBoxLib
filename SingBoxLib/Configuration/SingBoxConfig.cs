@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Dns;
+﻿using SingBoxLib.Configuration.Converters;
+using SingBoxLib.Configuration.Dns;
 using SingBoxLib.Configuration.Experimantal;
 using SingBoxLib.Configuration.Inbound.Abstract;
 using SingBoxLib.Configuration.Log;
@@ -20,9 +21,11 @@ public sealed class SingBoxConfig
     [JsonProperty("ntp")]
     public NtpConfig? Ntp { get; set; }
 
+    [JsonConverter(typeof(InboundConfigJsonConverter))]
     [JsonProperty("inbounds")]
     public List<InboundConfig>? Inbounds { get; set; }
 
+    [JsonConverter(typeof(OutboundConfigJsonConverter))]
     [JsonProperty("outbounds")]
     public List<OutboundConfig>? Outbounds { get; set; }
 

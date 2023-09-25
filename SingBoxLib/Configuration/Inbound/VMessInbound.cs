@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Inbound.Abstract;
+﻿using SingBoxLib.Configuration.Converters;
+using SingBoxLib.Configuration.Inbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 using SingBoxLib.Configuration.Transport.Abstract;
 
@@ -18,6 +19,7 @@ public sealed class VMessInbound : InboundConfig
     [JsonProperty("tls")]
     public TlsConfig? Tls { get; set; }
 
+    [JsonConverter(typeof(TransportConfigJsonConverter))]
     [JsonProperty("transport")]
     public TransportConfig? Transport { get; set; }
 }

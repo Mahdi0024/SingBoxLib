@@ -1,12 +1,16 @@
-﻿namespace SingBoxLib.Configuration.Dns;
+﻿using SingBoxLib.Configuration.Converters;
+using SingBoxLib.Configuration.Dns.Abstract;
+
+namespace SingBoxLib.Configuration.Dns;
 
 public sealed class DnsConfig
 {
     [JsonProperty("servers")]
     public List<DnsServer>? Servers { get; set; }
 
+    [JsonConverter(typeof(DnsRuleJsonConverter))]
     [JsonProperty("rules")]
-    public List<object>? Rules { get; set; }
+    public List<DnsRuleBase>? Rules { get; set; }
 
     [JsonProperty("final")]
     public string? Final { get; set; }

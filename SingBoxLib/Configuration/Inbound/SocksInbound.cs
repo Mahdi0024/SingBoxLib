@@ -1,4 +1,5 @@
 ﻿using SingBoxLib.Configuration.Inbound.Abstract;
+using SingBoxLib.Configuration.Shared;
 
 namespace SingBoxLib.Configuration.Inbound;
 

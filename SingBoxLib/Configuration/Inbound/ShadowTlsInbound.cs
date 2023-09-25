@@ -35,9 +35,4 @@ public sealed class Handshake : OutboundWithDialFields
 
     [JsonProperty("server_port")]
     public int? ServerPort { get; set; }
-
-    //hide unused parent properties to prevent any future confusion.
-    private new string? Tag { get; set; }
-
-    private new string? Name { get; set; }
 }

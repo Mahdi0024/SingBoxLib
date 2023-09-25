@@ -1,6 +1,8 @@
-﻿namespace SingBoxLib.Configuration.Dns;
+﻿using SingBoxLib.Configuration.Dns.Abstract;
 
-public sealed class DnsLogicalRule
+namespace SingBoxLib.Configuration.Dns;
+
+public sealed class DnsLogicalRule : DnsRuleBase
 {
     [JsonProperty("type")]
     public string? Type { get; set; }
@@ -9,7 +11,7 @@ public sealed class DnsLogicalRule
     public string? Mode { get; set; }
 
     [JsonProperty("rules")]
-    public List<object>? Rules { get; set; }
+    public List<DnsRuleBase>? Rules { get; set; }
 
     [JsonProperty("server")]
     public string? Server { get; set; }

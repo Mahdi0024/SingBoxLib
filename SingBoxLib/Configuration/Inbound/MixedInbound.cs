@@ -1,8 +1,8 @@
-﻿using SingBoxLib.Configuration.Inbound;
-using SingBoxLib.Configuration.Inbound.Abstract;
+﻿using SingBoxLib.Configuration.Inbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 
 namespace SingBoxLib.Configuration.Inbound;
+
 public sealed class MixedInbound : InboundConfig
 {
     public MixedInbound()

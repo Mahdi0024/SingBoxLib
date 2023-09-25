@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Outbound.Abstract;
+﻿using SingBoxLib.Configuration.Converters;
+using SingBoxLib.Configuration.Outbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 using SingBoxLib.Configuration.Transport.Abstract;
 
@@ -36,6 +37,7 @@ public sealed class VMessOutbound : OutboundWithDialFields
     [JsonProperty("packet_encoding")]
     public string? PacketEncoding { get; set; }
 
+    [JsonConverter(typeof(TransportConfigJsonConverter))]
     [JsonProperty("transport")]
     public TransportConfig? Transport { get; set; }
 
