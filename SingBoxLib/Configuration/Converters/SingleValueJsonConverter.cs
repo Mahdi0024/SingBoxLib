@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace SingBoxLib.Configuration.Converters;
 
@@ -25,11 +26,18 @@ internal class SingleValueJsonConverter<T> : JsonConverter<List<T>>
                 serializer.Deserialize<T>(obj.CreateReader())!
             };
         }
-        if (typeof(T) == typeof(string) && reader.TokenType == JsonToken.String)
+        if (reader.TokenType == JsonToken.String)
         {
             return new List<T>
             {
                 (T)reader.Value!
+            };
+        }
+        if (reader.TokenType == JsonToken.Integer)
+        {
+            return new List<T>
+            {
+                (T) Convert.ChangeType(reader.Value,typeof(T),CultureInfo.InvariantCulture)!
             };
         }
         throw new JsonException($"Something went wrong while deserializing type: {typeof(T)}");
