@@ -3,9 +3,11 @@ using SingBoxLib.Configuration.Outbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 using SingBoxLib.Configuration.Transport;
 using SingBoxLib.Configuration.Transport.Abstract;
+using System.Diagnostics;
 
 namespace SingBoxLib.Parsing;
 
+[DebuggerDisplay("{DebugView()}")]
 public class ProfileItem : IEquatable<ProfileItem>
 {
     public ProfileType? Type { get; set; }
@@ -171,30 +173,30 @@ public class ProfileItem : IEquatable<ProfileItem>
             return false;
 
         return left.Type == right.Type &&
-               left.Address == right.Address &&
-               left.Port == right.Port &&
-               left.Id == right.Id &&
-               left.AlterId == right.AlterId &&
-               left.Encryption == right.Encryption &&
-               left.Network == right.Network &&
-               left.HeaderType == right.HeaderType &&
-               left.RequestHost == right.RequestHost &&
-               left.Path == right.Path &&
-               left.Security == right.Security &&
-               left.AllowInsecure == right.AllowInsecure &&
-               left.Flow == right.Flow &&
-               left.Sni == right.Sni &&
-               left.Alpn == right.Alpn &&
-               left.Fingerprint == right.Fingerprint &&
-               left.PublicKey == right.PublicKey &&
-               left.ShortId == right.ShortId &&
-               left.SpiderX == right.SpiderX &&
-               left.QuicSecurity == right.QuicSecurity &&
-               left.QuicKey == right.QuicKey &&
-               left.GrpcMode == right.GrpcMode &&
-               left.GrpcServiceName == right.GrpcServiceName &&
-               left.KcpSeed == right.KcpSeed &&
-               left.Password == right.Password;
+           left.Port == right.Port &&
+           left.AlterId == right.AlterId &&
+           String.Equals(left.Address, right.Address, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.Id, right.Id, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.Encryption, right.Encryption, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.Network, right.Network, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.HeaderType, right.HeaderType, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.RequestHost, right.RequestHost, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.Path, right.Path, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.Security, right.Security, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.AllowInsecure, right.AllowInsecure, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.Flow, right.Flow, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.Sni, right.Sni, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.Alpn, right.Alpn, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.Fingerprint, right.Fingerprint, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.PublicKey, right.PublicKey, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.ShortId, right.ShortId, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.SpiderX, right.SpiderX, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.QuicSecurity, right.QuicSecurity, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.QuicKey, right.QuicKey, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.GrpcMode, right.GrpcMode, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.GrpcServiceName, right.GrpcServiceName, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.KcpSeed, right.KcpSeed, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.Password, right.Password, StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool operator !=(ProfileItem? left, ProfileItem? right)
@@ -210,5 +212,10 @@ public class ProfileItem : IEquatable<ProfileItem>
     public bool Equals(ProfileItem? other)
     {
         return this == other;
+    }
+
+    private string DebugView()
+    {
+        return this.ToProfileUrl();
     }
 }
