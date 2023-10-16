@@ -27,7 +27,7 @@ public class ClashApiWrapper : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    public async IAsyncEnumerable<LogInfo> GetLogs([EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<LogInfo> GetLogs([EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         using var stream = await _client.GetStreamAsync("/logs", cancellationToken);
         using (var reader = new StreamReader(stream))
@@ -90,7 +90,7 @@ public class ClashApiWrapper : IDisposable
         return await _client.GetFromJsonAsync<ProxyInfo>($"/proxies/{name}");
     }
 
-    public async Task<ProxyDelayInfo> GetProxyDelay(string name, int timeout, string url)
+    public async Task<ProxyDelayInfo> GetProxyDelay(string name, int timeout, string url = null)
     {
         var response = await _client.GetAsync($"/proxies/{name}/delay?timeout={timeout}&url={url}");
         if (response.StatusCode is not HttpStatusCode.OK)
