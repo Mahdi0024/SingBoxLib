@@ -48,7 +48,7 @@ var config = new SingBoxConfig
 };
 ```
 ### Tun inbound:
-- Please note that tun inbound requires your app to have administrator privilages.
+- Please note that tun inbound requires your app to have administrator privileges.
 - Always set `Route.AutoDetectInterface` to true when using tun inbound.
 
 ```cs
