@@ -108,9 +108,22 @@ public class ProfileItem : IEquatable<ProfileItem>
         {
             Networks.Grpc => new GrpcTransport { ServiceName = GrpcServiceName },
             Networks.Websocket => new WebSocketTransport { Path = Path },
-            Networks.Tcp or Networks.Http or Networks.H2 or null or "" => null,
+            Networks.Tcp or Networks.Http or Networks.H2 or null or "" => GetHttpTransport(),
             _ => throw new NotImplementedException($"""Network type "{Network}" is not implemented!""")
         };
+
+        TransportConfig? GetHttpTransport()
+        {
+            if(HeaderType is "http")
+            {
+                return new HttpTransport
+                {
+                    Method = "get",
+                    Host = RequestHost
+                };
+            }
+            return null;
+        }
     }
 
     private TlsConfig? ParseTls()
