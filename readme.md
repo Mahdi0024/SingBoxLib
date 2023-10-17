@@ -193,7 +193,7 @@ await foreach(var logInfo in clashApi.GetLogs(cts.Token))
 ```
 ## Getting Traffic info using `ClashApi`:
 - the `GetTraffic` methods return an `IAsyncEnumerable<TrafficInfo>` 
-- the `LogInfo` class contains two properties: `Up` and `Down`, which indicate the traffic used the the past second in `Bytes`.
+- the `TrafficInfo` class contains two properties: `Up` and `Down`, which indicate the traffic used the the past second in `Bytes`.
 - you can pass a `CancelationToken` for when you want to stop getting more traffic info. this parameter is optional.
 ```cs
 await foreach(var trafficInfo in clashApi.GetTraffic(cts.Token))
