@@ -204,7 +204,7 @@ await foreach(var trafficInfo in clashApi.GetTraffic(cts.Token))
 ## UrlTest a proxy using `ClashApi`:
 - `name` parameter is the same as `Tag` in Outbound configuration.
 ```cs
-var delayInfo = clashApi.GetProxyDelay(name: "out-1", timeout: 1000, url: "http://cp.cloudflare.com");
+var delayInfo = await clashApi.GetProxyDelay(name: "out-1", timeout: 1000, url: "http://cp.cloudflare.com");
 Console.WriteLine(delayInfo.Delay);
 ```
 
