@@ -182,7 +182,7 @@ using SingBoxLib.Runtime.Api.Clash;
 var clashApi = new ClashApiWrapper("http://127.0.0.1:9090");
 ```
 ## Getting logs using `ClashApi`:
-- the `GetLogs` methods return an `IAsyncEnumerable<LogInfo>` 
+- the `GetLogs` method returns an `IAsyncEnumerable<LogInfo>` 
 - the `LogInfo` class contains two properties: `Level` which indicates log level and `Payload` which is a line of logs.
 - you can pass a `CancelationToken` for when you want to stop getting more logs. this parameter is optional.
 ```cs
@@ -192,7 +192,7 @@ await foreach(var logInfo in clashApi.GetLogs(cts.Token))
 }
 ```
 ## Getting Traffic info using `ClashApi`:
-- the `GetTraffic` methods return an `IAsyncEnumerable<TrafficInfo>` 
+- the `GetTraffic` method returns an `IAsyncEnumerable<TrafficInfo>` 
 - the `TrafficInfo` class contains two properties: `Up` and `Down`, which indicate the traffic used the the past second in `Bytes`.
 - you can pass a `CancelationToken` for when you want to stop getting more traffic info. this parameter is optional.
 ```cs
