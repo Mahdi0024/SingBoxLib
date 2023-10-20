@@ -20,7 +20,23 @@ public class ProfileItem : IEquatable<ProfileItem>
     public string? Network { get; set; }
     public string? HeaderType { get; set; }
     public string? RequestHost { get; set; }
-    public string? Path { get; set; }
+
+    private string? _path;
+    public string? Path
+    {
+        get => _path;
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                _path = "/";
+            }
+            else
+            {
+                _path = value;
+            }
+        }
+    }
     public string? Security { get; set; }
     public string? AllowInsecure { get; set; }
     public string? Flow { get; set; }
