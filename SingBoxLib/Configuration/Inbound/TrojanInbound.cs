@@ -1,6 +1,8 @@
 ﻿using SingboxLib.Configuration.Inbound.Shared;
+using SingBoxLib.Configuration.Converters;
 using SingBoxLib.Configuration.Inbound.Abstract;
 using SingBoxLib.Configuration.Inbound.Shared;
+using SingBoxLib.Configuration.Transport.Abstract;
 
 namespace SingBoxLib.Configuration.Inbound;
 
@@ -24,8 +26,9 @@ public sealed class TrojanInbound : InboundConfig
     [JsonProperty("fallback_for_alpn")]
     public Dictionary<string, TrojanFallback>? FallbackForAlpn { get; set; }
 
+    [JsonConverter(typeof(TransportConfigJsonConverter))]
     [JsonProperty("transport")]
-    public Dictionary<string, string>? Transport { get; set; }
+    public TransportConfig? Transport { get; set; }
 }
 
 public sealed class TrojanFallback
