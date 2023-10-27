@@ -1,6 +1,6 @@
-﻿namespace SingBoxLib.Configuration.Shared;
+﻿namespace SingboxLib.Configuration.Outbound.Shared;
 
-public sealed class RealityConfig
+public sealed class OutboundRealityConfig
 {
     [JsonProperty("enabled")]
     public bool? Enabled { get; set; }

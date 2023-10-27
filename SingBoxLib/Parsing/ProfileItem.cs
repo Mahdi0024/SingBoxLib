@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Outbound;
+﻿using SingboxLib.Configuration.Outbound.Shared;
+using SingBoxLib.Configuration.Outbound;
 using SingBoxLib.Configuration.Outbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 using SingBoxLib.Configuration.Transport;
@@ -142,15 +143,15 @@ public class ProfileItem : IEquatable<ProfileItem>
         }
     }
 
-    private TlsConfig? ParseTls()
+    private OutboundTlsConfig? ParseTls()
     {
-        return Security is "tls" or "reality" ? new TlsConfig
+        return Security is "tls" or "reality" ? new OutboundTlsConfig
         {
             Enabled = true,
             Insecure = AllowInsecure is "1" or "true",
             Alpn = Alpn is not null ? new List<string>() { Alpn } : null,
             ServerName = Sni,
-            Reality = PublicKey is not null ? new RealityConfig
+            Reality = PublicKey is not null ? new OutboundRealityConfig
             {
                 Enabled = true,
                 PublicKey = PublicKey,

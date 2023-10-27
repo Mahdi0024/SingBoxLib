@@ -1,5 +1,5 @@
-﻿using SingBoxLib.Configuration.Outbound.Abstract;
-using SingBoxLib.Configuration.Shared;
+﻿using SingboxLib.Configuration.Outbound.Shared;
+using SingBoxLib.Configuration.Outbound.Abstract;
 
 namespace SingBoxLib.Configuration.Outbound;
 
@@ -42,5 +42,5 @@ public sealed class TuicOutbound : OutboundWithDialFields
     public string? Network { get; set; }
 
     [JsonProperty("tls")]
-    public TlsConfig? Tls { get; set; }
+    public OutboundTlsConfig? Tls { get; set; }
 }

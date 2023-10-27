@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Converters;
+﻿using SingboxLib.Configuration.Outbound.Shared;
+using SingBoxLib.Configuration.Converters;
 using SingBoxLib.Configuration.Outbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 using SingBoxLib.Configuration.Transport.Abstract;
@@ -26,7 +27,7 @@ public sealed class TrojanOutbound : OutboundWithDialFields
     public string? Network { get; set; }
 
     [JsonProperty("tls")]
-    public TlsConfig? Tls { get; set; }
+    public OutboundTlsConfig? Tls { get; set; }
 
     [JsonProperty("multiplex")]
     public MultiplexConfig? Multiplex { get; set; }

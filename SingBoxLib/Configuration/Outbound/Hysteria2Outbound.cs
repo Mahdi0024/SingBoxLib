@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Outbound.Abstract;
+﻿using SingboxLib.Configuration.Outbound.Shared;
+using SingBoxLib.Configuration.Outbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 
 namespace SingBoxLib.Configuration.Outbound;
@@ -33,5 +34,5 @@ public sealed class Hysteria2Outbound : OutboundWithDialFields
     public string? Network { get; set; }
 
     [JsonProperty("tls")]
-    public TlsConfig? Tls { get; set; }
+    public OutboundTlsConfig? Tls { get; set; }
 }

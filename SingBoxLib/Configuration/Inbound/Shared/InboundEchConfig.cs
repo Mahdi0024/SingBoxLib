@@ -1,7 +1,8 @@
-﻿namespace SingBoxLib.Configuration.Shared;
+﻿namespace SingBoxLib.Configuration.Inbound.Shared;
 
-public sealed class EchConfig
+public class InboundEchConfig
 {
+    [JsonProperty("enabled")]
     public bool? Enabled { get; set; }
 
     [JsonProperty("pq_signature_schemes_enabled")]
@@ -10,6 +11,9 @@ public sealed class EchConfig
     [JsonProperty("dynamic_record_sizing_disabled")]
     public bool? DynamicRecordSizingDisabled { get; set; }
 
-    [JsonProperty("config")]
-    public string? Config { get; set; }
+    [JsonProperty("key")]
+    public List<string>? Key { get; set; }
+
+    [JsonProperty("key_path")]
+    public string? KeyPath { get; set; }
 }

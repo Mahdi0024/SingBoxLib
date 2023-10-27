@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Inbound.Abstract;
+﻿using SingboxLib.Configuration.Inbound.Shared;
+using SingBoxLib.Configuration.Inbound.Abstract;
 using SingBoxLib.Configuration.Inbound.Shared;
 using SingBoxLib.Configuration.Shared;
 
@@ -31,5 +32,5 @@ public sealed class Hysteria2Inbound : InboundConfig
     public string? Masquerade { get; set; }
 
     [JsonProperty("tls")]
-    public Dictionary<string, string>? Tls { get; set; }
+    public InboundTlsConfig? Tls { get; set; }
 }

@@ -1,6 +1,8 @@
-﻿namespace SingBoxLib.Configuration.Shared;
+﻿using SingBoxLib.Configuration.Shared;
 
-public sealed class TlsConfig
+namespace SingboxLib.Configuration.Outbound.Shared;
+
+public sealed class OutboundTlsConfig
 {
     [JsonProperty("enabled")]
     public bool? Enabled { get; set; }
@@ -33,13 +35,13 @@ public sealed class TlsConfig
     public string? CertificatePath { get; set; }
 
     [JsonProperty("ech")]
-    public EchConfig? Ech { get; set; }
+    public OutboundEchConfig? Ech { get; set; }
 
     [JsonProperty("utls")]
     public UtlsConfig? UTls { get; set; }
 
     [JsonProperty("reality")]
-    public RealityConfig? Reality { get; set; }
+    public OutboundRealityConfig? Reality { get; set; }
 }
 
 public static class TlsVersions

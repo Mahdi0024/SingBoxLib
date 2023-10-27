@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Inbound.Abstract;
+﻿using SingboxLib.Configuration.Inbound.Shared;
+using SingBoxLib.Configuration.Inbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 
 namespace SingBoxLib.Configuration.Inbound;
@@ -15,7 +16,7 @@ public sealed class MixedInbound : InboundConfig
     public List<ProxyUser>? Users { get; set; }
 
     [JsonProperty("tls")]
-    public TlsConfig? Tls { get; set; }
+    public InboundTlsConfig? Tls { get; set; }
 
     [JsonProperty("set_system_proxy")]
     public bool? SetSystemProxy { get; set; }

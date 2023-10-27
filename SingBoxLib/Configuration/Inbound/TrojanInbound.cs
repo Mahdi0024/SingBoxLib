@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Inbound.Abstract;
+﻿using SingboxLib.Configuration.Inbound.Shared;
+using SingBoxLib.Configuration.Inbound.Abstract;
 using SingBoxLib.Configuration.Inbound.Shared;
 
 namespace SingBoxLib.Configuration.Inbound;
@@ -15,7 +16,7 @@ public sealed class TrojanInbound : InboundConfig
     public List<ProxyUserInbound>? Users { get; set; }
 
     [JsonProperty("tls")]
-    public Dictionary<string, string>? Tls { get; set; }
+    public InboundTlsConfig? Tls { get; set; }
 
     [JsonProperty("fallback")]
     public TrojanFallback? Fallback { get; set; }

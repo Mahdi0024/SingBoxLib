@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Converters;
+﻿using SingboxLib.Configuration.Inbound.Shared;
+using SingBoxLib.Configuration.Converters;
 using SingBoxLib.Configuration.Inbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 using SingBoxLib.Configuration.Transport.Abstract;
@@ -17,7 +18,7 @@ public sealed class VLessInbound : InboundConfig
     public List<VLessUser>? Users { get; set; }
 
     [JsonProperty("tls")]
-    public TlsConfig? Tls { get; set; }
+    public InboundTlsConfig? Tls { get; set; }
 
     [JsonConverter(typeof(TransportConfigJsonConverter))]
     [JsonProperty("transport")]
