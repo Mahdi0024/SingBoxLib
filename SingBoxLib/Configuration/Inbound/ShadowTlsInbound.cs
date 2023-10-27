@@ -19,20 +19,11 @@ public sealed class ShadowTlsInbound : InboundConfig
     public List<ProxyUserInbound>? Users { get; set; }
 
     [JsonProperty("handshake")]
-    public Handshake? Handshake { get; set; }
+    public HandshakeConfig? Handshake { get; set; }
 
     [JsonProperty("handshake_for_server_name")]
-    public Dictionary<string, Handshake>? HandshakeForServerName { get; set; }
+    public Dictionary<string, HandshakeConfig>? HandshakeForServerName { get; set; }
 
     [JsonProperty("strict_mode")]
     public bool? StrictMode { get; set; }
-}
-
-public sealed class Handshake : OutboundWithDialFields
-{
-    [JsonProperty("server")]
-    public string? Server { get; set; }
-
-    [JsonProperty("server_port")]
-    public int? ServerPort { get; set; }
 }
