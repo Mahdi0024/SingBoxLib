@@ -8,5 +8,6 @@ public enum ProfileType
     Trojan,
     Socks,
     Http,
-    Hysteria2
+    Hysteria2,
+    Tuic
 }

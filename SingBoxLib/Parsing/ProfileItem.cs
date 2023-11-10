@@ -55,6 +55,10 @@ public class ProfileItem : IEquatable<ProfileItem>
     public int? Version { get; set; }
     public string? ObfsType { get; set; }
     public string? ObfsPassword { get; set; }
+    public string? CongestionControl { get; set; }
+    public string? UdpRelayMode { get; set; }
+    public string? DisableSni { get; set; }
+
 
     public OutboundConfig ToOutboundConfig()
     {
@@ -124,6 +128,16 @@ public class ProfileItem : IEquatable<ProfileItem>
                 },
                 Tls = ParseTls(),
             },
+            ProfileType.Tuic => new TuicOutbound
+            {
+                Server = Address,
+                ServerPort = Port,
+                Password = Password,
+                Uuid = Id,
+                CongestionControl = CongestionControl,
+                UdpRelayMode = UdpRelayMode,
+                Tls = ParseTls(),
+            },
             _ => throw new NotImplementedException($"""Profile type "{Type}" is not implemented!""")
         };
     }
@@ -154,12 +168,13 @@ public class ProfileItem : IEquatable<ProfileItem>
 
     private OutboundTlsConfig? ParseTls()
     {
-        return Security is "tls" or "reality" ? new OutboundTlsConfig
+        return Security is "tls" or "reality" || Sni is not null || Alpn is not null? new OutboundTlsConfig
         {
             Enabled = true,
             Insecure = AllowInsecure is "1" or "true",
             Alpn = Alpn is not null ? new List<string>() { Alpn } : null,
             ServerName = Sni,
+            DisableSni = DisableSni is "1" or "true"? true: null,
             Reality = PublicKey is not null ? new OutboundRealityConfig
             {
                 Enabled = true,
@@ -204,6 +219,9 @@ public class ProfileItem : IEquatable<ProfileItem>
         hash.Add(Password);
         hash.Add(ObfsType);
         hash.Add(ObfsPassword);
+        hash.Add(CongestionControl);
+        hash.Add(UdpRelayMode);
+        hash.Add(DisableSni);
 
         return hash.ToHashCode();
     }
@@ -239,7 +257,10 @@ public class ProfileItem : IEquatable<ProfileItem>
            String.Equals(left.KcpSeed, right.KcpSeed, StringComparison.OrdinalIgnoreCase) &&
            String.Equals(left.Password, right.Password, StringComparison.OrdinalIgnoreCase) &&
            String.Equals(left.ObfsType, right.ObfsType, StringComparison.OrdinalIgnoreCase) &&
-           String.Equals(left.ObfsPassword, right.ObfsPassword, StringComparison.OrdinalIgnoreCase);
+           String.Equals(left.ObfsPassword, right.ObfsPassword, StringComparison.OrdinalIgnoreCase)&&
+           String.Equals(left.CongestionControl, right.CongestionControl, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.DisableSni, right.DisableSni, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.UdpRelayMode, right.UdpRelayMode, StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool operator !=(ProfileItem? left, ProfileItem? right)

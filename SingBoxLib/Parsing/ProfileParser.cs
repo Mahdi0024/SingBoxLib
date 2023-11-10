@@ -19,6 +19,7 @@ public static class ProfileParser
     private const string HttpProtocol = "http://";
     private const string HttpsProtocol = "https://";
     private const string Hysteria2Protocol = "hy2://";
+    private const string TuicProtocol = "tuic://";
 
     public static ProfileItem ParseProfileUrl(string url)
     {
@@ -32,6 +33,15 @@ public static class ProfileParser
         {
             var profile = ParseProfileUrl(new Uri(url));
             profile.Type = ProfileType.Trojan;
+            return profile;
+        }
+        if (url.StartsWith(TuicProtocol))
+        {
+            var profile = ParseProfileUrl(new Uri(url));
+            profile.Type = ProfileType.Tuic;
+            var idPass = profile.Id!.Split(':');
+            profile.Id = idPass[0];
+            profile.Password = idPass[1];
             return profile;
         }
         if (url.StartsWith(Hysteria2Protocol))
@@ -238,7 +248,10 @@ public static class ProfileParser
             QuicKey = HttpUtility.UrlDecode(args["key"]),
             ObfsType = args["obfs"],
             ObfsPassword = args["obfs-password"],
-            AllowInsecure = args["insecure"]
+            AllowInsecure = args["insecure"] ?? args["allow_insecure"],
+            CongestionControl = args["congestion_control"],
+            UdpRelayMode = args["udp_relay_mode"],
+            DisableSni = args["disable_sni"]
         };
 
         return profile;
@@ -248,7 +261,11 @@ public static class ProfileParser
     {
         return profile.Type switch
         {
-            ProfileType.VLess or ProfileType.Trojan or ProfileType.Hysteria2 => ProfileToStandardUrl(profile),
+            ProfileType.VLess or
+            ProfileType.Trojan or
+            ProfileType.Hysteria2 or
+            ProfileType.Tuic => ProfileToStandardUrl(profile),
+
             ProfileType.VMess => ProfileToVMessUrl(profile),
             ProfileType.Shadowsocks => ProfileToShadowsocksUrl(profile),
             ProfileType.Socks => ProfileToSocksUrl(profile),
@@ -288,6 +305,7 @@ public static class ProfileParser
             ProfileType.VLess => VLessProtocol,
             ProfileType.Trojan => TrojanProtocol,
             ProfileType.Hysteria2 => Hysteria2Protocol,
+            ProfileType.Tuic => TuicProtocol,
             _ => throw new UnreachableException()
         };
 
@@ -295,11 +313,18 @@ public static class ProfileParser
         {
             ProfileType.Trojan or ProfileType.VLess => profile.Id,
             ProfileType.Hysteria2 => profile.Password,
+            ProfileType.Tuic => $"{profile.Id}:{profile.Password}",
             _ => throw new UnreachableException()
         };
 
-        var builder = new UriBuilder(protocol, $"{id}@{profile.Address}", (int)profile.Port!);
-        builder.Fragment = profile.Name;
+
+        var url = new StringBuilder()
+            .Append(protocol)
+            .Append(id)
+            .Append('@')
+            .Append(profile.Address)
+            .Append(':')
+            .Append(profile.Port);
 
         var args = new Dictionary<string, string?>
         {
@@ -321,22 +346,25 @@ public static class ProfileParser
             { "path",profile.Path},
             { "seed",profile.KcpSeed},
             { "obfs", profile.ObfsType},
-            { "obfs-password", profile.ObfsPassword}
+            { "obfs-password", profile.ObfsPassword},
+            { "congestion_control" , profile.CongestionControl},
+            { "udp_relay_mode" , profile.CongestionControl},
+            { "disable_sni" , profile.DisableSni}
         };
 
-        var query = new StringBuilder();
-        foreach (var (key, value) in args)
+        var paramCount = 0;
+        foreach (var (key, value) in args.Where(pair => !string.IsNullOrWhiteSpace(pair.Value)))
         {
-            if (!string.IsNullOrWhiteSpace(value))
-            {
-                query.Append(query.Length == 0 ? '?' : '&');
-                query.Append($"{key}={HttpUtility.UrlEncode(value)}");
-            }
+
+            url.Append(paramCount++ == 0 ? '?' : '&')
+               .Append($"{key}={HttpUtility.UrlEncode(value)}");
         }
 
-        builder.Query = query.ToString();
+        url.Append('#')
+           .Append(HttpUtility.UrlPathEncode(profile.Name));
 
-        return builder.ToString();
+
+        return url.ToString();
     }
 
     private static string ProfileToShadowsocksUrl(ProfileItem profile)
