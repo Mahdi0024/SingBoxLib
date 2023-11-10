@@ -99,7 +99,7 @@ await wrapper.StartAsync(config,cts.Token);
 
 ### Parse profiles
 At this moment the following formats are supported (the `sing-box` itself can support more protocols):
-`VMess` `VLess` `Shadowsocks` `Trojan` `Socks` `Http`
+`VMess` `VLess` `Shadowsocks` `Trojan` `Socks` `Http` `Hysteria2` `Tuic`
 ```cs
 var myProfileUrl = "trojan://myLovelyPassword@myserver.server:443?security=tls&sni=mySni&type=grpc&serviceName=myGrpcPath#MyTrojanServer";
 var myProfile = ProfileParser.ParseProfileUrl(myProfileUrl);
