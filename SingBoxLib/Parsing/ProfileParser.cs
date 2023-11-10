@@ -11,7 +11,6 @@ public static class ProfileParser
 {
     //Implemented:
     private const string VLessProtocol = "vless://";
-
     private const string TrojanProtocol = "trojan://";
     private const string VMessProtocol = "vmess://";
     private const string ShadowsocksProtocol = "ss://";
@@ -19,6 +18,7 @@ public static class ProfileParser
     private const string Socks5Protocol = "socks5://";
     private const string HttpProtocol = "http://";
     private const string HttpsProtocol = "https://";
+    private const string Hysteria2Protocol = "hy2://";
 
     public static ProfileItem ParseProfileUrl(string url)
     {
@@ -32,6 +32,14 @@ public static class ProfileParser
         {
             var profile = ParseProfileUrl(new Uri(url));
             profile.Type = ProfileType.Trojan;
+            return profile;
+        }
+        if (url.StartsWith(Hysteria2Protocol))
+        {
+            var profile = ParseProfileUrl(new Uri(url));
+            profile.Type = ProfileType.Hysteria2;
+            profile.Password = profile.Id;
+            profile.Id = null;
             return profile;
         }
         if (url.StartsWith(VMessProtocol))
@@ -227,7 +235,10 @@ public static class ProfileParser
             Path = HttpUtility.UrlDecode(args["path"]),
             KcpSeed = HttpUtility.UrlDecode(args["seed"]),
             QuicSecurity = args["quicSecurity"],
-            QuicKey = HttpUtility.UrlDecode(args["key"])
+            QuicKey = HttpUtility.UrlDecode(args["key"]),
+            ObfsType = args["obfs"],
+            ObfsPassword = args["obfs-password"],
+            AllowInsecure = args["insecure"]
         };
 
         return profile;
@@ -237,7 +248,7 @@ public static class ProfileParser
     {
         return profile.Type switch
         {
-            ProfileType.VLess or ProfileType.Trojan => ProfileToStandardUrl(profile),
+            ProfileType.VLess or ProfileType.Trojan or ProfileType.Hysteria2 => ProfileToStandardUrl(profile),
             ProfileType.VMess => ProfileToVMessUrl(profile),
             ProfileType.Shadowsocks => ProfileToShadowsocksUrl(profile),
             ProfileType.Socks => ProfileToSocksUrl(profile),
@@ -276,10 +287,18 @@ public static class ProfileParser
         {
             ProfileType.VLess => VLessProtocol,
             ProfileType.Trojan => TrojanProtocol,
+            ProfileType.Hysteria2 => Hysteria2Protocol,
             _ => throw new UnreachableException()
         };
 
-        var builder = new UriBuilder(protocol, $"{profile.Id}@{profile.Address}", (int)profile.Port!);
+        var id = profile.Type switch
+        {
+            ProfileType.Trojan or ProfileType.VLess => profile.Id,
+            ProfileType.Hysteria2 => profile.Password,
+            _ => throw new UnreachableException()
+        };
+
+        var builder = new UriBuilder(protocol, $"{id}@{profile.Address}", (int)profile.Port!);
         builder.Fragment = profile.Name;
 
         var args = new Dictionary<string, string?>
@@ -300,7 +319,9 @@ public static class ProfileParser
             { "key",profile.QuicKey},
             { "serviceName", profile.GrpcServiceName},
             { "path",profile.Path},
-            { "seed",profile.KcpSeed}
+            { "seed",profile.KcpSeed},
+            { "obfs", profile.ObfsType},
+            { "obfs-password", profile.ObfsPassword}
         };
 
         var query = new StringBuilder();

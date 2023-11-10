@@ -7,5 +7,6 @@ public enum ProfileType
     Shadowsocks,
     Trojan,
     Socks,
-    Http
+    Http,
+    Hysteria2
 }

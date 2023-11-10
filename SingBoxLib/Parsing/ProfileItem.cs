@@ -25,18 +25,15 @@ public class ProfileItem : IEquatable<ProfileItem>
     private string? _path;
     public string? Path
     {
-        get => _path;
-        set
+        get
         {
-            if (string.IsNullOrWhiteSpace(value))
+            if (String.IsNullOrWhiteSpace(_path))
             {
-                _path = "/";
+                return "/";
             }
-            else
-            {
-                _path = value;
-            }
+            return _path;
         }
+        set => _path = value;
     }
     public string? Security { get; set; }
     public string? AllowInsecure { get; set; }
@@ -53,11 +50,11 @@ public class ProfileItem : IEquatable<ProfileItem>
     public string? GrpcServiceName { get; set; }
     public string? KcpSeed { get; set; }
     public string? Password { get; set; }
-
     public string? Plugin { get; set; }
     public string? PluginArgs { get; set; }
-
     public int? Version { get; set; }
+    public string? ObfsType { get; set; }
+    public string? ObfsPassword { get; set; }
 
     public OutboundConfig ToOutboundConfig()
     {
@@ -115,6 +112,18 @@ public class ProfileItem : IEquatable<ProfileItem>
                 Password = Password,
                 Version = Version.ToString()
             },
+            ProfileType.Hysteria2 => new Hysteria2Outbound
+            {
+                Server = Address,
+                ServerPort = Port,
+                Password = Password,
+                Obfs = new Hysteria2Obfs
+                {
+                    Password = ObfsPassword,
+                    Type = ObfsType
+                },
+                Tls = ParseTls(),
+            },
             _ => throw new NotImplementedException($"""Profile type "{Type}" is not implemented!""")
         };
     }
@@ -131,7 +140,7 @@ public class ProfileItem : IEquatable<ProfileItem>
 
         TransportConfig? GetHttpTransport()
         {
-            if(HeaderType is "http")
+            if (HeaderType is "http")
             {
                 return new HttpTransport
                 {
@@ -193,6 +202,8 @@ public class ProfileItem : IEquatable<ProfileItem>
         hash.Add(GrpcServiceName);
         hash.Add(KcpSeed);
         hash.Add(Password);
+        hash.Add(ObfsType);
+        hash.Add(ObfsPassword);
 
         return hash.ToHashCode();
     }
@@ -226,7 +237,9 @@ public class ProfileItem : IEquatable<ProfileItem>
            String.Equals(left.GrpcMode, right.GrpcMode, StringComparison.OrdinalIgnoreCase) &&
            String.Equals(left.GrpcServiceName, right.GrpcServiceName, StringComparison.OrdinalIgnoreCase) &&
            String.Equals(left.KcpSeed, right.KcpSeed, StringComparison.OrdinalIgnoreCase) &&
-           String.Equals(left.Password, right.Password, StringComparison.OrdinalIgnoreCase);
+           String.Equals(left.Password, right.Password, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.ObfsType, right.ObfsType, StringComparison.OrdinalIgnoreCase) &&
+           String.Equals(left.ObfsPassword, right.ObfsPassword, StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool operator !=(ProfileItem? left, ProfileItem? right)
