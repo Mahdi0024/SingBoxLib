@@ -10,12 +10,12 @@
 	<ItemGroup>
 		<PackageReference Include="CliWrap" Version="3.6.4" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="UrlBase64" Version="1.0.0" />
+		<PackageReference Include="UrlBase64" Version="1.0.1" />
 	</ItemGroup>
 
 	<PropertyGroup>
 		<PackageId>SingBoxLib</PackageId>
-		<Version>1.1.4</Version>
+		<Version>1.1.5</Version>
 		<Title>SingBoxLib</Title>
 		<Authors>MahdiBayat</Authors>
 		<Description>
