@@ -349,7 +349,8 @@ public static class ProfileParser
             { "obfs-password", profile.ObfsPassword},
             { "congestion_control" , profile.CongestionControl},
             { "udp_relay_mode" , profile.CongestionControl},
-            { "disable_sni" , profile.DisableSni}
+            { "disable_sni" , profile.DisableSni},
+            { "allow_insecure",profile.AllowInsecure }
         };
 
         var paramCount = 0;
