@@ -4,7 +4,9 @@ using SingBoxLib.Configuration.Outbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 using SingBoxLib.Configuration.Transport;
 using SingBoxLib.Configuration.Transport.Abstract;
+using SingBoxLib.Exceptions;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace SingBoxLib.Parsing;
 
@@ -14,7 +16,7 @@ public class ProfileItem : IEquatable<ProfileItem>
     public ProfileType? Type { get; set; }
     public string? Name { get; set; }
     public string? Address { get; set; }
-    public int? Port { get; set; }
+    public ushort? Port { get; set; }
     public string? Id { get; set; }
     public int? AlterId { get; set; }
     public string? Encryption { get; set; }
@@ -62,6 +64,12 @@ public class ProfileItem : IEquatable<ProfileItem>
 
     public OutboundConfig ToOutboundConfig()
     {
+        if (Address is null || Port is null)
+        {
+            throw new InvalidProfileException("Address or port is null");
+        }
+
+
         return Type switch
         {
             ProfileType.VLess => new VLessOutbound
@@ -95,7 +103,7 @@ public class ProfileItem : IEquatable<ProfileItem>
             {
                 Server = Address,
                 ServerPort = Port,
-                Encryption = Encryption,
+                Encryption = ValidateShadowsocksEncryption(),
                 Password = Password,
                 Plugin = Plugin,
                 PluginOptions = PluginArgs,
@@ -126,7 +134,7 @@ public class ProfileItem : IEquatable<ProfileItem>
                     Password = ObfsPassword,
                     Type = ObfsType
                 },
-                Tls = ParseTls(),
+                Tls = ParseTls() ?? throw new InvalidProfileException("Hysteria2 profile must have TLS"),
             },
             ProfileType.Tuic => new TuicOutbound
             {
@@ -140,6 +148,25 @@ public class ProfileItem : IEquatable<ProfileItem>
             },
             _ => throw new NotImplementedException($"""Profile type "{Type}" is not implemented!""")
         };
+    }
+
+    private static string[]? _shadowSocksEncriptions;
+    private string ValidateShadowsocksEncryption()
+    {
+        if (_shadowSocksEncriptions is null)
+        {
+            var shadowSocksEncriptionFields = typeof(ShadowsocksEncryptions).GetFields(BindingFlags.Static | BindingFlags.Public);
+            _shadowSocksEncriptions = shadowSocksEncriptionFields.Select(f => (string)f.GetValue(null)!).ToArray();
+        }
+
+        if (_shadowSocksEncriptions.Contains(Encryption))
+        {
+            return Encryption!;
+        }
+        else
+        {
+            throw new InvalidProfileException($"Invalid Shadowsocks Encription method: {Encryption}");
+        }
     }
 
     private TransportConfig? ParseTransport()
@@ -168,13 +195,13 @@ public class ProfileItem : IEquatable<ProfileItem>
 
     private OutboundTlsConfig? ParseTls()
     {
-        return Security is "tls" or "reality" || Sni is not null || Alpn is not null? new OutboundTlsConfig
+        return Security is "tls" or "reality" || Sni is not null || Alpn is not null ? new OutboundTlsConfig
         {
             Enabled = true,
             Insecure = AllowInsecure is "1" or "true",
             Alpn = Alpn is not null ? new List<string>() { Alpn } : null,
             ServerName = Sni,
-            DisableSni = DisableSni is "1" or "true"? true: null,
+            DisableSni = DisableSni is "1" or "true" ? true : null,
             Reality = PublicKey is not null ? new OutboundRealityConfig
             {
                 Enabled = true,
@@ -257,7 +284,7 @@ public class ProfileItem : IEquatable<ProfileItem>
            String.Equals(left.KcpSeed, right.KcpSeed, StringComparison.OrdinalIgnoreCase) &&
            String.Equals(left.Password, right.Password, StringComparison.OrdinalIgnoreCase) &&
            String.Equals(left.ObfsType, right.ObfsType, StringComparison.OrdinalIgnoreCase) &&
-           String.Equals(left.ObfsPassword, right.ObfsPassword, StringComparison.OrdinalIgnoreCase)&&
+           String.Equals(left.ObfsPassword, right.ObfsPassword, StringComparison.OrdinalIgnoreCase) &&
            String.Equals(left.CongestionControl, right.CongestionControl, StringComparison.OrdinalIgnoreCase) &&
            String.Equals(left.DisableSni, right.DisableSni, StringComparison.OrdinalIgnoreCase) &&
            String.Equals(left.UdpRelayMode, right.UdpRelayMode, StringComparison.OrdinalIgnoreCase);

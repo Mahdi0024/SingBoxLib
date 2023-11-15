@@ -82,7 +82,7 @@ public static class ProfileParser
     {
         var url = new Uri(profileUrl);
         var address = url.IdnHost;
-        var port = url.Port;
+        var port = (ushort)url.Port;
         var name = url.GetComponents(UriComponents.Fragment, UriFormat.Unescaped);
 
         var userPass = url.UserInfo.Split(':');
@@ -104,7 +104,7 @@ public static class ProfileParser
     {
         var url = new Uri(profileUrl);
         var address = url.IdnHost;
-        var port = url.Port;
+        var port = (ushort)url.Port;
         var name = url.GetComponents(UriComponents.Fragment, UriFormat.Unescaped);
 
         var userPass = url.UserInfo.Split(':');
@@ -144,7 +144,7 @@ public static class ProfileParser
         {
             (data, var address, var port) = GetDataAddressPort(data);
             profile.Address = address;
-            profile.Port = int.Parse(port);
+            profile.Port = ushort.Parse(port);
         }
 
         data = Encoding.UTF8.GetString(UrlBase64.Decode(data));
@@ -160,7 +160,7 @@ public static class ProfileParser
         {
             (data, var address, var port) = GetDataAddressPort(data);
             profile.Address = address;
-            profile.Port = int.Parse(port);
+            profile.Port = ushort.Parse(port);
         }
 
         (var encryption, var password) = GetEcryptionPassword(data);
@@ -225,7 +225,7 @@ public static class ProfileParser
         {
             Id = profileUrl.UserInfo,
             Address = profileUrl.IdnHost,
-            Port = profileUrl.Port,
+            Port = (ushort)profileUrl.Port,
             Name = profileUrl.GetComponents(UriComponents.Fragment, UriFormat.Unescaped),
             Flow = args["flow"],
             Security = args["security"],

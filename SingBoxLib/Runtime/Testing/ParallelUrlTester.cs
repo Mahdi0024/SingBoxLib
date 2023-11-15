@@ -38,11 +38,28 @@ public class ParallelUrlTester : IDisposable
 
 
         var outbounds = new List<OutboundConfig>();
+
+        var profileTagMap = new Dictionary<ProfileItem, int>();
+
+        var count = 0;
         foreach (var profile in profiles)
         {
-            var outbound = profile.ToOutboundConfig();
-            outbound.Tag = profile.Name;
-            outbounds.Add(outbound);
+            try
+            {
+                var outbound = profile.ToOutboundConfig();
+                outbound.Tag = count.ToString();
+                outbounds.Add(outbound);
+                profileTagMap.Add(profile, count);
+                count++;
+            }
+            catch
+            {
+                progressReporter.Report(new UrlTestResult
+                {
+                    Profile = profile,
+                    Success = false
+                });
+            }
         }
 
 
@@ -78,7 +95,7 @@ public class ParallelUrlTester : IDisposable
 
                 try
                 {
-                    var delayInfo = await _clashApi.GetProxyDelay(profile.Name!, _timeout, _testUrl, combinedCancellationToken.Token);
+                    var delayInfo = await _clashApi.GetProxyDelay(profileTagMap[profile].ToString(), _timeout, _testUrl, combinedCancellationToken.Token);
                     result.Delay = delayInfo.Delay;
                     result.Success = delayInfo.Success;
                 }

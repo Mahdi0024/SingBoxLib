@@ -12,7 +12,7 @@ internal sealed class VMessProfileModel
     public string? Address { get; set; }
 
     [JsonProperty("port")]
-    public int? Port { get; set; }
+    public ushort? Port { get; set; }
 
     [JsonProperty("id")]
     public string? Id { get; set; }
@@ -56,7 +56,7 @@ internal sealed class VMessProfileModel
             Address = Address,
             Port = Port,
             Id = Id,
-            AlterId = int.Parse(AlterId),
+            AlterId = int.Parse(AlterId!),
             Encryption = Encryption,
             Network = Network,
             RequestHost = Host,
