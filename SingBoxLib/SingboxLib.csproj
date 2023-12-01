@@ -15,7 +15,7 @@
 
 	<PropertyGroup>
 		<PackageId>SingBoxLib</PackageId>
-		<Version>1.1.10</Version>
+		<Version>1.1.11</Version>
 		<Title>SingBoxLib</Title>
 		<Authors>MahdiBayat</Authors>
 		<Description>
