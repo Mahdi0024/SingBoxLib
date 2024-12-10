@@ -273,7 +273,7 @@ public static class ProfileParser
         };
     }
 
-    private static string ProfileToHttpUrl(ProfileItem profile)
+    private static string ProfileToSocksUrl(ProfileItem profile)
     {
         var url = new UriBuilder();
         url.Scheme = "socks" + profile.Version;
@@ -285,7 +285,7 @@ public static class ProfileParser
         return url.Uri.ToString();
     }
 
-    private static string ProfileToSocksUrl(ProfileItem profile)
+    private static string ProfileToHttpUrl(ProfileItem profile)
     {
         var url = new UriBuilder();
         url.Scheme = profile.Security is "tls" ? "https" : "http";
