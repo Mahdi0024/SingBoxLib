@@ -210,7 +210,7 @@ public static class ProfileParser
 
     private static ProfileItem ParseVMess(string profileUrl)
     {
-        var profileBase64 = profileUrl.Substring(8);
+        var profileBase64 = profileUrl.Substring(VMessProtocol.Length);
 
         var profileJson = Encoding.UTF8.GetString(Convert.FromBase64String(profileBase64));
         var parsedProfile = JsonConvert.DeserializeObject<VMessProfileModel>(profileJson);
@@ -275,26 +275,30 @@ public static class ProfileParser
 
     private static string ProfileToSocksUrl(ProfileItem profile)
     {
-        var url = new UriBuilder();
-        url.Scheme = "socks" + profile.Version;
-        url.Host = profile.Address;
-        url.Port = (int)profile.Port!;
-        url.UserName = profile.Id;
-        url.Password = profile.Password;
-        url.Fragment = profile.Name;
-        return url.Uri.ToString();
+        UriBuilder builder = new()
+        {
+            Scheme = "socks" + profile.Version,
+            Host = profile.Address,
+            Port = (int)profile.Port!,
+            UserName = profile.Id,
+            Password = profile.Password,
+            Fragment = profile.Name
+        };
+        return builder.Uri.ToString();
     }
 
     private static string ProfileToHttpUrl(ProfileItem profile)
     {
-        var url = new UriBuilder();
-        url.Scheme = profile.Security is "tls" ? "https" : "http";
-        url.Host = profile.Address;
-        url.Port = (int)profile.Port!;
-        url.UserName = profile.Id;
-        url.Password = profile.Password;
-        url.Fragment = profile.Name;
-        return url.Uri.ToString();
+        UriBuilder builder = new()
+        {
+            Scheme = profile.Security is "tls" ? "https" : "http",
+            Host = profile.Address,
+            Port = (int)profile.Port!,
+            UserName = profile.Id,
+            Password = profile.Password,
+            Fragment = profile.Name
+        };
+        return builder.Uri.ToString();
     }
 
     private static string ProfileToStandardUrl(ProfileItem profile)
@@ -391,7 +395,7 @@ public static class ProfileParser
         }
 
         url.Append('#')
-           .Append(profile.Name);
+           .Append(HttpUtility.UrlPathEncode(profile.Name));
 
         return url.ToString();
     }
