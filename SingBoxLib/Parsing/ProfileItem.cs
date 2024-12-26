@@ -1,4 +1,5 @@
 ﻿using SingboxLib.Configuration.Outbound.Shared;
+using SingboxLib.Configuration.Transport;
 using SingBoxLib.Configuration.Outbound;
 using SingBoxLib.Configuration.Outbound.Abstract;
 using SingBoxLib.Configuration.Shared;
@@ -165,7 +166,7 @@ public class ProfileItem : IEquatable<ProfileItem>
         }
         else
         {
-            throw new InvalidProfileException($"Invalid Shadowsocks Encription method: {Encryption}");
+            throw new InvalidProfileException($"Invalid Shadowsocks Encryption method: {Encryption}");
         }
     }
 
@@ -176,6 +177,7 @@ public class ProfileItem : IEquatable<ProfileItem>
             Networks.Grpc => new GrpcTransport { ServiceName = GrpcServiceName },
             Networks.Websocket => new WebSocketTransport { Path = Path },
             Networks.Tcp or Networks.Http or Networks.H2 or null or "" => GetHttpTransport(),
+            Networks.HttpUpgrade => new HttpUpgradeTransport { Path = Path, Host = RequestHost },
             _ => throw new NotImplementedException($"""Network type "{Network}" is not implemented!""")
         };
 
