@@ -1,4 +1,4 @@
-﻿namespace SingBoxLib.Configuration.Experimantal;
+﻿namespace SingBoxLib.Configuration.Experimental;
 
 public sealed class V2rayApi
 {

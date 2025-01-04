@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Dns.Abstract;
+﻿using SingboxLib.Configuration.Dns;
+using SingBoxLib.Configuration.Dns.Abstract;
 
 namespace SingBoxLib.Configuration.Dns;
 
@@ -13,12 +14,9 @@ public sealed class DnsLogicalRule : DnsRuleBase
     [JsonProperty("rules")]
     public List<DnsRuleBase>? Rules { get; set; }
 
+    [JsonProperty("action")]
+    public DnsAction? Action { get; set; }
+
     [JsonProperty("server")]
     public string? Server { get; set; }
-
-    [JsonProperty("disable_cache")]
-    public bool? DisableCache { get; set; }
-
-    [JsonProperty("rewrite_ttl")]
-    public int? RewriteTtl { get; set; }
 }

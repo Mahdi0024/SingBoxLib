@@ -1,4 +1,5 @@
-﻿using SingBoxLib.Configuration.Converters;
+﻿using SingboxLib.Configuration.Dns;
+using SingBoxLib.Configuration.Converters;
 using SingBoxLib.Configuration.Dns.Abstract;
 
 namespace SingBoxLib.Configuration.Dns;
@@ -43,17 +44,15 @@ public sealed class DnsRule : DnsRuleBase
     [JsonProperty("domain_regex")]
     public List<string>? DomainRegex { get; set; }
 
-    [JsonConverter(typeof(SingleValueJsonConverter<string>))]
-    [JsonProperty("geosite")]
-    public List<string>? Geosite { get; set; }
-
-    [JsonConverter(typeof(SingleValueJsonConverter<string>))]
-    [JsonProperty("source_geoip")]
-    public List<string>? SourceGeoip { get; set; }
+    [JsonProperty("geoip")]
+    public string? Geoip { get; set; }
 
     [JsonConverter(typeof(SingleValueJsonConverter<string>))]
     [JsonProperty("source_ip_cidr")]
     public List<string>? SourceIpCidr { get; set; }
+
+    [JsonProperty("source_ip_is_private")]
+    public bool? SourceIpIsPrivate { get; set; }
 
     [JsonConverter(typeof(SingleValueJsonConverter<int>))]
     [JsonProperty("source_port")]
@@ -94,19 +93,44 @@ public sealed class DnsRule : DnsRuleBase
     [JsonProperty("clash_mode")]
     public string? ClashMode { get; set; }
 
+    [JsonProperty("network_type")]
+    public List<string>? NetworkType { get; set; }
+
+    [JsonProperty("network_is_expensive")]
+    public bool? NetworkIsExpensive { get; set; }
+
+    [JsonProperty("network_is_constrained")]
+    public bool? NetworkIsConstrained { get; set; }
+
+    [JsonProperty("wifi_ssid")]
+    public string? WifiSsid { get; set; }
+
+    [JsonProperty("wifi_bssid")]
+    public string? WifiBssid { get; set; }
+
+    [JsonProperty("rule_set")]
+    public List<string>? RuleSet { get; set; }
+
     [JsonProperty("invert")]
     public bool? Invert { get; set; }
+
+    [JsonProperty("rule_set_ip_cidr_match_source")]
+    public bool? RuleSetIpCidrMatchSource { get; set; }
 
     [JsonConverter(typeof(SingleValueJsonConverter<string>))]
     [JsonProperty("outbound")]
     public List<string>? Outbound { get; set; }
 
-    [JsonProperty("server")]
-    public string? Server { get; set; }
+    [JsonProperty("action")]
+    public DnsAction? Action { get; set; }
 
-    [JsonProperty("disable_cache")]
-    public bool? DisableCache { get; set; }
+    [JsonProperty("ip_cidr")]
+    public List<string>? IpCidr { get; set; }
 
-    [JsonProperty("rewrite_ttl")]
-    public int? RewriteTtl { get; set; }
+    [JsonProperty("ip_is_private")]
+    public bool? IpIsPrivate { get; set; }
+
+    [JsonProperty("rule_set_ip_cidr_accept_empty")]
+    public bool? RuleSetIpCidrAcceptEmpty { get; set; }
+
 }

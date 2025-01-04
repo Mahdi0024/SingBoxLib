@@ -1,4 +1,4 @@
-﻿namespace SingBoxLib.Configuration.Experimantal;
+﻿namespace SingBoxLib.Configuration.Experimental;
 
 public sealed class ClashApi
 {
@@ -20,18 +20,9 @@ public sealed class ClashApi
     [JsonProperty("default_mode")]
     public string? DefaultMode { get; set; }
 
-    [JsonProperty("store_mode")]
-    public bool? StoreMode { get; set; }
+    [JsonProperty("access_control_allow_origin")]
+    public string[]? AccessControlAllowOrigin { get; set; }
 
-    [JsonProperty("store_selected")]
-    public bool? StoreSelected { get; set; }
-
-    [JsonProperty("store_fakeip")]
-    public bool? StoreFakeip { get; set; }
-
-    [JsonProperty("cache_file")]
-    public string? CacheFile { get; set; }
-
-    [JsonProperty("cache_id")]
-    public string? CacheId { get; set; }
+    [JsonProperty("access_control_allow_private_network")]
+    public bool AccessControlAllowPrivateNetwork { get; set; }
 }

@@ -1,7 +1,10 @@
-﻿namespace SingBoxLib.Configuration.Experimantal;
+﻿namespace SingBoxLib.Configuration.Experimental;
 
 public sealed class ExperimentalConfig
 {
+    [JsonProperty("cache_file")]
+    public CacheFile? CacheFile { get; set; }
+
     [JsonProperty("clash_api")]
     public ClashApi? ClashApi { get; set; }
 

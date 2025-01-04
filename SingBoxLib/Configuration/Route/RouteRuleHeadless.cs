@@ -1,20 +1,12 @@
-﻿using SingBoxLib.Configuration.Route.Abstract;
+﻿using SingboxLib.Configuration.Route.Abstract;
+using SingBoxLib.Configuration.Route.Abstract;
 
-namespace SingBoxLib.Configuration.Route;
+namespace SingboxLib.Configuration.Route;
 
-public sealed class RouteRule : RouteRuleBase
+public class RouteRuleHeadless: RouteRuleHeadlessBase
 {
-    [JsonProperty("inbound")]
-    public List<string>? Inbound { get; set; }
-
-    [JsonProperty("ip_version")]
-    public int? IpVersion { get; set; }
-
-    [JsonProperty("auth_user")]
-    public List<string>? AuthUser { get; set; }
-
-    [JsonProperty("protocol")]
-    public List<string>? Protocol { get; set; }
+    [JsonProperty("query_type")]
+    public List<object>? QueryType { get; set; }
 
     [JsonProperty("network")]
     public List<string>? Network { get; set; }
@@ -34,14 +26,8 @@ public sealed class RouteRule : RouteRuleBase
     [JsonProperty("source_ip_cidr")]
     public List<string>? SourceIpCidr { get; set; }
 
-    [JsonProperty("ip_is_private")]
-    public bool? IpIsPrivate { get; set; }
-
     [JsonProperty("ip_cidr")]
     public List<string>? IpCidr { get; set; }
-
-    [JsonProperty("source_ip_is_private")]
-    public bool? SourceIpIsPrivate { get; set; }
 
     [JsonProperty("source_port")]
     public List<int>? SourcePort { get; set; }
@@ -67,35 +53,21 @@ public sealed class RouteRule : RouteRuleBase
     [JsonProperty("package_name")]
     public List<string>? PackageName { get; set; }
 
-    [JsonProperty("user")]
-    public List<string>? User { get; set; }
-    [JsonProperty("user_id")]
-    public List<int>? UserId { get; set; }
-
-    [JsonProperty("clash_mode")]
-    public string? ClashMode { get; set; }
-
     [JsonProperty("network_type")]
     public List<string>? NetworkType { get; set; }
 
     [JsonProperty("network_is_expensive")]
-    public bool? NetworkIsExpensive { get; set; }
+    public bool? IsNetworkExpensive { get; set; }
 
     [JsonProperty("network_is_constrained")]
-    public bool? NetworkIsConstrained { get; set; }
+    public bool? IsNetworkConstrained { get; set; }
 
     [JsonProperty("wifi_ssid")]
-    public List<string>? WifiSSID { get; set; }
+    public List<string>? WifiSsid { get; set; }
 
     [JsonProperty("wifi_bssid")]
-    public List<string>? WifiBSSID { get; set; }
-
-    [JsonProperty("rule_set_ip_cidr_match_source")]
-    public bool? RuleSetIpCidrMatchSource { get; set; }
+    public List<string>? WifiBssid { get; set; }
 
     [JsonProperty("invert")]
     public bool? Invert { get; set; }
-
-    [JsonProperty("action")]
-    public required RuleAction Action { get; set; }
 }
