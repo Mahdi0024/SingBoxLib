@@ -2,20 +2,14 @@
 
 namespace SingBoxLib.Configuration.Outbound;
 
+/// <summary>
+/// direct outbound send requests directly.
+/// </summary>
 public sealed class DirectOutbound : OutboundWithDialFields
 {
-    public DirectOutbound()
+    public DirectOutbound(string? tag = null)
     {
         Type = "direct";
-        Tag = "direct-out";
+        Tag = tag ?? "direct-out";
     }
-
-    [JsonProperty("override_address")]
-    public string? OverrideAddress { get; set; }
-
-    [JsonProperty("override_port")]
-    public int? OverridePort { get; set; }
-
-    [JsonProperty("proxy_protocol")]
-    public int? ProxyProtocol { get; set; }
 }

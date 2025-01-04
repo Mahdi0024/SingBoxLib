@@ -2,20 +2,31 @@
 
 namespace SingBoxLib.Configuration.Inbound;
 
+/// <summary>
+/// Represents a direct inbound configuration.
+/// </summary>
 public sealed class DirectInbound : InboundConfig
 {
-    public DirectInbound()
+    public DirectInbound(string? tag = null)
     {
         Type = "direct";
-        Tag = "direct-in";
+        Tag = tag ?? "direct-in";
     }
-
+    /// <summary>
+    /// Listen network, can be tcp or udp. Both if empty.
+    /// </summary>
     [JsonProperty("network")]
     public string? Network { get; set; }
 
-    [JsonProperty("overrive_address")]
+    /// <summary>
+    /// Override the connection destination address.
+    /// </summary>
+    [JsonProperty("override_address")]
     public string? OverrideAddress { get; set; }
 
-    [JsonProperty("pverride_port")]
+    /// <summary>
+    /// Override the connection destination port.
+    /// </summary>
+    [JsonProperty("override_port")]
     public int? OverridePort { get; set; }
 }

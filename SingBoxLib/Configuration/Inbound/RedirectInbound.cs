@@ -2,11 +2,14 @@
 
 namespace SingBoxLib.Configuration.Inbound;
 
+/// <summary>
+/// Only supported on Linux and macOS.
+/// </summary>
 public sealed class RedirectInbound : InboundConfig
 {
-    public RedirectInbound()
+    public RedirectInbound(string? tag = null)
     {
         Type = "redirect";
-        Tag = "redirect-in";
+        Tag = tag ?? "redirect-in";
     }
 }
