@@ -55,33 +55,33 @@ public class ClashApiWrapper : IDisposable
 
     public async Task<VersionInfo> GetVersion(CancellationToken cancellationToken = default)
     {
-        return (await _client.GetFromJsonAsync<VersionInfo>("/version",cancellationToken))!;
+        return (await _client.GetFromJsonAsync<VersionInfo>("/version", cancellationToken))!;
     }
 
     public async Task<ConfigInfo> GetConfig(CancellationToken cancellationToken = default)
     {
-        return (await _client.GetFromJsonAsync<ConfigInfo>("/configs",cancellationToken))!;
+        return (await _client.GetFromJsonAsync<ConfigInfo>("/configs", cancellationToken))!;
     }
 
-    public async Task UpdateConfig(ConfigInfo config,CancellationToken cancellationToken = default)
+    public async Task UpdateConfig(ConfigInfo config, CancellationToken cancellationToken = default)
     {
-        await _client.PatchAsJsonAsync("/configs", config,cancellationToken);
+        await _client.PatchAsJsonAsync("/configs", config, cancellationToken);
     }
 
     public async Task ReloadConfig(string configPath, bool force, CancellationToken cancellationToken = default)
     {
-        var response = await _client.PutAsJsonAsync($"/configs?force={force}", new { Path = configPath },cancellationToken);
+        var response = await _client.PutAsJsonAsync($"/configs?force={force}", new { Path = configPath }, cancellationToken);
     }
 
     public async Task<IEnumerable<RuleInfo>> GetRules(CancellationToken cancellationToken = default)
     {
-        var response = await _client.GetFromJsonAsync<Dictionary<string, IEnumerable<RuleInfo>>>("/rules",cancellationToken);
+        var response = await _client.GetFromJsonAsync<Dictionary<string, IEnumerable<RuleInfo>>>("/rules", cancellationToken);
         return response!["rules"];
     }
 
     public async Task<Dictionary<string, ProxyInfo>> GetProxies(CancellationToken cancellationToken = default)
     {
-        var response = await _client.GetFromJsonAsync<Dictionary<string, Dictionary<string, ProxyInfo>>>("/proxies",cancellationToken);
+        var response = await _client.GetFromJsonAsync<Dictionary<string, Dictionary<string, ProxyInfo>>>("/proxies", cancellationToken);
         return response!["proxies"];
     }
 
@@ -90,9 +90,9 @@ public class ClashApiWrapper : IDisposable
         return await _client.GetFromJsonAsync<ProxyInfo>($"/proxies/{name}", cancellationToken);
     }
 
-    public async Task<ProxyDelayInfo> GetProxyDelay(string name, int timeout, string? url = null,CancellationToken cancellationToken = default)
+    public async Task<ProxyDelayInfo> GetProxyDelay(string name, int timeout, string? url = null, CancellationToken cancellationToken = default)
     {
-        var response = await _client.GetAsync($"/proxies/{name}/delay?timeout={timeout}&url={url}",cancellationToken);
+        var response = await _client.GetAsync($"/proxies/{name}/delay?timeout={timeout}&url={url}", cancellationToken);
         if (response.StatusCode is not HttpStatusCode.OK)
         {
             return new ProxyDelayInfo();
@@ -103,8 +103,8 @@ public class ClashApiWrapper : IDisposable
         return delayInfo;
     }
 
-    public async Task SelectorSwitchProxy(string name,CancellationToken cancellationToken = default)
+    public async Task SelectorSwitchProxy(string name, CancellationToken cancellationToken = default)
     {
-        await _client.PutAsync($"/proxies/{name}", null,cancellationToken);
+        await _client.PutAsync($"/proxies/{name}", null, cancellationToken);
     }
 }

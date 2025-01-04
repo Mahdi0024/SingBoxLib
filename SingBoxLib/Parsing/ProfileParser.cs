@@ -40,7 +40,7 @@ public static class ProfileParser
             var profile = ParseProfileUrl(new Uri(url));
             profile.Type = ProfileType.Tuic;
             var indexOfDoubleCoatation = profile.Id!.IndexOf(':');
-            (profile.Id, profile.Password) = (profile.Id!.Substring(0,indexOfDoubleCoatation), profile.Id!.Substring(indexOfDoubleCoatation + 1));
+            (profile.Id, profile.Password) = (profile.Id!.Substring(0, indexOfDoubleCoatation), profile.Id!.Substring(indexOfDoubleCoatation + 1));
             return profile;
         }
         if (url.StartsWith(Hysteria2Protocol))
