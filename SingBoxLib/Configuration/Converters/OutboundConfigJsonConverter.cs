@@ -35,9 +35,7 @@ internal class OutboundConfigJsonConverter : JsonConverter
         {
             return type switch
             {
-                "block" => jObject.ToObject<BlockOutbound>(serializer),
                 "direct" => jObject.ToObject<DirectOutbound>(serializer),
-                "dns" => jObject.ToObject<DnsOutbound>(serializer),
                 "http" => jObject.ToObject<HttpOutbound>(serializer),
                 "hysteria2" => jObject.ToObject<Hysteria2Outbound>(serializer),
                 "hysteria" => jObject.ToObject<HysteriaOutbound>(serializer),
