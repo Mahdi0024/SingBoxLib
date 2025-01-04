@@ -1,9 +1,4 @@
 ﻿using SingBoxLib.Configuration.Transport.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingboxLib.Configuration.Transport;
 internal class HttpUpgradeTransport : TransportConfig

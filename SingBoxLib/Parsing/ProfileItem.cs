@@ -85,7 +85,7 @@ public class ProfileItem : IEquatable<ProfileItem>
             ProfileType.Trojan => new TrojanOutbound
             {
                 Server = Address,
-                Port = Port,
+                Port = (int)Port,
                 Password = Id,
                 Transport = ParseTransport()!,
                 Tls = ParseTls()!,
@@ -93,7 +93,7 @@ public class ProfileItem : IEquatable<ProfileItem>
             ProfileType.VMess => new VMessOutbound
             {
                 Server = Address,
-                ServerPort = Port,
+                ServerPort = (int)Port,
                 Uuid = Id,
                 Security = Encryption,
                 AlterId = AlterId,
@@ -103,7 +103,7 @@ public class ProfileItem : IEquatable<ProfileItem>
             ProfileType.Shadowsocks => new ShadowsocksOutbound
             {
                 Server = Address,
-                ServerPort = Port,
+                ServerPort = (int)Port,
                 Encryption = ValidateShadowsocksEncryption(),
                 Password = Password,
                 Plugin = Plugin,
@@ -112,7 +112,7 @@ public class ProfileItem : IEquatable<ProfileItem>
             ProfileType.Http => new HttpOutbound
             {
                 Server = Address,
-                ServerPort = Port,
+                ServerPort = (int)Port,
                 Username = Id,
                 Password = Password,
                 Tls = ParseTls()
@@ -128,7 +128,7 @@ public class ProfileItem : IEquatable<ProfileItem>
             ProfileType.Hysteria2 => new Hysteria2Outbound
             {
                 Server = Address,
-                ServerPort = Port,
+                ServerPort = (int)Port,
                 Password = Password,
                 Obfs = new Hysteria2Obfs
                 {
@@ -140,7 +140,7 @@ public class ProfileItem : IEquatable<ProfileItem>
             ProfileType.Tuic => new TuicOutbound
             {
                 Server = Address,
-                ServerPort = Port,
+                ServerPort = (int)Port,
                 Password = Password,
                 Uuid = Id,
                 CongestionControl = CongestionControl,
