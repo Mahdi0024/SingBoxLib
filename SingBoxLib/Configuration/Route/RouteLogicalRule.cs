@@ -1,5 +1,4 @@
-﻿using SingBoxLib.Configuration.Converters;
-using SingBoxLib.Configuration.Route.Abstract;
+﻿using SingBoxLib.Configuration.Route.Abstract;
 
 namespace SingBoxLib.Configuration.Route;
 
@@ -14,7 +13,6 @@ public sealed class RouteLogicalRule : RouteRuleBase
     [JsonProperty("mode")]
     public string? Mode { get; set; }
 
-    [JsonConverter(typeof(RouteRuleJsonConverter))]
     [JsonProperty("rules")]
     public List<RouteRuleBase>? Rules { get; set; }
 

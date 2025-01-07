@@ -1,5 +1,4 @@
-﻿using SingBoxLib.Configuration.Converters;
-using SingBoxLib.Configuration.Dns.Abstract;
+﻿using SingBoxLib.Configuration.Dns.Abstract;
 
 namespace SingBoxLib.Configuration.Dns;
 
@@ -17,7 +16,6 @@ public sealed class DnsConfig
     /// <summary>
     /// A list of rules for DNS resolution.
     /// </summary>
-    [JsonConverter(typeof(DnsRuleJsonConverter))]
     [JsonProperty("rules")]
     public List<DnsRuleBase>? Rules { get; set; }
 

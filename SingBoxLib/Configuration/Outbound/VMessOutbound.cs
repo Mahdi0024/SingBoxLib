@@ -1,5 +1,4 @@
 ﻿using SingboxLib.Configuration.Outbound.Shared;
-using SingBoxLib.Configuration.Converters;
 using SingBoxLib.Configuration.Outbound.Abstract;
 using SingBoxLib.Configuration.Shared;
 using SingBoxLib.Configuration.Transport.Abstract;
@@ -73,7 +72,6 @@ public sealed class VMessOutbound : OutboundWithDialFields
     /// <summary>
     /// V2Ray Transport configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/v2ray-transport/">V2Ray Transport</see>.
     /// </summary>
-    [JsonConverter(typeof(TransportConfigJsonConverter))]
     [JsonProperty("transport")]
     public TransportConfig? Transport { get; set; }
 
