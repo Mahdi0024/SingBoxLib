@@ -12,13 +12,13 @@ public abstract class InboundConfig
     /// Listen address.
     /// </summary>
     [JsonProperty("listen")]
-    public required string Listen { get; set; }
+    public string? Listen { get; set; }
 
     /// <summary>
     /// Listen port.
     /// </summary>
     [JsonProperty("listen_port")]
-    public required int ListenPort { get; set; }
+    public int? ListenPort { get; set; }
 
     /// <summary>
     /// Enable TCP Fast Open.
