@@ -1,6 +1,6 @@
-﻿using SingBoxLib.Configuration.Converters;
+﻿using SingboxLib.Configuration.Endpoint.Abstract;
 using SingBoxLib.Configuration.Dns;
-using SingBoxLib.Configuration.Experimantal;
+using SingBoxLib.Configuration.Experimental;
 using SingBoxLib.Configuration.Inbound.Abstract;
 using SingBoxLib.Configuration.Log;
 using SingBoxLib.Configuration.Ntp;
@@ -21,11 +21,12 @@ public sealed class SingBoxConfig
     [JsonProperty("ntp")]
     public NtpConfig? Ntp { get; set; }
 
-    [JsonConverter(typeof(InboundConfigJsonConverter))]
+    [JsonProperty("endpoints")]
+    public List<EndpointConfig>? Endpoints { get; set; }
+
     [JsonProperty("inbounds")]
     public List<InboundConfig>? Inbounds { get; set; }
 
-    [JsonConverter(typeof(OutboundConfigJsonConverter))]
     [JsonProperty("outbounds")]
     public List<OutboundConfig>? Outbounds { get; set; }
 
@@ -36,7 +37,6 @@ public sealed class SingBoxConfig
     public ExperimentalConfig? Experimental { get; set; }
 
     private static JsonSerializerSettings _serializerSettings = new() { NullValueHandling = NullValueHandling.Ignore };
-
     public string ToJson()
     {
         return JsonConvert.SerializeObject(this, _serializerSettings);
