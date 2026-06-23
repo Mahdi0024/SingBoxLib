@@ -12,7 +12,7 @@ public sealed class VLessInbound : InboundConfig
     public VLessInbound(string? tag = null)
     {
         Type = "vless";
-        Tag = tag ?? "vless-in";
+        Tag = tag;
     }
 
     /// <summary>

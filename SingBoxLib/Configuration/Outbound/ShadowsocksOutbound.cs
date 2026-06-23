@@ -12,7 +12,7 @@ public sealed class ShadowsocksOutbound : OutboundWithDialFields
     public ShadowsocksOutbound(string? tag = null)
     {
         Type = "shadowsocks";
-        Tag = tag ?? "ss-out";
+        Tag = tag;
     }
 
     /// <summary>

@@ -12,7 +12,7 @@ public sealed class HttpOutbound : OutboundWithDialFields
     public HttpOutbound(string? tag = null)
     {
         Type = "http";
-        Tag = tag ?? "http-out";
+        Tag = tag;
     }
 
     /// <summary>

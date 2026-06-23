@@ -12,6 +12,6 @@ public sealed class DirectOutbound : OutboundWithDialFields
     public DirectOutbound(string? tag = null)
     {
         Type = "direct";
-        Tag = tag ?? "direct-out";
+        Tag = tag;
     }
 }

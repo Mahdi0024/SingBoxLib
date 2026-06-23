@@ -12,7 +12,7 @@ public sealed class HttpInbound : InboundConfig
     public HttpInbound(string? tag = null)
     {
         Type = "http";
-        Tag = tag ?? "http-in";
+        Tag = tag;
     }
 
     /// <summary>

@@ -12,7 +12,7 @@ public sealed class NaiveInbound : InboundConfig
     public NaiveInbound(string? tag = null)
     {
         Type = "naive";
-        Tag = tag ?? "naive-in";
+        Tag = tag;
     }
 
     /// <summary>

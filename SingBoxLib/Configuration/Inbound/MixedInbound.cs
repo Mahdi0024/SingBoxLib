@@ -12,7 +12,7 @@ public sealed class MixedInbound : InboundConfig
     public MixedInbound(string? tag = null)
     {
         Type = "mixed";
-        Tag = tag ?? "mixed-in";
+        Tag = tag;
     }
     /// <summary>
     /// List of users allowed to connect via this proxy. 

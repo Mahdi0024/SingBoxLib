@@ -12,7 +12,7 @@ public sealed class TorOutbound : OutboundWithDialFields
     public TorOutbound(string? tag = null)
     {
         Type = "tor";
-        Tag = tag ?? "tor-out";
+        Tag = tag;
     }
     /// <summary>
     /// The path to the Tor executable.

@@ -12,7 +12,7 @@ public sealed class UrlTestOutbound : OutboundConfig
     public UrlTestOutbound(string? tag = null)
     {
         Type = "urltest";
-        Tag = tag ?? "auto";
+        Tag = tag;
     }
 
     /// <summary>

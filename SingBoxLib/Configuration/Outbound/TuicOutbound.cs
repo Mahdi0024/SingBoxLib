@@ -12,7 +12,7 @@ public sealed class TuicOutbound : OutboundWithDialFields
     public TuicOutbound(string? tag = null)
     {
         Type = "tuic";
-        Tag = tag ?? "tuic-out";
+        Tag = tag;
     }
 
     /// <summary>

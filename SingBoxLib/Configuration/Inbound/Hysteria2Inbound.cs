@@ -12,7 +12,7 @@ public sealed class Hysteria2Inbound : InboundConfig
     public Hysteria2Inbound(string? tag = null)
     {
         Type = "hysteria2";
-        Tag = tag ?? "hysteria2-in";
+        Tag = tag;
     }
 
     /// <summary>

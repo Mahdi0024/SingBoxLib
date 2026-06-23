@@ -12,7 +12,7 @@ public sealed class Hysteria2Outbound : OutboundWithDialFields
     public Hysteria2Outbound(string? tag = null)
     {
         Type = "hysteria2";
-        Tag = tag ?? "hysteria2-out";
+        Tag = tag;
     }
 
     /// <summary>

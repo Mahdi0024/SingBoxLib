@@ -12,7 +12,7 @@ public sealed class SocksOutbound : OutboundWithDialFields
     public SocksOutbound(string? tag = null)
     {
         Type = "socks";
-        Tag = tag ?? "socks-out";
+        Tag = tag;
     }
 
     /// <summary>

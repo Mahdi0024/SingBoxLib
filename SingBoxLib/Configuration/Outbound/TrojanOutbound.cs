@@ -12,7 +12,7 @@ public sealed class TrojanOutbound : OutboundWithDialFields
     public TrojanOutbound(string? tag = null)
     {
         Type = "trojan";
-        Tag = tag ?? "trojan-out";
+        Tag = tag;
     }
 
     /// <summary>

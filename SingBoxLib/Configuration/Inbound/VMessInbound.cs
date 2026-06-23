@@ -12,7 +12,7 @@ public sealed class VMessInbound : InboundConfig
     public VMessInbound(string? tag = null)
     {
         Type = "vmess";
-        Tag = tag ?? "vmess-out";
+        Tag = tag;
     }
     /// <summary>
     /// VMess users.

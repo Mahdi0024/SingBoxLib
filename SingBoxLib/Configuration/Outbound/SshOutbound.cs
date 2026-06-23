@@ -12,7 +12,7 @@ public sealed class SshOutbound : OutboundWithDialFields
     public SshOutbound(string? tag = null)
     {
         Type = "ssh";
-        Tag = tag ?? "ssh-out";
+        Tag = tag;
     }
 
     /// <summary>

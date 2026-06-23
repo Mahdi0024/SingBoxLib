@@ -12,7 +12,7 @@ public sealed class VMessOutbound : OutboundWithDialFields
     public VMessOutbound(string? tag = null)
     {
         Type = "vmess";
-        Tag = tag ?? "vmess-out";
+        Tag = tag;
     }
 
     /// <summary>

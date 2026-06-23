@@ -12,7 +12,7 @@ public sealed class DirectInbound : InboundConfig
     public DirectInbound(string? tag = null)
     {
         Type = "direct";
-        Tag = tag ?? "direct-in";
+        Tag = tag;
     }
     /// <summary>
     /// Listen network, can be tcp or udp. Both if empty.

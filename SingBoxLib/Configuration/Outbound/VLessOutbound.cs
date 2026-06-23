@@ -12,7 +12,7 @@ public sealed class VLessOutbound : OutboundWithDialFields
     public VLessOutbound(string? tag = null)
     {
         Type = "vless";
-        Tag = tag ?? "vless-out";
+        Tag = tag;
     }
 
     /// <summary>

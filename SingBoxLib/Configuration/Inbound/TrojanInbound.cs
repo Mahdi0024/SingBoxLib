@@ -13,7 +13,7 @@ public sealed class TrojanInbound : InboundConfig
     public TrojanInbound(string? tag = null)
     {
         Type = "trojan";
-        Tag = tag ?? "trojan-in";
+        Tag = tag;
     }
     /// <summary>
     /// Users allowed to connect to the Trojan server.

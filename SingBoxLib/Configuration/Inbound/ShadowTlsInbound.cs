@@ -12,7 +12,7 @@ public sealed class ShadowTlsInbound : InboundConfig
     public ShadowTlsInbound(string? tag = null)
     {
         Type = "shadowtls";
-        Tag = tag ?? "shadowtls-in";
+        Tag = tag;
     }
 
     /// <summary>

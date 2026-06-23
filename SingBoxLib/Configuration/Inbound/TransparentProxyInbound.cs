@@ -12,7 +12,7 @@ public sealed class TransparentProxyInbound : InboundConfig
     public TransparentProxyInbound(string? tag = null)
     {
         Type = "tproxy";
-        Tag = tag ?? "tproxy-in";
+        Tag = tag;
     }
     /// <summary>
     /// Listen network, can be <b>tcp</b> or <b>udp</b>.

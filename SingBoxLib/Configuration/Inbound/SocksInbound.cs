@@ -12,7 +12,7 @@ public sealed class SocksInbound : InboundConfig
     public SocksInbound(string? tag = null)
     {
         Type = "socks";
-        Tag = tag ?? "socks-in";
+        Tag = tag;
     }
 
     /// <summary>

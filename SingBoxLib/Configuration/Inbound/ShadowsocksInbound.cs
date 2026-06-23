@@ -12,7 +12,7 @@ public sealed class ShadowsocksInbound : InboundConfig
     public ShadowsocksInbound(string? tag = null)
     {
         Type = "shadowsocks";
-        Tag = tag ?? "shadowsocks-in";
+        Tag = tag;
     }
 
     /// <summary>

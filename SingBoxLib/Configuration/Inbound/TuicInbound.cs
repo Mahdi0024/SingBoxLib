@@ -12,7 +12,7 @@ public sealed class TuicInbound : InboundConfig
     public TuicInbound(string? tag = null)
     {
         Type = "tuic";
-        Tag = tag ?? "tuic-in";
+        Tag = tag;
     }
 
     /// <summary>

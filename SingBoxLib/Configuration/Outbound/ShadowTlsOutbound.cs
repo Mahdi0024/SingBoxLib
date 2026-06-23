@@ -12,7 +12,7 @@ public sealed class ShadowTlsOutbound : OutboundWithDialFields
     public ShadowTlsOutbound(string? tag = null)
     {
         Type = "shadowtls";
-        Tag = tag ?? "shadowtls-out";
+        Tag = tag;
     }
 
     /// <summary>

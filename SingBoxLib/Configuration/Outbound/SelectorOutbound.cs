@@ -12,7 +12,7 @@ public sealed class SelectorOutbound : OutboundConfig
     public SelectorOutbound(string? tag = null)
     {
         Type = "selector";
-        Tag = tag ?? "selector-out";
+        Tag = tag;
     }
 
     /// <summary>

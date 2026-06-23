@@ -12,7 +12,7 @@ public sealed class TunInbound : InboundConfig
     public TunInbound(string? tag = null)
     {
         Type = "tun";
-        Tag = tag ?? "tun-in";
+        Tag = tag;
     }
 
     /// <summary>

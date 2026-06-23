@@ -12,6 +12,6 @@ public sealed class RedirectInbound : InboundConfig
     public RedirectInbound(string? tag = null)
     {
         Type = "redirect";
-        Tag = tag ?? "redirect-in";
+        Tag = tag;
     }
 }
