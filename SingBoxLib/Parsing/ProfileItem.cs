@@ -140,18 +140,11 @@ public class ProfileItem : IEquatable<ProfileItem>
         };
     }
 
-    private static string[]? _shadowSocksEncriptions;
     private string ValidateShadowsocksEncryption()
     {
-        if (_shadowSocksEncriptions is null)
+        if (Encryption is not null && ShadowsocksEncryptions.All.Contains(Encryption))
         {
-            var shadowSocksEncriptionFields = typeof(ShadowsocksEncryptions).GetFields(BindingFlags.Static | BindingFlags.Public);
-            _shadowSocksEncriptions = shadowSocksEncriptionFields.Select(f => (string)f.GetValue(null)!).ToArray();
-        }
-
-        if (_shadowSocksEncriptions.Contains(Encryption))
-        {
-            return Encryption!;
+            return Encryption;
         }
         else
         {

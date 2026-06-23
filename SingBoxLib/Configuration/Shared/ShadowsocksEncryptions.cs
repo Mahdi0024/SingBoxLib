@@ -94,4 +94,29 @@ public static class ShadowsocksEncryptions
     /// xchacha20 encryption (legacy).
     /// </summary>
     public const string Xchacha20 = "xchacha20";
+
+    /// <summary>
+    /// A pre-compiled collection of all supported Shadowsocks encryption methods.
+    /// </summary>
+    public static readonly HashSet<string> All = new(System.StringComparer.OrdinalIgnoreCase)
+    {
+        None,
+        Blake3Aes128Gcm,
+        Blake3Aes256Gcm,
+        Blake3Chacha20Poly1305,
+        Aes128Gcm,
+        Aes192Gcm,
+        Aes256Gcm,
+        Chacha20IetfPoly1305,
+        Xchacha20IetfPoly1305,
+        Aes128Ctr,
+        Aes192Ctr,
+        Aes256Ctr,
+        Aes128Cfb,
+        Aes192Cfb,
+        Aes256Cfb,
+        Rc4Md5,
+        Chacha20Ietf,
+        Xchacha20
+    };
 }
