@@ -18,13 +18,13 @@ public sealed class HttpInbound : InboundConfig
     /// <summary>
     /// List of HTTP users associated with this inbound server. If empty, no authentication is required.
     /// </summary>
-    [JsonProperty("users")]
+    [JsonPropertyName("users")]
     public List<ProxyUser>? Users { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#inbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public InboundTlsConfig? Tls { get; set; }
 
     /// <summary>
@@ -38,6 +38,6 @@ public sealed class HttpInbound : InboundConfig
     /// Automatically sets the platform's HTTP proxy when the server starts and cleans up after stopping.
     /// On non-supported platforms, use <c>tun.platform.http_proxy</c> instead.
     /// </summary>
-    [JsonProperty("set_system_proxy")]
+    [JsonPropertyName("set_system_proxy")]
     public bool? SetSystemProxy { get; set; }
 }

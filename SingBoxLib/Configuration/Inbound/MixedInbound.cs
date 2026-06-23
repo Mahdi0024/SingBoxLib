@@ -19,13 +19,13 @@ public sealed class MixedInbound : InboundConfig
     /// Can be used for SOCKS or HTTP authentication when required.
     /// When empty, no authentication is needed.
     /// </summary>
-    [JsonProperty("users")]
+    [JsonPropertyName("users")]
     public List<ProxyUser>? Users { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#inbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public InboundTlsConfig? Tls { get; set; }
 
     /// <summary>
@@ -33,6 +33,6 @@ public sealed class MixedInbound : InboundConfig
     /// Only applicable on Linux, Android, Windows, and macOS.
     /// On other platforms or without proper privileges, consider using tun.platform.http_proxy instead.
     /// </summary>
-    [JsonProperty("set_system_proxy")]
+    [JsonPropertyName("set_system_proxy")]
     public bool? SetSystemProxy { get; set; }
 }

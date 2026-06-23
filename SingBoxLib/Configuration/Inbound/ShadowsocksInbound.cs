@@ -19,7 +19,7 @@ public sealed class ShadowsocksInbound : InboundConfig
     /// Encryption method used for connection. 
     /// For supported methods <see cref="ShadowsocksEncryptions"/>
     /// </summary>
-    [JsonProperty("method")]
+    [JsonPropertyName("method")]
     public string? Method { get; set; }
 
     /// <summary>
@@ -27,19 +27,19 @@ public sealed class ShadowsocksInbound : InboundConfig
     /// For newer 2022 methods, use a base64-encoded key of specified length. see <see href="https://sing-box.sagernet.org/configuration/inbound/shadowsocks/#method">Documentation</see>. 
     /// For other methods, any string can be used as a password.
     /// </summary>
-    [JsonProperty("password")]
+    [JsonPropertyName("password")]
     public string? Password { get; set; }
 
     /// <summary>
     /// List of users allowed to connect to this inbound configuration.
     /// </summary>
-    [JsonProperty("users")]
+    [JsonPropertyName("users")]
     public List<ProxyUserInbound>? Users { get; set; }
 
 
     /// <summary>
     /// Gets or sets the multiplex configuration.
     /// </summary>
-    [JsonProperty("multiplex")]
+    [JsonPropertyName("multiplex")]
     public MultiplexConfig? Multiplex { get; set; }
 }

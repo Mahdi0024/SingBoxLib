@@ -15,6 +15,6 @@ public sealed class RouteRuleSetInline : RouteRuleSetBase
     /// <summary>
     /// Gets or sets the list of inline rules.
     /// </summary>
-    [JsonProperty("rules")]
+    [JsonPropertyName("rules")]
     public required List<RouteRuleHeadlessBase> Rules { get; set; }
 }

@@ -19,18 +19,18 @@ public sealed class NaiveInbound : InboundConfig
     /// Supports 'tcp' and 'udp'.
     /// If not specified, defaults to both protocols.
     /// </summary>
-    [JsonProperty("network")]
+    [JsonPropertyName("network")]
     public string? Network { get; set; }
 
     /// <summary>
     /// List of users allowed to connect via this proxy. 
     /// </summary>
-    [JsonProperty("users")]
+    [JsonPropertyName("users")]
     public List<ProxyUser>? Users { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#inbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public InboundTlsConfig? Tls { get; set; }
 }

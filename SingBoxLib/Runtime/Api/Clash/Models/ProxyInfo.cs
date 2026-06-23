@@ -2,24 +2,24 @@
 
 public class ProxyInfo
 {
-    [JsonProperty("all")]
+    [JsonPropertyName("all")]
     public List<string>? All { get; set; }
 
-    [JsonProperty("now")]
+    [JsonPropertyName("now")]
     public string? Now { get; set; }
 
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string Type { get; set; } = null!;
 
-    [JsonProperty("history")]
+    [JsonPropertyName("history")]
     public IEnumerable<UrlTestInfo>? TestHistory { get; set; }
 }
 
 public class UrlTestInfo
 {
-    [JsonProperty("time")]
+    [JsonPropertyName("time")]
     public DateTime Time { get; set; }
 
-    [JsonProperty("delay")]
+    [JsonPropertyName("delay")]
     public int Delay { get; set; }
 }

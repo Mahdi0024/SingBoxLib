@@ -2,9 +2,9 @@
 
 public class LogInfo
 {
-    [JsonProperty("level")]
+    [JsonPropertyName("level")]
     public string Level { get; set; } = null!;
 
-    [JsonProperty("payload")]
+    [JsonPropertyName("payload")]
     public string Payload { get; set; } = null!;
 }

@@ -18,25 +18,25 @@ public sealed class TuicOutbound : OutboundWithDialFields
     /// <summary>
     /// The server address.
     /// </summary>
-    [JsonProperty("server")]
+    [JsonPropertyName("server")]
     public required string Server { get; set; }
 
     /// <summary>
     /// The server port.
     /// </summary>
-    [JsonProperty("server_port")]
+    [JsonPropertyName("server_port")]
     public required int ServerPort { get; set; }
 
     /// <summary>
     /// TUIC user uuid.
     /// </summary>
-    [JsonProperty("uuid")]
+    [JsonPropertyName("uuid")]
     public required string Uuid { get; set; }
 
     /// <summary>
     /// The Trojan password.
     /// </summary>
-    [JsonProperty("password")]
+    [JsonPropertyName("password")]
     public string? Password { get; set; }
 
     /// <summary>
@@ -44,7 +44,7 @@ public sealed class TuicOutbound : OutboundWithDialFields
     /// One of: cubic, new_reno, bbr
     /// cubic is used by default.
     /// </summary>
-    [JsonProperty("congestion_control")]
+    [JsonPropertyName("congestion_control")]
     public string? CongestionControl { get; set; }
 
     /// <summary>
@@ -54,7 +54,7 @@ public sealed class TuicOutbound : OutboundWithDialFields
     /// native is used by default.
     /// Conflict with <see cref="UdpOverStream"/>.
     /// </summary>
-    [JsonProperty("udp_relay_mode")]
+    [JsonPropertyName("udp_relay_mode")]
     public string? UdpRelayMode { get; set; }
 
     /// <summary>
@@ -62,31 +62,31 @@ public sealed class TuicOutbound : OutboundWithDialFields
     /// This mode has no positive effect in a proper UDP proxy scenario and should only be applied to relay streaming UDP traffic (basically QUIC streams).
     /// Conflict with <see cref="UdpRelayMode"/>.
     /// </summary>
-    [JsonProperty("udp_over_stream")]
+    [JsonPropertyName("udp_over_stream")]
     public bool? UdpOverStream { get; set; }
 
     /// <summary>
     /// Gets or sets whether to use 0-RTT handshake.
     /// </summary>
-    [JsonProperty("zero_rtt_handshake")]
+    [JsonPropertyName("zero_rtt_handshake")]
     public bool? ZeroRttHandshake { get; set; }
 
     /// <summary>
     /// Gets or sets the heartbeat interval.
     /// </summary>
-    [JsonProperty("heartbeat")]
+    [JsonPropertyName("heartbeat")]
     public string? Heartbeat { get; set; }
 
     /// <summary>
     /// One of tcp udp.
     /// Both is enabled by default.
     /// </summary>
-    [JsonProperty("network")]
+    [JsonPropertyName("network")]
     public string? Network { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#outbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public OutboundTlsConfig? Tls { get; set; }
 }

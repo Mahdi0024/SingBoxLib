@@ -2,36 +2,36 @@
 
 public class ConfigInfo
 {
-    [JsonProperty("port")]
+    [JsonPropertyName("port")]
     public int Port { get; set; }
 
-    [JsonProperty("socks-port")]
+    [JsonPropertyName("socks-port")]
     public int SocksPort { get; set; }
 
-    [JsonProperty("redir-port")]
+    [JsonPropertyName("redir-port")]
     public int RedirPort { get; set; }
 
-    [JsonProperty("tproxy-port")]
+    [JsonPropertyName("tproxy-port")]
     public int TproxyPort { get; set; }
 
-    [JsonProperty("mixed-port")]
+    [JsonPropertyName("mixed-port")]
     public int MixedPort { get; set; }
 
-    [JsonProperty("allow-lan")]
+    [JsonPropertyName("allow-lan")]
     public bool AllowLan { get; set; }
 
-    [JsonProperty("bind-address")]
+    [JsonPropertyName("bind-address")]
     public string? BindAddress { get; set; }
 
-    [JsonProperty("mode")]
+    [JsonPropertyName("mode")]
     public string? Mode { get; set; }
 
-    [JsonProperty("log-level")]
+    [JsonPropertyName("log-level")]
     public string? LogLevel { get; set; }
 
-    [JsonProperty("ipv6")]
+    [JsonPropertyName("ipv6")]
     public bool Ipv6 { get; set; }
 
-    [JsonProperty("tun")]
+    [JsonPropertyName("tun")]
     public string? Tun { get; set; }
 }

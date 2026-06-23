@@ -18,25 +18,25 @@ public sealed class VLessInbound : InboundConfig
     /// <summary>
     /// Gets or sets the list of users allowed to connect.
     /// </summary>
-    [JsonProperty("users")]
+    [JsonPropertyName("users")]
     public List<VLessUser>? Users { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#inbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public InboundTlsConfig? Tls { get; set; }
 
     /// <summary>
     /// V2Ray Transport configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/v2ray-transport/">V2Ray Transport</see>.
     /// </summary>
-    [JsonProperty("transport")]
+    [JsonPropertyName("transport")]
     public TransportConfig? Transport { get; set; }
 
     /// <summary>
     /// Multiplexing configuration for managing multiple streams over a single connection.
     /// </summary>
-    [JsonProperty("multiplex")]
+    [JsonPropertyName("multiplex")]
     public MultiplexConfig? Multiplex { get; set; }
 }
 
@@ -48,19 +48,19 @@ public sealed class VLessUser
     /// <summary>
     /// Gets or sets the username.
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
 
     /// <summary>
     /// Gets or sets the UUID.
     /// </summary>
-    [JsonProperty("uuid")]
+    [JsonPropertyName("uuid")]
     public string? Uuid { get; set; }
 
     /// <summary>
     /// VLESS Sub-protocol.
     /// Available values: "xtls-rprx-vision"
     /// </summary>
-    [JsonProperty("flow")]
+    [JsonPropertyName("flow")]
     public string? Flow { get; set; }
 }

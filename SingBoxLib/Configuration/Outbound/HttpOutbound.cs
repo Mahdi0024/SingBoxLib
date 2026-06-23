@@ -18,42 +18,42 @@ public sealed class HttpOutbound : OutboundWithDialFields
     /// <summary>
     /// The server address.
     /// </summary>
-    [JsonProperty("server")]
+    [JsonPropertyName("server")]
     public required string Server { get; set; }
 
     /// <summary>
     /// The server port.
     /// </summary>
-    [JsonProperty("server_port")]
+    [JsonPropertyName("server_port")]
     public required int ServerPort { get; set; }
 
     /// <summary>
     /// Basic authorization username.
     /// </summary>
-    [JsonProperty("username")]
+    [JsonPropertyName("username")]
     public string? Username { get; set; }
 
     /// <summary>
     /// Basic authorization password.
     /// </summary>
-    [JsonProperty("password")]
+    [JsonPropertyName("password")]
     public string? Password { get; set; }
 
     /// <summary>
     /// Path of HTTP request.
     /// </summary>
-    [JsonProperty("path")]
+    [JsonPropertyName("path")]
     public string? Path { get; set; }
 
     /// <summary>
     /// Extra headers of HTTP request.
     /// </summary>
-    [JsonProperty("headers")]
+    [JsonPropertyName("headers")]
     public Dictionary<string, string>? Headers { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#outbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public OutboundTlsConfig? Tls { get; set; }
 }

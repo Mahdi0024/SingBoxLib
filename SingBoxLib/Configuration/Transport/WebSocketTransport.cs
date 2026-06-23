@@ -16,24 +16,24 @@ public sealed class WebSocketTransport : TransportConfig
     /// <summary>
     /// Gets or sets the WebSocket connection path.
     /// </summary>
-    [JsonProperty("path")]
+    [JsonPropertyName("path")]
     public string? Path { get; set; }
 
     /// <summary>
     /// Gets or sets the custom WebSocket headers.
     /// </summary>
-    [JsonProperty("headers")]
+    [JsonPropertyName("headers")]
     public Dictionary<string, string>? Headers { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum size of early data.
     /// </summary>
-    [JsonProperty("max_early_data")]
+    [JsonPropertyName("max_early_data")]
     public int? MaxEarlyData { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the early data header.
     /// </summary>
-    [JsonProperty("early_data_header_name")]
+    [JsonPropertyName("early_data_header_name")]
     public string? EarlyDataHeaderName { get; set; }
 }

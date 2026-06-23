@@ -20,7 +20,7 @@ public sealed class Hysteria2Inbound : InboundConfig
     /// 
     /// Conflict with <see cref="IgnoreClientBandwidth"/>.
     /// </summary>
-    [JsonProperty("up_mbps")]
+    [JsonPropertyName("up_mbps")]
     public int UpMbps { get; set; }
 
     /// <summary>
@@ -28,7 +28,7 @@ public sealed class Hysteria2Inbound : InboundConfig
     /// 
     /// Conflict with <see cref="IgnoreClientBandwidth"/>.
     /// </summary>
-    [JsonProperty("down_mbps")]
+    [JsonPropertyName("down_mbps")]
     public int DownMbps { get; set; }
 
     /// <summary>
@@ -37,13 +37,13 @@ public sealed class Hysteria2Inbound : InboundConfig
     /// 
     /// Requires 'salamander' to be enabled in order to use QUIC obfuscation.
     /// </summary>
-    [JsonProperty("obfs")]
+    [JsonPropertyName("obfs")]
     public Hysteria2Obfs? Obfs { get; set; }
 
     /// <summary>
     /// List of configured users for this connection.
     /// </summary>
-    [JsonProperty("users")]
+    [JsonPropertyName("users")]
     public List<ProxyUserInbound>? Users { get; set; }
 
     /// <summary>
@@ -53,7 +53,7 @@ public sealed class Hysteria2Inbound : InboundConfig
     /// When enabled, clients will be instructed to use the Bandwidth Benchmarking
     /// (BBR) algorithm for flow control.
     /// </summary>
-    [JsonProperty("ignore_client_bandwidth")]
+    [JsonPropertyName("ignore_client_bandwidth")]
     public bool IgnoreClientBandwidth { get; set; }
 
     /// <summary>
@@ -63,19 +63,19 @@ public sealed class Hysteria2Inbound : InboundConfig
     /// 
     /// Supports three modes: file, http/https, and string responses.
     /// </summary>
-    [JsonProperty("masquerade")]
+    [JsonPropertyName("masquerade")]
     public Hysteria2Masquerade? Masquerade { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#inbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public InboundTlsConfig? Tls { get; set; }
 
     /// <summary>
     /// Enables debug information logging for Hysteria Brutal CC algorithm.
     /// </summary>
-    [JsonProperty("brutal_debug")]
+    [JsonPropertyName("brutal_debug")]
     public bool BrutalDebug { get; set; }
 }
 

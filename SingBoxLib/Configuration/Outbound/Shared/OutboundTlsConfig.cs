@@ -8,79 +8,79 @@ public sealed class OutboundTlsConfig
     /// <summary>
     /// Gets or sets whether TLS is enabled.
     /// </summary>
-    [JsonProperty("enabled")]
+    [JsonPropertyName("enabled")]
     public bool? Enabled { get; set; }
 
     /// <summary>
     /// Gets or sets whether to disable Server Name Indication (SNI).
     /// </summary>
-    [JsonProperty("disable_sni")]
+    [JsonPropertyName("disable_sni")]
     public bool? DisableSni { get; set; }
 
     /// <summary>
     /// Gets or sets the server name.
     /// </summary>
-    [JsonProperty("server_name")]
+    [JsonPropertyName("server_name")]
     public string? ServerName { get; set; }
 
     /// <summary>
     /// Gets or sets whether to skip TLS certificate verification.
     /// </summary>
-    [JsonProperty("insecure")]
+    [JsonPropertyName("insecure")]
     public bool? Insecure { get; set; }
 
     /// <summary>
     /// Gets or sets the list of ALPN (Application-Layer Protocol Negotiation) protocols.
     /// </summary>
-    [JsonProperty("alpn")]
+    [JsonPropertyName("alpn")]
     public List<string>? Alpn { get; set; }
 
     /// <summary>
     /// Gets or sets the minimum TLS version allowed.
     /// </summary>
-    [JsonProperty("min_version")]
+    [JsonPropertyName("min_version")]
     public string? MinVersion { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum TLS version allowed.
     /// </summary>
-    [JsonProperty("max_version")]
+    [JsonPropertyName("max_version")]
     public string? MaxVersion { get; set; }
 
     /// <summary>
     /// Gets or sets the list of TLS cipher suites.
     /// </summary>
-    [JsonProperty("cipher_suits")]
+    [JsonPropertyName("cipher_suits")]
     public List<string>? CipherSuites { get; set; }
 
     /// <summary>
     /// Gets or sets the PEM-encoded certificate.
     /// </summary>
-    [JsonProperty("certificate")]
+    [JsonPropertyName("certificate")]
     public string? Certificate { get; set; }
 
     /// <summary>
     /// Gets or sets the path to the TLS certificate file.
     /// </summary>
-    [JsonProperty("certificate_path")]
+    [JsonPropertyName("certificate_path")]
     public string? CertificatePath { get; set; }
 
     /// <summary>
     /// Gets or sets the Encrypted Client Hello (ECH) configuration.
     /// </summary>
-    [JsonProperty("ech")]
+    [JsonPropertyName("ech")]
     public OutboundEchConfig? Ech { get; set; }
 
     /// <summary>
     /// Gets or sets the uTLS configuration.
     /// </summary>
-    [JsonProperty("utls")]
+    [JsonPropertyName("utls")]
     public UtlsConfig? UTls { get; set; }
 
     /// <summary>
     /// Gets or sets the Reality configuration.
     /// </summary>
-    [JsonProperty("reality")]
+    [JsonPropertyName("reality")]
     public OutboundRealityConfig? Reality { get; set; }
 }
 

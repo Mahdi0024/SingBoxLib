@@ -18,6 +18,6 @@ public sealed class TransparentProxyInbound : InboundConfig
     /// Listen network, can be <b>tcp</b> or <b>udp</b>.
     /// Both if empty.
     /// </summary>
-    [JsonProperty("network")]
+    [JsonPropertyName("network")]
     public string? Network { get; set; }
 }

@@ -17,18 +17,18 @@ public sealed class DirectInbound : InboundConfig
     /// <summary>
     /// Listen network, can be tcp or udp. Both if empty.
     /// </summary>
-    [JsonProperty("network")]
+    [JsonPropertyName("network")]
     public string? Network { get; set; }
 
     /// <summary>
     /// Override the connection destination address.
     /// </summary>
-    [JsonProperty("override_address")]
+    [JsonPropertyName("override_address")]
     public string? OverrideAddress { get; set; }
 
     /// <summary>
     /// Override the connection destination port.
     /// </summary>
-    [JsonProperty("override_port")]
+    [JsonPropertyName("override_port")]
     public int? OverridePort { get; set; }
 }

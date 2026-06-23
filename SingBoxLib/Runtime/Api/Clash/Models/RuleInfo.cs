@@ -2,12 +2,12 @@
 
 public class RuleInfo
 {
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string Type { get; set; } = null!;
 
-    [JsonProperty("payload")]
+    [JsonPropertyName("payload")]
     public string Payload { get; set; } = null!;
 
-    [JsonProperty("proxy")]
+    [JsonPropertyName("proxy")]
     public string Proxy { get; set; } = null!;
 }

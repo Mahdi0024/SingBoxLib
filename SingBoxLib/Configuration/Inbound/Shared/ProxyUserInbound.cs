@@ -8,12 +8,12 @@ public sealed class ProxyUserInbound
     /// <summary>
     /// Gets or sets the username.
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string? Username { get; set; }
 
     /// <summary>
     /// Gets or sets the password.
     /// </summary>
-    [JsonProperty("password")]
+    [JsonPropertyName("password")]
     public string? Password { get; set; }
 }

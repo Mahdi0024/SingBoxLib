@@ -15,24 +15,24 @@ public sealed class RouteRuleSetRemote : RouteRuleSetBase
     /// <summary>
     /// Format of the rule-set (e.g. source, binary).
     /// </summary>
-    [JsonProperty("format")]
+    [JsonPropertyName("format")]
     public required string Format { get; set; }
 
     /// <summary>
     /// URL to download the remote rule-set.
     /// </summary>
-    [JsonProperty("url")]
+    [JsonPropertyName("url")]
     public required string Url { get; set; }
 
     /// <summary>
     /// Tag of the HTTP client used to download the remote rule-set.
     /// </summary>
-    [JsonProperty("http_client")]
+    [JsonPropertyName("http_client")]
     public string? HttpClient { get; set; }
 
     /// <summary>
     /// Update interval for the remote rule-set.
     /// </summary>
-    [JsonProperty("update_interval")]
+    [JsonPropertyName("update_interval")]
     public string? UpdateInterval { get; set; }
 }

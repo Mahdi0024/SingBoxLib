@@ -18,32 +18,32 @@ public sealed class ShadowTlsOutbound : OutboundWithDialFields
     /// <summary>
     /// The server address.
     /// </summary>
-    [JsonProperty("server")]
+    [JsonPropertyName("server")]
     public string? Server { get; set; }
 
     /// <summary>
     /// The server port.
     /// </summary>
-    [JsonProperty("server_port")]
+    [JsonPropertyName("server_port")]
     public int? ServerPort { get; set; }
 
     /// <summary>
     /// ShadowTLS protocol version.
     /// 1 is used by default.
     /// </summary>
-    [JsonProperty("version")]
+    [JsonPropertyName("version")]
     public int? Version { get; set; }
 
     /// <summary>
     /// ShadowTLS password.
     /// Only available in the ShadowTLS protocol 2.
     /// </summary>
-    [JsonProperty("password")]
+    [JsonPropertyName("password")]
     public string? Password { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#outbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public OutboundTlsConfig? Tls { get; set; }
 }

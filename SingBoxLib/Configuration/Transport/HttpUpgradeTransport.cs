@@ -5,11 +5,11 @@ internal class HttpUpgradeTransport : TransportConfig
     {
         Type = "httpupgrade";
     }
-    [JsonProperty("host")]
+    [JsonPropertyName("host")]
     public string? Host { get; set; }
-    [JsonProperty("path")]
+    [JsonPropertyName("path")]
     public string? Path { get; set; }
 
-    [JsonProperty("headers")]
+    [JsonPropertyName("headers")]
     public Dictionary<string, string>? Headers { get; set; }
 }

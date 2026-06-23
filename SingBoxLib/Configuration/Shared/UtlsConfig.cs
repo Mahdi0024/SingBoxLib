@@ -8,13 +8,13 @@ public sealed class UtlsConfig
     /// <summary>
     /// Gets or sets whether uTLS is enabled.
     /// </summary>
-    [JsonProperty("enabled")]
+    [JsonPropertyName("enabled")]
     public bool? Enabled { get; set; }
 
     /// <summary>
     /// Gets or sets the uTLS fingerprint.
     /// </summary>
-    [JsonProperty("fingerprint")]
+    [JsonPropertyName("fingerprint")]
     public string? Fingerprint { get; set; }
 }
 

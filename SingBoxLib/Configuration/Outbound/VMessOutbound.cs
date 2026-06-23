@@ -18,25 +18,25 @@ public sealed class VMessOutbound : OutboundWithDialFields
     /// <summary>
     /// The server address.
     /// </summary>
-    [JsonProperty("server")]
+    [JsonPropertyName("server")]
     public required string Server { get; set; }
 
     /// <summary>
     /// The server port.
     /// </summary>
-    [JsonProperty("server_port")]
+    [JsonPropertyName("server_port")]
     public required int ServerPort { get; set; }
 
     /// <summary>
     /// The VMess user id.
     /// </summary>
-    [JsonProperty("uuid")]
+    [JsonPropertyName("uuid")]
     public required string Uuid { get; set; }
 
     /// <summary>
     /// See <see cref="VMessSecurity"/>.
     /// </summary>
-    [JsonProperty("security")]
+    [JsonPropertyName("security")]
     public string? Security { get; set; }
 
     /// <summary>
@@ -44,20 +44,20 @@ public sealed class VMessOutbound : OutboundWithDialFields
     /// 1:	Use legacy protocol.
     /// >1: Unused, same as 1.
     /// </summary>
-    [JsonProperty("alter_id")]
+    [JsonPropertyName("alter_id")]
     public int? AlterId { get; set; }
 
     /// <summary>
     /// One of tcp udp.
     /// Both is enabled by default.
     /// </summary>
-    [JsonProperty("network")]
+    [JsonPropertyName("network")]
     public string? Network { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#outbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public OutboundTlsConfig? Tls { get; set; }
 
     /// <summary>
@@ -65,19 +65,19 @@ public sealed class VMessOutbound : OutboundWithDialFields
     /// packetaddr or xudp.
     /// Leave empty to disable.
     /// </summary>
-    [JsonProperty("packet_encoding")]
+    [JsonPropertyName("packet_encoding")]
     public string? PacketEncoding { get; set; }
 
     /// <summary>
     /// V2Ray Transport configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/v2ray-transport/">V2Ray Transport</see>.
     /// </summary>
-    [JsonProperty("transport")]
+    [JsonPropertyName("transport")]
     public TransportConfig? Transport { get; set; }
 
     /// <summary>
     /// See <see href="http://sing-box.sagernet.org/configuration/shared/multiplex#outbound">Multiplex</see> for details.
     /// </summary>
-    [JsonProperty("multiplex")]
+    [JsonPropertyName("multiplex")]
     public MultiplexConfig? Multiplex { get; set; }
 }
 /// <summary>

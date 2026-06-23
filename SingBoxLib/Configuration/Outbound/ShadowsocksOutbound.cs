@@ -18,45 +18,45 @@ public sealed class ShadowsocksOutbound : OutboundWithDialFields
     /// <summary>
     /// The server address.
     /// </summary>
-    [JsonProperty("server")]
+    [JsonPropertyName("server")]
     public required string Server { get; set; }
 
     /// <summary>
     /// The server port.
     /// </summary>
-    [JsonProperty("server_port")]
+    [JsonPropertyName("server_port")]
     public required int ServerPort { get; set; }
 
     /// <summary>
     /// Encryption method. See <see cref="ShadowsocksEncryptions"/>.
     /// </summary>
-    [JsonProperty("method")]
+    [JsonPropertyName("method")]
     public required string Encryption { get; set; }
 
     /// <summary>
     /// The shadowsocks password.
     /// </summary>
-    [JsonProperty("password")]
+    [JsonPropertyName("password")]
     public string? Password { get; set; }
 
     /// <summary>
     /// Shadowsocks SIP003 plugin, implemented in internal.
     /// Only obfs-local and v2ray-plugin are supported.
     /// </summary>
-    [JsonProperty("plugin")]
+    [JsonPropertyName("plugin")]
     public string? Plugin { get; set; }
 
     /// <summary>
     /// Shadowsocks SIP003 plugin options.
     /// </summary>
-    [JsonProperty("plugin_opts")]
+    [JsonPropertyName("plugin_opts")]
     public string? PluginOptions { get; set; }
 
     /// <summary>
     /// One of tcp udp.
     /// Both is enabled by default.
     /// </summary>
-    [JsonProperty("network")]
+    [JsonPropertyName("network")]
     public string? Network { get; set; }
 
     /// <summary>
@@ -64,12 +64,12 @@ public sealed class ShadowsocksOutbound : OutboundWithDialFields
     /// See <see href="http://sing-box.sagernet.org/configuration/shared/udp-over-tcp/">UDP Over TCP</see> for details.
     /// Conflict with <see cref="Multiplex"/>.
     /// </summary>
-    [JsonProperty("udp_over_tcp")]
+    [JsonPropertyName("udp_over_tcp")]
     public bool? UdpOverTcp { get; set; }
 
     /// <summary>
     /// See <see href="http://sing-box.sagernet.org/configuration/shared/multiplex#outbound">Multiplex</see> for details.
     /// </summary>
-    [JsonProperty("multiplex")]
+    [JsonPropertyName("multiplex")]
     public MultiplexConfig? Multiplex { get; set; }
 }

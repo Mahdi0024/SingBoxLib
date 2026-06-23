@@ -2,12 +2,12 @@
 
 public class VersionInfo
 {
-    [JsonProperty("meta")]
+    [JsonPropertyName("meta")]
     public bool Meta { get; set; }
 
-    [JsonProperty("premium")]
+    [JsonPropertyName("premium")]
     public bool Premium { get; set; }
 
-    [JsonProperty("version")]
+    [JsonPropertyName("version")]
     public string Version { get; set; } = null!;
 }

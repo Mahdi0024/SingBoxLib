@@ -9,55 +9,55 @@ public abstract class OutboundWithDialFields : OutboundConfig
     /// <summary>
     /// The tag of the upstream outbound. If enabled, all other fields will be ignored.
     /// </summary>
-    [JsonProperty("detour")]
+    [JsonPropertyName("detour")]
     public string? Detour { get; set; }
 
     /// <summary>
     /// The network interface to bind to.
     /// </summary>
-    [JsonProperty("bind_interface")]
+    [JsonPropertyName("bind_interface")]
     public string? BindInterface { get; set; }
 
     /// <summary>
     /// The IPv4 address to bind to.
     /// </summary>
-    [JsonProperty("inet4_bind_address")]
+    [JsonPropertyName("inet4_bind_address")]
     public string? INet4BindAddress { get; set; }
 
     /// <summary>
     /// The IPv6 address to bind to.
     /// </summary>
-    [JsonProperty("inet6_bind_address")]
+    [JsonPropertyName("inet6_bind_address")]
     public string? INet6BindAddress { get; set; }
 
     /// <summary>
     /// Only supported on Linux. Set netfilter routing mark.
     /// </summary>
-    [JsonProperty("routing_mark")]
+    [JsonPropertyName("routing_mark")]
     public int? RoutingMark { get; set; }
 
     /// <summary>
     /// Reuse listener address.
     /// </summary>
-    [JsonProperty("reuse_addr")]
+    [JsonPropertyName("reuse_addr")]
     public bool? ReuseAddress { get; set; }
 
     /// <summary>
     /// Enable TCP Fast Open.
     /// </summary>
-    [JsonProperty("tcp_fast_open")]
+    [JsonPropertyName("tcp_fast_open")]
     public bool? TcpFastOpen { get; set; }
 
     /// <summary>
     /// Enable TCP Multi Path. Go 1.21 required.
     /// </summary>
-    [JsonProperty("tcp_multi_path")]
+    [JsonPropertyName("tcp_multi_path")]
     public bool? TcpMultiPath { get; set; }
 
     /// <summary>
     /// Enable UDP fragmentation.
     /// </summary>
-    [JsonProperty("udp_fragment")]
+    [JsonPropertyName("udp_fragment")]
     public bool? UdpFragment { get; set; }
 
     /// <summary>
@@ -65,13 +65,13 @@ public abstract class OutboundWithDialFields : OutboundConfig
     /// each with optional fraction and a unit suffix, such as "300ms", "-1.5h" or "2h45m". Valid time units are
     /// "ns", "us" (or "µs"), "ms", "s", "m", "h".
     /// </summary>
-    [JsonProperty("connect_timeout")]
+    [JsonPropertyName("connect_timeout")]
     public string? ConnectTimeout { get; set; }
 
     /// <summary>
     /// Domain resolver.
     /// </summary>
-    [JsonProperty("domain_resolver")]
+    [JsonPropertyName("domain_resolver")]
     public object? DomainResolver { get; set; }
 
     /// <summary>
@@ -79,14 +79,14 @@ public abstract class OutboundWithDialFields : OutboundConfig
     /// use when using fallback network strategy. Available values: wifi, cellular, ethernet, other.
     /// Device's default network is used by default.
     /// </summary>
-    [JsonProperty("network_type")]
+    [JsonPropertyName("network_type")]
     public string[]? NetworkType { get; set; }
 
     /// <summary>
     /// Fallback network types when preferred networks are unavailable or timeout when using fallback
     /// network strategy. All other networks expect preferred are used by default.
     /// </summary>
-    [JsonProperty("fallback_network_type")]
+    [JsonPropertyName("fallback_network_type")]
     public string[]? FallbackNetworkType { get; set; }
 
     /// <summary>
@@ -96,6 +96,6 @@ public abstract class OutboundWithDialFields : OutboundConfig
     /// connection to succeed before falling back to other interfaces. Only take effect when domain_strategy or
     /// network_strategy is set. 300ms is used by default.
     /// </summary>
-    [JsonProperty("fallback_delay")]
+    [JsonPropertyName("fallback_delay")]
     public string? FallbackDelay { get; set; }
 }

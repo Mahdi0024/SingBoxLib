@@ -209,7 +209,7 @@ public static class ProfileParser
         var profileBase64 = profileUrl.Substring(VMessProtocol.Length);
 
         var profileJson = Encoding.UTF8.GetString(Convert.FromBase64String(profileBase64));
-        var parsedProfile = JsonConvert.DeserializeObject<VMessProfileModel>(profileJson);
+        var parsedProfile = JsonSerializer.Deserialize(profileJson, SingBoxJsonContext.Default.VMessProfileModel);
         return parsedProfile!.MapToProfileItem();
     }
 
@@ -414,7 +414,7 @@ public static class ProfileParser
             Security = profile.Security,
             Sni = profile.Sni,
         };
-        var vmessDataJson = JsonConvert.SerializeObject(vmessData);
+        var vmessDataJson = JsonSerializer.Serialize(vmessData, SingBoxJsonContext.Default.VMessProfileModel);
         var base64Data = Convert.ToBase64String(Encoding.UTF8.GetBytes(vmessDataJson));
 
         return $"{VMessProtocol}{base64Data}";

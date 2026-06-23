@@ -8,14 +8,14 @@ public sealed class InboundTlsConfig
     /// <summary>
     /// Indicates whether TLS is enabled.
     /// </summary>
-    [JsonProperty("enabled")]
+    [JsonPropertyName("enabled")]
     public bool? Enabled { get; set; }
 
     /// <summary>
     /// The server name used to verify the hostname on the returned certificates unless insecure is given.
     /// It is also included in the client's handshake to support virtual hosting unless it is an IP address.
     /// </summary>
-    [JsonProperty("server_name")]
+    [JsonPropertyName("server_name")]
     public string? ServerName { get; set; }
 
     /// <summary>
@@ -23,7 +23,7 @@ public sealed class InboundTlsConfig
     /// If both peers support ALPN, the selected protocol will be one from this list,
     /// and the connection will fail if there is no mutually supported protocol.
     /// </summary>
-    [JsonProperty("alpn")]
+    [JsonPropertyName("alpn")]
     public List<string>? Alpn { get; set; }
 
     /// <summary>
@@ -31,14 +31,14 @@ public sealed class InboundTlsConfig
     /// By default, TLS 1.2 is currently used as the minimum when acting as a client,
     /// and TLS 1.0 when acting as a server.
     /// </summary>
-    [JsonProperty("min_version")]
+    [JsonPropertyName("min_version")]
     public string? MinVersion { get; set; }
 
     /// <summary>
     /// The maximum TLS version that is acceptable.
     /// By default, the maximum version is currently TLS 1.3.
     /// </summary>
-    [JsonProperty("max_version")]
+    [JsonPropertyName("max_version")]
     public string? MaxVersion { get; set; }
 
     /// <summary>
@@ -46,54 +46,54 @@ public sealed class InboundTlsConfig
     /// Note that TLS 1.3 cipher suites are not configurable.
     /// If empty, a safe default list is used. The default cipher suites might change over time.
     /// </summary>
-    [JsonProperty("cipher_suites")]
+    [JsonPropertyName("cipher_suites")]
     public List<string>? CipherSuites { get; set; }
 
     /// <summary>
     /// The server certificate in PEM format.
     /// </summary>
-    [JsonProperty("certificate")]
+    [JsonPropertyName("certificate")]
     public List<string>? Certificate { get; set; }
 
     /// <summary>
     /// The path to the server certificate, which will be automatically reloaded if modified.
     /// </summary>
-    [JsonProperty("certificate_path")]
+    [JsonPropertyName("certificate_path")]
     public string? CertificatePath { get; set; }
 
     /// <summary>
     /// The server private key in PEM format.
     /// </summary>
-    [JsonProperty("key")]
+    [JsonPropertyName("key")]
     public List<string>? Key { get; set; }
 
     /// <summary>
     /// The path to the server private key, which will be automatically reloaded if modified.
     /// </summary>
-    [JsonProperty("key_path")]
+    [JsonPropertyName("key_path")]
     public string? KeyPath { get; set; }
 
     /// <summary>
     /// Configuration for ECH (Encrypted Client Hello).
     /// </summary>
-    [JsonProperty("ech")]
+    [JsonPropertyName("ech")]
     public InboundEchConfig? Ech { get; set; }
 
     /// <summary>
     /// Configuration for Reality, a TLS extension.
     /// </summary>
-    [JsonProperty("reality")]
+    [JsonPropertyName("reality")]
     public InboundRealityConfig? Reality { get; set; }
 
     /// <summary>
     /// Inline certificate provider configuration.
     /// </summary>
-    [JsonProperty("certificate_provider")]
+    [JsonPropertyName("certificate_provider")]
     public object? CertificateProvider { get; set; }
 
     /// <summary>
     /// The tag of a shared certificate provider.
     /// </summary>
-    [JsonProperty("certificate_provider_tag")]
+    [JsonPropertyName("certificate_provider_tag")]
     public string? CertificateProviderTag { get; set; }
 }

@@ -19,7 +19,7 @@ public sealed class TuicInbound : InboundConfig
     /// A list of TUIC users associated with this connection.
     /// Each user has a unique identifier and credentials.
     /// </summary>
-    [JsonProperty("users")]
+    [JsonPropertyName("users")]
     public List<TuicUser>? Users { get; set; }
 
     /// <summary>
@@ -27,14 +27,14 @@ public sealed class TuicInbound : InboundConfig
     /// Supported algorithms: <b>cubic</b>, <b>new_reno</b>, <b>bbr</b>.
     /// Defaults to 'cubic' if empty.
     /// </summary>
-    [JsonProperty("congestion_control")]
+    [JsonPropertyName("congestion_control")]
     public string? CongestionControl { get; set; }
 
     /// <summary>
     /// Specifies how long the server waits for client authentication commands.
     /// Default is 3 ("3s") seconds.
     /// </summary>
-    [JsonProperty("auth_timeout")]
+    [JsonPropertyName("auth_timeout")]
     public string? AuthTimeout { get; set; }
 
     /// <summary>
@@ -42,20 +42,20 @@ public sealed class TuicInbound : InboundConfig
     /// This is not impacting much on the performance, as the protocol is fully multiplexed.
     /// <b>Disabling this is highly recommended</b>, as it is vulnerable to replay attacks. <b>See <see href="https://blog.cloudflare.com/even-faster-connection-establishment-with-quic-0-rtt-resumption/#attack-of-the-clones">Attack of the clones</see></b>.
     /// </summary>
-    [JsonProperty("zero_rtt_handshake")]
+    [JsonPropertyName("zero_rtt_handshake")]
     public bool? ZeroRttHandshake { get; set; }
 
     /// <summary>
     /// Interval for sending heartbeat packets for keeping the connection alive.
     /// Default is 10 seconds ("10s").
     /// </summary>
-    [JsonProperty("heartbeat")]
+    [JsonPropertyName("heartbeat")]
     public string? Heartbeat { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#inbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public InboundTlsConfig? Tls { get; set; }
 }
 
@@ -67,12 +67,12 @@ public sealed class TuicUser
     /// <summary>
     /// Gets or sets the UUID.
     /// </summary>
-    [JsonProperty("uuid")]
+    [JsonPropertyName("uuid")]
     public string? Uuid { get; set; }
 
     /// <summary>
     /// Gets or sets the password.
     /// </summary>
-    [JsonProperty("password")]
+    [JsonPropertyName("password")]
     public string? Password { get; set; }
 }

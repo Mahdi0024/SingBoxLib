@@ -6,15 +6,15 @@ internal class RouteRuleHeadlessLogical : RouteRuleHeadlessBase
         Type = "logical";
     }
 
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string? Type { get; internal set; }
 
-    [JsonProperty("mode")]
+    [JsonPropertyName("mode")]
     public required string Mode { get; set; }
 
-    [JsonProperty("rules")]
+    [JsonPropertyName("rules")]
     public List<RouteRuleBase>? Rules { get; set; }
 
-    [JsonProperty("invert")]
+    [JsonPropertyName("invert")]
     public bool? Invert { get; set; }
 }

@@ -8,18 +8,18 @@ public sealed class FakeIp
     /// <summary>
     /// Gets or sets whether Fake IP is enabled.
     /// </summary>
-    [JsonProperty("enabled")]
+    [JsonPropertyName("enabled")]
     public bool? Enabled { get; set; }
 
     /// <summary>
     /// Gets or sets the IPv4 address range for Fake IP.
     /// </summary>
-    [JsonProperty("inet4_range")]
+    [JsonPropertyName("inet4_range")]
     public string? Inet4Range { get; set; }
 
     /// <summary>
     /// Gets or sets the IPv6 address range for Fake IP.
     /// </summary>
-    [JsonProperty("inet6_range")]
+    [JsonPropertyName("inet6_range")]
     public string? Inet6Range { get; set; }
 }

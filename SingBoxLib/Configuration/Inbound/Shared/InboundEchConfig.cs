@@ -8,18 +8,18 @@ public sealed class InboundEchConfig
     /// <summary>
     /// Gets or sets whether ECH is enabled.
     /// </summary>
-    [JsonProperty("enabled")]
+    [JsonPropertyName("enabled")]
     public bool? Enabled { get; set; }
 
     /// <summary>
     /// Gets or sets the list of ECH keys.
     /// </summary>
-    [JsonProperty("key")]
+    [JsonPropertyName("key")]
     public List<string>? Key { get; set; }
 
     /// <summary>
     /// Gets or sets the path to the ECH key.
     /// </summary>
-    [JsonProperty("key_path")]
+    [JsonPropertyName("key_path")]
     public string? KeyPath { get; set; }
 }

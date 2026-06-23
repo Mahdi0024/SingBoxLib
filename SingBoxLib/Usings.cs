@@ -1,4 +1,5 @@
-﻿global using Newtonsoft.Json;
+﻿global using System.Text.Json;
+global using System.Text.Json.Serialization;
 global using SingBoxLib.Configuration.Dns.Abstract;
 global using SingBoxLib.Configuration.Dns;
 global using SingBoxLib.Configuration.Experimental;

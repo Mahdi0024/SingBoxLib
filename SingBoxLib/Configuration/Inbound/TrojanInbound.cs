@@ -18,13 +18,13 @@ public sealed class TrojanInbound : InboundConfig
     /// <summary>
     /// Users allowed to connect to the Trojan server.
     /// </summary>
-    [JsonProperty("users")]
+    [JsonPropertyName("users")]
     public required List<ProxyUserInbound> Users { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#inbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public InboundTlsConfig? Tls { get; set; }
 
     /// <summary>
@@ -34,7 +34,7 @@ public sealed class TrojanInbound : InboundConfig
     /// Note: There is no evidence that GFW detects and blocks Trojan servers based on HTTP responses,
     /// making this a low-risk fallback strategy with minimal signature exposure.
     /// </summary>
-    [JsonProperty("fallback")]
+    [JsonPropertyName("fallback")]
     public TrojanFallback? Fallback { get; set; }
 
     /// <summary>
@@ -43,19 +43,19 @@ public sealed class TrojanInbound : InboundConfig
     /// If non-empty, TLS fallback requests with ALPN not in this table will be rejected.
     /// This provides an extra layer of control over connection attempts.
     /// </summary>
-    [JsonProperty("fallback_for_alpn")]
+    [JsonPropertyName("fallback_for_alpn")]
     public Dictionary<string, TrojanFallback>? FallbackForAlpn { get; set; }
 
     /// <summary>
     /// V2Ray Transport configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/v2ray-transport/">V2Ray Transport</see>.
     /// </summary>
-    [JsonProperty("transport")]
+    [JsonPropertyName("transport")]
     public TransportConfig? Transport { get; set; }
 
     /// <summary>
     /// Multiplexing configuration for managing multiple streams over a single connection.
     /// </summary>
-    [JsonProperty("multiplex")]
+    [JsonPropertyName("multiplex")]
     public MultiplexConfig? Multiplex { get; set; }
 }
 
@@ -69,7 +69,7 @@ public sealed class TrojanFallback
     /// 
     /// If specified, provides an alternative route if the primary connection is interrupted or detected as problematic.
     /// </summary>
-    [JsonProperty("server")]
+    [JsonPropertyName("server")]
     public string? Server { get; set; }
 
     /// <summary>
@@ -77,6 +77,6 @@ public sealed class TrojanFallback
     /// 
     /// Specifies the port number to use when attempting a fallback connection.
     /// </summary>
-    [JsonProperty("server_port")]
+    [JsonPropertyName("server_port")]
     public int? ServerPort { get; set; }
 }

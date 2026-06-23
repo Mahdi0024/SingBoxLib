@@ -18,39 +18,39 @@ public sealed class SocksOutbound : OutboundWithDialFields
     /// <summary>
     /// The server address.
     /// </summary>
-    [JsonProperty("server")]
+    [JsonPropertyName("server")]
     public string? Server { get; set; }
 
     /// <summary>
     /// The server port.
     /// </summary>
-    [JsonProperty("server_port")]
+    [JsonPropertyName("server_port")]
     public int? ServerPort { get; set; }
 
     /// <summary>
     /// The SOCKS version, one of 4 4a 5.
     /// SOCKS5 used by default.
     /// </summary>
-    [JsonProperty("version")]
+    [JsonPropertyName("version")]
     public string? Version { get; set; }
 
     /// <summary>
     /// SOCKS username.
     /// </summary>
-    [JsonProperty("username")]
+    [JsonPropertyName("username")]
     public string? Username { get; set; }
 
     /// <summary>
     /// SOCKS5 password.
     /// </summary>
-    [JsonProperty("password")]
+    [JsonPropertyName("password")]
     public string? Password { get; set; }
 
     /// <summary>
     /// One of tcp udp.
     /// Both is enabled by default.
     /// </summary>
-    [JsonProperty("network")]
+    [JsonPropertyName("network")]
     public string? Network { get; set; }
 
     /// <summary>
@@ -58,6 +58,6 @@ public sealed class SocksOutbound : OutboundWithDialFields
     /// See <see href="http://sing-box.sagernet.org/configuration/shared/udp-over-tcp/">UDP Over TCP</see> for details.
     /// Conflict with multiplex.
     /// </summary>
-    [JsonProperty("udp_over_tcp")]
+    [JsonPropertyName("udp_over_tcp")]
     public bool? UdpOverTcp { get; set; }
 }

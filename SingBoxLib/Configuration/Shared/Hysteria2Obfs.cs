@@ -9,12 +9,12 @@ public sealed class Hysteria2Obfs
     /// QUIC traffic obfuscator type, only available with salamander.
     /// Disabled if empty.
     /// </summary>
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string? Type { get; set; }
 
     /// <summary>
     /// QUIC traffic obfuscator password.
     /// </summary>
-    [JsonProperty("password")]
+    [JsonPropertyName("password")]
     public string? Password { get; set; }
 }

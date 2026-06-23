@@ -8,18 +8,18 @@ public sealed class OutboundRealityConfig
     /// <summary>
     /// Gets or sets whether Reality is enabled.
     /// </summary>
-    [JsonProperty("enabled")]
+    [JsonPropertyName("enabled")]
     public bool? Enabled { get; set; }
 
     /// <summary>
     /// Gets or sets the public key.
     /// </summary>
-    [JsonProperty("public_key")]
+    [JsonPropertyName("public_key")]
     public string? PublicKey { get; set; }
 
     /// <summary>
     /// Gets or sets the short ID.
     /// </summary>
-    [JsonProperty("short_id")]
+    [JsonPropertyName("short_id")]
     public string? ShortId { get; set; }
 }

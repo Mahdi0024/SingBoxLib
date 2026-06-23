@@ -2,49 +2,49 @@
 
 internal sealed class VMessProfileModel
 {
-    [JsonProperty("v")]
+    [JsonPropertyName("v")]
     public string? Version { get; set; }
 
-    [JsonProperty("ps")]
+    [JsonPropertyName("ps")]
     public string? Name { get; set; }
 
-    [JsonProperty("add")]
+    [JsonPropertyName("add")]
     public string? Address { get; set; }
 
-    [JsonProperty("port")]
+    [JsonPropertyName("port")]
     public ushort? Port { get; set; }
 
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string? Id { get; set; }
 
-    [JsonProperty("aid")]
+    [JsonPropertyName("aid")]
     public string? AlterId { get; set; }
 
-    [JsonProperty("scy")]
+    [JsonPropertyName("scy")]
     public string? Encryption { get; set; }
 
-    [JsonProperty("net")]
+    [JsonPropertyName("net")]
     public string? Network { get; set; }
 
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string? Type { get; set; }
 
-    [JsonProperty("host")]
+    [JsonPropertyName("host")]
     public string? Host { get; set; }
 
-    [JsonProperty("alpn")]
+    [JsonPropertyName("alpn")]
     public string? Alpn { get; set; }
 
-    [JsonProperty("path")]
+    [JsonPropertyName("path")]
     public string? Path { get; set; }
 
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public string? Security { get; set; }
 
-    [JsonProperty("sni")]
+    [JsonPropertyName("sni")]
     public string? Sni { get; set; }
 
-    [JsonProperty("fp")]
+    [JsonPropertyName("fp")]
     public string? Fingerprint { get; set; }
 
     public ProfileItem MapToProfileItem()

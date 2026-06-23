@@ -2,7 +2,7 @@
 
 public class ProxyDelayInfo
 {
-    [JsonProperty("delay")]
+    [JsonPropertyName("delay")]
     public int Delay { get; set; }
 
     public bool Success { get; set; }

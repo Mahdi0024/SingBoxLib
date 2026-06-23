@@ -8,19 +8,19 @@ public sealed class DnsConfig
     /// <summary>
     /// A list of DNS servers to use for resolution.
     /// </summary>
-    [JsonProperty("servers")]
+    [JsonPropertyName("servers")]
     public List<DnsServer>? Servers { get; set; }
 
     /// <summary>
     /// A list of rules for DNS resolution.
     /// </summary>
-    [JsonProperty("rules")]
+    [JsonPropertyName("rules")]
     public List<DnsRuleBase>? Rules { get; set; }
 
     /// <summary>
     /// Default DNS server tag. The first server will be used if empty.
     /// </summary>
-    [JsonProperty("final")]
+    [JsonPropertyName("final")]
     public string? Final { get; set; }
 
     /// <summary>
@@ -28,26 +28,26 @@ public sealed class DnsConfig
     /// One of: prefer_ipv4, prefer_ipv6, ipv4_only, ipv6_only. See <see cref="DnsStrategy"/>
     /// Takes no effect if server.strategy is set.
     /// </summary>
-    [JsonProperty("strategy")]
+    [JsonPropertyName("strategy")]
     public string? Strategy { get; set; }
 
     /// <summary>
     /// Disable DNS cache.
     /// </summary>
-    [JsonProperty("disable_cache")]
+    [JsonPropertyName("disable_cache")]
     public bool? DisableCache { get; set; }
 
     /// <summary>
     /// Disable DNS cache expire.
     /// </summary>
-    [JsonProperty("disable_expire")]
+    [JsonPropertyName("disable_expire")]
     public bool? DisableExpire { get; set; }
 
     /// <summary>
     /// LRU cache capacity. 
     /// Value less than 1024 will be ignored.
     /// </summary>
-    [JsonProperty("cache_capacity")]
+    [JsonPropertyName("cache_capacity")]
     public int? CacheCapacity { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ public sealed class DnsConfig
     /// application before making a request, it can be problematic in environments 
     /// such as macOS, where DNS is proxied and cached by the system.
     /// </summary>
-    [JsonProperty("reverse_mapping")]
+    [JsonPropertyName("reverse_mapping")]
     public bool? ReverseMapping { get; set; }
 
     /// <summary>
@@ -67,13 +67,13 @@ public sealed class DnsConfig
     /// appended automatically. 
     /// Can be overrided by Servers[].ClientSubnet or Rules[].ClientSubnet.
     /// </summary>
-    [JsonProperty("client_subnet")]
+    [JsonPropertyName("client_subnet")]
     public string? ClientSubnet { get; set; }
 
     /// <summary>
     /// Fake IP configuration.
     /// </summary>
-    [JsonProperty("fakeip")]
+    [JsonPropertyName("fakeip")]
     public FakeIp? Fakeip { get; set; }
 }
 /// <summary>

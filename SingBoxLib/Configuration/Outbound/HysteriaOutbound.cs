@@ -18,13 +18,13 @@ public sealed class HysteriaOutbound : OutboundWithDialFields
     /// <summary>
     /// The server address.
     /// </summary>
-    [JsonProperty("server")]
+    [JsonPropertyName("server")]
     public required string Server { get; set; }
 
     /// <summary>
     /// The server port.
     /// </summary>
-    [JsonProperty("server_port")]
+    [JsonPropertyName("server_port")]
     public required int ServerPort { get; set; }
 
     /// <summary>
@@ -41,13 +41,13 @@ public sealed class HysteriaOutbound : OutboundWithDialFields
     /// Tbps(terabits per second)
     /// TBps(terabytes per second)
     /// </summary>
-    [JsonProperty("up")]
+    [JsonPropertyName("up")]
     public string? Up { get; set; }
 
     /// <summary>
     /// up, in Mbps.
     /// </summary>
-    [JsonProperty("up_mbps")]
+    [JsonPropertyName("up_mbps")]
     public int? UpMbps { get; set; }
 
     /// <summary>
@@ -64,64 +64,64 @@ public sealed class HysteriaOutbound : OutboundWithDialFields
     /// Tbps(terabits per second)
     /// TBps(terabytes per second)
     /// </summary>
-    [JsonProperty("down")]
+    [JsonPropertyName("down")]
     public string? Down { get; set; }
 
     /// <summary>
     /// down, in Mbps.
     /// </summary>
-    [JsonProperty("down_mbps")]
+    [JsonPropertyName("down_mbps")]
     public int? DownMbps { get; set; }
 
     /// <summary>
     /// Obfuscated password.
     /// </summary>
-    [JsonProperty("obfs")]
+    [JsonPropertyName("obfs")]
     public string? Obfs { get; set; }
 
     /// <summary>
     /// Authentication password, in base64.
     /// </summary>
-    [JsonProperty("auth")]
+    [JsonPropertyName("auth")]
     public string? Auth { get; set; }
 
     /// <summary>
     /// Authentication password.
     /// </summary>
-    [JsonProperty("auth_str")]
+    [JsonPropertyName("auth_str")]
     public string? AuthString { get; set; }
 
     /// <summary>
     /// The QUIC stream-level flow control window for receiving data.
     /// 15728640 (15 MB/s) will be used if empty.
     /// </summary>
-    [JsonProperty("recv_window_conn")]
+    [JsonPropertyName("recv_window_conn")]
     public int? RecvWindowConn { get; set; }
 
     /// <summary>
     /// The QUIC connection-level flow control window for receiving data.
     /// 67108864 (64 MB/s) will be used if empty.
     /// </summary>
-    [JsonProperty("recv_window")]
+    [JsonPropertyName("recv_window")]
     public int? RecvWindow { get; set; }
 
     /// <summary>
     /// Disables Path MTU Discovery (RFC 8899). Packets will then be at most 1252 (IPv4) / 1232 (IPv6) bytes in size.
     /// Force enabled on for systems other than Linux and Windows (according to upstream).
     /// </summary>
-    [JsonProperty("disable_mtu_discovery")]
+    [JsonPropertyName("disable_mtu_discovery")]
     public bool? DisableMtuDiscovery { get; set; }
 
     /// <summary>
     /// One of tcp udp.
     /// Both is enabled by default.
     /// </summary>
-    [JsonProperty("network")]
+    [JsonPropertyName("network")]
     public string? Network { get; set; }
 
     /// <summary>
     /// TLS configuration, see <see href="http://sing-box.sagernet.org/configuration/shared/tls/#outbound">TLS</see>.
     /// </summary>
-    [JsonProperty("tls")]
+    [JsonPropertyName("tls")]
     public OutboundTlsConfig? Tls { get; set; }
 }

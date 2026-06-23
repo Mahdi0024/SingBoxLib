@@ -7,42 +7,42 @@ public sealed class DnsAction
     /// <summary>
     /// Gets or sets the action type.
     /// </summary>
-    [JsonProperty("action")]
+    [JsonPropertyName("action")]
     public string? Action { get; set; }
 
     /// <summary>
     /// Gets or sets the target DNS server tag.
     /// </summary>
-    [JsonProperty("server")]
+    [JsonPropertyName("server")]
     public string? Server { get; set; }
 
     /// <summary>
     /// Gets or sets the custom TTL to write in the response.
     /// </summary>
-    [JsonProperty("rewrite_ttl")]
+    [JsonPropertyName("rewrite_ttl")]
     public int? RewriteTtl { get; set; }
 
     /// <summary>
     /// Gets or sets the client subnet prefix or address.
     /// </summary>
-    [JsonProperty("client_subnet")]
+    [JsonPropertyName("client_subnet")]
     public string? ClientSubnet { get; set; }
 
     /// <summary>
     /// Gets or sets whether cache is disabled.
     /// </summary>
-    [JsonProperty("disable_cache")]
+    [JsonPropertyName("disable_cache")]
     public bool? DisableCache { get; set; }
 
     /// <summary>
     /// Gets or sets the resolving method.
     /// </summary>
-    [JsonProperty("method")]
+    [JsonPropertyName("method")]
     public string? Method { get; set; }
 
     /// <summary>
     /// Gets or sets whether to disable dropping packets.
     /// </summary>
-    [JsonProperty("no_drop")]
+    [JsonPropertyName("no_drop")]
     public bool? NoDrop { get; set; }
 }

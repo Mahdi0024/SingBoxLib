@@ -15,12 +15,12 @@ public sealed class RouteRuleSetLocal : RouteRuleSetBase
     /// <summary>
     /// Gets or sets the format of the local rule-set.
     /// </summary>
-    [JsonProperty("format")]
+    [JsonPropertyName("format")]
     public required string Format { get; set; }
 
     /// <summary>
     /// Gets or sets the file path of the local rule-set.
     /// </summary>
-    [JsonProperty("path")]
+    [JsonPropertyName("path")]
     public required string Path { get; set; }
 }

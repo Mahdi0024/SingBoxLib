@@ -16,24 +16,24 @@ public sealed class GrpcTransport : TransportConfig
     /// <summary>
     /// Gets or sets the gRPC service name.
     /// </summary>
-    [JsonProperty("service_name")]
+    [JsonPropertyName("service_name")]
     public string? ServiceName { get; set; }
 
     /// <summary>
     /// Gets or sets the idle timeout.
     /// </summary>
-    [JsonProperty("idle_timeout")]
+    [JsonPropertyName("idle_timeout")]
     public string? IdleTimeout { get; set; }
 
     /// <summary>
     /// Gets or sets the ping timeout.
     /// </summary>
-    [JsonProperty("ping_timeout")]
+    [JsonPropertyName("ping_timeout")]
     public string? PingTimeout { get; set; }
 
     /// <summary>
     /// Gets or sets whether to permit ping without stream.
     /// </summary>
-    [JsonProperty("permit_without_stream")]
+    [JsonPropertyName("permit_without_stream")]
     public bool? PermitWithoutStream { get; set; }
 }

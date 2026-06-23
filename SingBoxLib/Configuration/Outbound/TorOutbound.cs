@@ -18,27 +18,27 @@ public sealed class TorOutbound : OutboundWithDialFields
     /// The path to the Tor executable.
     /// Embedded Tor will be ignored if set.
     /// </summary>
-    [JsonProperty("executable_path")]
+    [JsonPropertyName("executable_path")]
     public string? ExecutablePath { get; set; }
 
     /// <summary>
     /// List of extra arguments passed to the Tor instance when started.
     /// </summary>
-    [JsonProperty("extra_args")]
+    [JsonPropertyName("extra_args")]
     public List<string>? ExtraArgs { get; set; }
 
     /// <summary>
     /// The data directory of Tor.
     /// Each start will be very slow if not specified.
     /// </summary>
-    [JsonProperty("data_directory")]
+    [JsonPropertyName("data_directory")]
     public string? DataDirectory { get; set; }
 
     /// <summary>
     /// Map of torrc options.
     /// See <see href="https://linux.die.net/man/1/tor">tor(1)</see> for details.
     /// </summary>
-    [JsonProperty("torrc")]
+    [JsonPropertyName("torrc")]
     public Torrc? Torrc { get; set; }
 }
 
@@ -50,6 +50,6 @@ public sealed class Torrc
     /// <summary>
     /// Gets or sets ClientOnly option.
     /// </summary>
-    [JsonProperty("ClientOnly")]
+    [JsonPropertyName("ClientOnly")]
     public int? ClientOnly { get; set; }
 }

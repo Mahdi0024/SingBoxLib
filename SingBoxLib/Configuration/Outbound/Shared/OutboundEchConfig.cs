@@ -8,12 +8,12 @@ public sealed class OutboundEchConfig
     /// <summary>
     /// Gets or sets whether ECH is enabled.
     /// </summary>
-    [JsonProperty("enabled")]
+    [JsonPropertyName("enabled")]
     public bool? Enabled { get; set; }
 
     /// <summary>
     /// Gets or sets the ECH configuration string.
     /// </summary>
-    [JsonProperty("config")]
+    [JsonPropertyName("config")]
     public string? Config { get; set; }
 }

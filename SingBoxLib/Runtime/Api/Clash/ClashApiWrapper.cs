@@ -1,5 +1,9 @@
 ﻿using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using SingBoxLib.Configuration;
+using SingBoxLib.Runtime.Api.Clash.Models;
 
 namespace SingBoxLib.Runtime.Api.Clash;
 
@@ -33,7 +37,7 @@ public class ClashApiWrapper : IDisposable
             while (!reader.EndOfStream)
             {
                 var update = await reader.ReadLineAsync(cancellationToken);
-                yield return JsonConvert.DeserializeObject<LogInfo>(update!)!;
+                yield return JsonSerializer.Deserialize(update!, SingBoxJsonContext.Default.LogInfo)!;
             }
         }
     }
@@ -46,46 +50,46 @@ public class ClashApiWrapper : IDisposable
             while (!reader.EndOfStream)
             {
                 var update = await reader.ReadLineAsync(cancellationToken);
-                yield return JsonConvert.DeserializeObject<TrafficInfo>(update!)!;
+                yield return JsonSerializer.Deserialize(update!, SingBoxJsonContext.Default.TrafficInfo)!;
             }
         }
     }
 
     public async Task<VersionInfo> GetVersion(CancellationToken cancellationToken = default)
     {
-        return (await _client.GetFromJsonAsync<VersionInfo>("/version", cancellationToken))!;
+        return (await _client.GetFromJsonAsync("/version", SingBoxJsonContext.Default.VersionInfo, cancellationToken))!;
     }
 
     public async Task<ConfigInfo> GetConfig(CancellationToken cancellationToken = default)
     {
-        return (await _client.GetFromJsonAsync<ConfigInfo>("/configs", cancellationToken))!;
+        return (await _client.GetFromJsonAsync("/configs", SingBoxJsonContext.Default.ConfigInfo, cancellationToken))!;
     }
 
     public async Task UpdateConfig(ConfigInfo config, CancellationToken cancellationToken = default)
     {
-        await _client.PatchAsJsonAsync("/configs", config, cancellationToken);
+        await _client.PatchAsJsonAsync("/configs", config, SingBoxJsonContext.Default.ConfigInfo, cancellationToken);
     }
 
     public async Task ReloadConfig(string configPath, bool force, CancellationToken cancellationToken = default)
     {
-        var response = await _client.PutAsJsonAsync($"/configs?force={force}", new { Path = configPath }, cancellationToken);
+        await _client.PutAsJsonAsync($"/configs?force={force}", new ReloadConfigRequest { Path = configPath }, SingBoxJsonContext.Default.ReloadConfigRequest, cancellationToken);
     }
 
     public async Task<IEnumerable<RuleInfo>> GetRules(CancellationToken cancellationToken = default)
     {
-        var response = await _client.GetFromJsonAsync<Dictionary<string, IEnumerable<RuleInfo>>>("/rules", cancellationToken);
-        return response!["rules"];
+        var response = await _client.GetFromJsonAsync("/rules", SingBoxJsonContext.Default.RulesResponse, cancellationToken);
+        return response?.Rules ?? Enumerable.Empty<RuleInfo>();
     }
 
     public async Task<Dictionary<string, ProxyInfo>> GetProxies(CancellationToken cancellationToken = default)
     {
-        var response = await _client.GetFromJsonAsync<Dictionary<string, Dictionary<string, ProxyInfo>>>("/proxies", cancellationToken);
-        return response!["proxies"];
+        var response = await _client.GetFromJsonAsync("/proxies", SingBoxJsonContext.Default.ProxiesResponse, cancellationToken);
+        return response?.Proxies ?? new Dictionary<string, ProxyInfo>();
     }
 
     public async Task<ProxyInfo?> GetProxyByName(string name, CancellationToken cancellationToken = default)
     {
-        return await _client.GetFromJsonAsync<ProxyInfo>($"/proxies/{name}", cancellationToken);
+        return await _client.GetFromJsonAsync($"/proxies/{name}", SingBoxJsonContext.Default.ProxyInfo, cancellationToken);
     }
 
     public async Task<ProxyDelayInfo> GetProxyDelay(string name, int timeout, string? url = null, CancellationToken cancellationToken = default)
@@ -96,7 +100,7 @@ public class ClashApiWrapper : IDisposable
             return new ProxyDelayInfo();
         }
 
-        var delayInfo = JsonConvert.DeserializeObject<ProxyDelayInfo>(await response.Content.ReadAsStringAsync());
+        var delayInfo = JsonSerializer.Deserialize(await response.Content.ReadAsStringAsync(cancellationToken), SingBoxJsonContext.Default.ProxyDelayInfo);
         delayInfo!.Success = true;
         return delayInfo;
     }
@@ -104,5 +108,23 @@ public class ClashApiWrapper : IDisposable
     public async Task SelectorSwitchProxy(string name, CancellationToken cancellationToken = default)
     {
         await _client.PutAsync($"/proxies/{name}", null, cancellationToken);
+    }
+
+    public class ReloadConfigRequest
+    {
+        [JsonPropertyName("path")]
+        public string? Path { get; set; }
+    }
+
+    public class RulesResponse
+    {
+        [JsonPropertyName("rules")]
+        public List<RuleInfo>? Rules { get; set; }
+    }
+
+    public class ProxiesResponse
+    {
+        [JsonPropertyName("proxies")]
+        public Dictionary<string, ProxyInfo>? Proxies { get; set; }
     }
 }

@@ -8,13 +8,13 @@ public sealed class V2rayApi
     /// <summary>
     /// gRPC listening address.
     /// </summary>
-    [JsonProperty("listen")]
+    [JsonPropertyName("listen")]
     public string? Listen { get; set; }
 
     /// <summary>
     /// Statistics configuration.
     /// </summary>
-    [JsonProperty("stats")]
+    [JsonPropertyName("stats")]
     public Stats? Stats { get; set; }
 }
 
@@ -26,24 +26,24 @@ public sealed class Stats
     /// <summary>
     /// Enable statistics.
     /// </summary>
-    [JsonProperty("enabled")]
+    [JsonPropertyName("enabled")]
     public bool? Enabled { get; set; }
 
     /// <summary>
     /// List of inbound tags to collect statistics.
     /// </summary>
-    [JsonProperty("inbounds")]
+    [JsonPropertyName("inbounds")]
     public List<string>? Inbounds { get; set; }
 
     /// <summary>
     /// List of outbound tags to collect statistics.
     /// </summary>
-    [JsonProperty("outbounds")]
+    [JsonPropertyName("outbounds")]
     public List<string>? Outbounds { get; set; }
 
     /// <summary>
     /// List of users to collect statistics.
     /// </summary>
-    [JsonProperty("users")]
+    [JsonPropertyName("users")]
     public List<string>? Users { get; set; }
 }

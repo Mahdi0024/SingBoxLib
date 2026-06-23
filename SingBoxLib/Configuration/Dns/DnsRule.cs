@@ -8,192 +8,192 @@ public sealed class DnsRule : DnsRuleBase
     /// <summary>
     /// Matches inbound connection tags.
     /// </summary>
-    [JsonProperty("inbound")]
+    [JsonPropertyName("inbound")]
     public List<string>? Inbound { get; set; }
 
     /// <summary>
     /// Matches IP version.
     /// </summary>
-    [JsonProperty("ip_version")]
+    [JsonPropertyName("ip_version")]
     public int? IpVersion { get; set; }
 
     /// <summary>
     /// Matches query types.
     /// </summary>
-    [JsonProperty("query_type")]
+    [JsonPropertyName("query_type")]
     public List<object>? QueryType { get; set; }
 
     /// <summary>
     /// Matches connection network (tcp/udp).
     /// </summary>
-    [JsonProperty("network")]
+    [JsonPropertyName("network")]
     public string? Network { get; set; }
 
     /// <summary>
     /// Matches authenticated usernames.
     /// </summary>
-    [JsonProperty("auth_user")]
+    [JsonPropertyName("auth_user")]
     public List<string>? AuthUser { get; set; }
 
     /// <summary>
     /// Matches connection protocols.
     /// </summary>
-    [JsonProperty("protocol")]
+    [JsonPropertyName("protocol")]
     public List<string>? Protocol { get; set; }
 
     /// <summary>
     /// Matches domain names.
     /// </summary>
-    [JsonProperty("domain")]
+    [JsonPropertyName("domain")]
     public List<string>? Domain { get; set; }
 
     /// <summary>
     /// Matches domain suffixes.
     /// </summary>
-    [JsonProperty("domain_suffix")]
+    [JsonPropertyName("domain_suffix")]
     public List<string>? DomainSuffix { get; set; }
 
     /// <summary>
     /// Matches domain keywords.
     /// </summary>
-    [JsonProperty("domain_keyword")]
+    [JsonPropertyName("domain_keyword")]
     public List<string>? DomainKeyword { get; set; }
 
     /// <summary>
     /// Matches domain regular expressions.
     /// </summary>
-    [JsonProperty("domain_regex")]
+    [JsonPropertyName("domain_regex")]
     public List<string>? DomainRegex { get; set; }
 
     /// <summary>
     /// Matches source IP CIDRs.
     /// </summary>
-    [JsonProperty("source_ip_cidr")]
+    [JsonPropertyName("source_ip_cidr")]
     public List<string>? SourceIpCidr { get; set; }
 
     /// <summary>
     /// Matches if source IP is private.
     /// </summary>
-    [JsonProperty("source_ip_is_private")]
+    [JsonPropertyName("source_ip_is_private")]
     public bool? SourceIpIsPrivate { get; set; }
 
     /// <summary>
     /// Matches source ports.
     /// </summary>
-    [JsonProperty("source_port")]
+    [JsonPropertyName("source_port")]
     public List<int>? SourcePort { get; set; }
 
     /// <summary>
     /// Matches source port ranges.
     /// </summary>
-    [JsonProperty("source_port_range")]
+    [JsonPropertyName("source_port_range")]
     public List<string>? SourcePortRange { get; set; }
 
     /// <summary>
     /// Matches destination ports.
     /// </summary>
-    [JsonProperty("port")]
+    [JsonPropertyName("port")]
     public List<int>? Port { get; set; }
 
     /// <summary>
     /// Matches destination port ranges.
     /// </summary>
-    [JsonProperty("port_range")]
+    [JsonPropertyName("port_range")]
     public List<string>? PortRange { get; set; }
 
     /// <summary>
     /// Matches process names.
     /// </summary>
-    [JsonProperty("process_name")]
+    [JsonPropertyName("process_name")]
     public List<string>? ProcessName { get; set; }
 
     /// <summary>
     /// Matches process paths.
     /// </summary>
-    [JsonProperty("process_path")]
+    [JsonPropertyName("process_path")]
     public List<string>? ProcessPath { get; set; }
 
     /// <summary>
     /// Matches package names.
     /// </summary>
-    [JsonProperty("package_name")]
+    [JsonPropertyName("package_name")]
     public List<string>? PackageName { get; set; }
 
     /// <summary>
     /// Matches user names.
     /// </summary>
-    [JsonProperty("user")]
+    [JsonPropertyName("user")]
     public List<string>? User { get; set; }
 
     /// <summary>
     /// Matches user IDs.
     /// </summary>
-    [JsonProperty("user_id")]
+    [JsonPropertyName("user_id")]
     public List<int>? UserId { get; set; }
 
     /// <summary>
     /// Matches clash mode.
     /// </summary>
-    [JsonProperty("clash_mode")]
+    [JsonPropertyName("clash_mode")]
     public string? ClashMode { get; set; }
 
     /// <summary>
     /// Matches network types.
     /// </summary>
-    [JsonProperty("network_type")]
+    [JsonPropertyName("network_type")]
     public List<string>? NetworkType { get; set; }
 
     /// <summary>
     /// Matches if network is expensive.
     /// </summary>
-    [JsonProperty("network_is_expensive")]
+    [JsonPropertyName("network_is_expensive")]
     public bool? NetworkIsExpensive { get; set; }
 
     /// <summary>
     /// Matches if network is constrained.
     /// </summary>
-    [JsonProperty("network_is_constrained")]
+    [JsonPropertyName("network_is_constrained")]
     public bool? NetworkIsConstrained { get; set; }
 
     /// <summary>
     /// Matches Wifi SSIDs.
     /// </summary>
-    [JsonProperty("wifi_ssid")]
+    [JsonPropertyName("wifi_ssid")]
     public string? WifiSsid { get; set; }
 
     /// <summary>
     /// Matches Wifi BSSIDs.
     /// </summary>
-    [JsonProperty("wifi_bssid")]
+    [JsonPropertyName("wifi_bssid")]
     public string? WifiBssid { get; set; }
 
     /// <summary>
     /// Matches rule-sets.
     /// </summary>
-    [JsonProperty("rule_set")]
+    [JsonPropertyName("rule_set")]
     public List<string>? RuleSet { get; set; }
 
     /// <summary>
     /// Inverts the match.
     /// </summary>
-    [JsonProperty("invert")]
+    [JsonPropertyName("invert")]
     public bool? Invert { get; set; }
 
     /// <summary>
     /// Matches rule-set IP CIDR against source IP.
     /// </summary>
-    [JsonProperty("rule_set_ip_cidr_match_source")]
+    [JsonPropertyName("rule_set_ip_cidr_match_source")]
     public bool? RuleSetIpCidrMatchSource { get; set; }
 
     /// <summary>
     /// When true, DNS responses are evaluated.
     /// </summary>
-    [JsonProperty("match_response")]
+    [JsonPropertyName("match_response")]
     public bool? MatchResponse { get; set; }
 
     /// <summary>
     /// The action to perform.
     /// </summary>
-    [JsonProperty("action")]
+    [JsonPropertyName("action")]
     public DnsAction? Action { get; set; }
 }

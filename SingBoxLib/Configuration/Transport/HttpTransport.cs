@@ -16,36 +16,36 @@ public sealed class HttpTransport : TransportConfig
     /// <summary>
     /// Gets or sets the host header.
     /// </summary>
-    [JsonProperty("host")]
+    [JsonPropertyName("host")]
     public string? Host { get; set; }
 
     /// <summary>
     /// Gets or sets the HTTP request path.
     /// </summary>
-    [JsonProperty("path")]
+    [JsonPropertyName("path")]
     public string? Path { get; set; }
 
     /// <summary>
     /// Gets or sets the HTTP request method.
     /// </summary>
-    [JsonProperty("method")]
+    [JsonPropertyName("method")]
     public string? Method { get; set; }
 
     /// <summary>
     /// Gets or sets the custom HTTP headers.
     /// </summary>
-    [JsonProperty("headers")]
+    [JsonPropertyName("headers")]
     public List<string> Headers { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the idle timeout.
     /// </summary>
-    [JsonProperty("idle_timeout")]
+    [JsonPropertyName("idle_timeout")]
     public string? IdleTimeout { get; set; }
 
     /// <summary>
     /// Gets or sets the ping timeout.
     /// </summary>
-    [JsonProperty("ping_timeout")]
+    [JsonPropertyName("ping_timeout")]
     public string? PingTimeout { get; set; }
 }

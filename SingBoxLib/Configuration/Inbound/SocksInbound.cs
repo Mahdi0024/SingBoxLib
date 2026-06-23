@@ -19,6 +19,6 @@ public sealed class SocksInbound : InboundConfig
     /// List of users allowed to connect to this inbound configuration.
     /// No authentication required if empty.
     /// </summary>
-    [JsonProperty("users")]
+    [JsonPropertyName("users")]
     public List<ProxyUser>? Users { get; set; }
 }

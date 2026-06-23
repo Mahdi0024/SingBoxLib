@@ -2,9 +2,9 @@
 
 public class TrafficInfo
 {
-    [JsonProperty("up")]
+    [JsonPropertyName("up")]
     public int Up { get; set; }
 
-    [JsonProperty("down")]
+    [JsonPropertyName("down")]
     public int Down { get; set; }
 }
