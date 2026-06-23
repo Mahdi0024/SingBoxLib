@@ -1,4 +1,4 @@
-﻿namespace SingboxLib.Configuration.Endpoint.Abstract;
+﻿namespace SingBoxLib.Configuration.Endpoint.Abstract;
 public abstract class EndpointConfig : OutboundWithDialFields
 {
 }

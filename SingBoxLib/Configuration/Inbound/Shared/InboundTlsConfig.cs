@@ -1,4 +1,4 @@
-﻿namespace SingboxLib.Configuration.Inbound.Shared;
+﻿namespace SingBoxLib.Configuration.Inbound.Shared;
 
 /// <summary>
 /// Represents configuration for inbound TLS settings.

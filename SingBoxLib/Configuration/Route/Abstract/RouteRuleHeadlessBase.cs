@@ -1,4 +1,4 @@
-﻿namespace SingboxLib.Configuration.Route.Abstract;
+﻿namespace SingBoxLib.Configuration.Route.Abstract;
 public abstract class RouteRuleHeadlessBase:RouteRuleBase
 {
 }

@@ -1,4 +1,4 @@
-﻿namespace SingboxLib.Configuration.Inbound.Shared;
+﻿namespace SingBoxLib.Configuration.Inbound.Shared;
 
 public sealed class ProxyUserInbound
 {

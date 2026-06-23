@@ -1,4 +1,4 @@
-﻿namespace SingboxLib.Configuration.Dns;
+﻿namespace SingBoxLib.Configuration.Dns;
 public sealed class DnsAction
 {
     [JsonProperty("action")]

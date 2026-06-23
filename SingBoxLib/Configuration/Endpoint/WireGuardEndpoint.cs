@@ -1,4 +1,4 @@
-﻿namespace SingboxLib.Configuration.Endpoint;
+﻿namespace SingBoxLib.Configuration.Endpoint;
 public sealed class WireGuardEndpoint : EndpointConfig
 {
     [JsonProperty("system")]

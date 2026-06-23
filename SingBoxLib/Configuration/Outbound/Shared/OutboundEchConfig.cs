@@ -1,4 +1,4 @@
-﻿namespace SingboxLib.Configuration.Outbound.Shared;
+﻿namespace SingBoxLib.Configuration.Outbound.Shared;
 
 public sealed class OutboundEchConfig
 {

@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 
-namespace SingboxLib.Runtime.Api.Clash;
+namespace SingBoxLib.Runtime.Api.Clash;
 
 public class ClashApiWrapper : IDisposable
 {
