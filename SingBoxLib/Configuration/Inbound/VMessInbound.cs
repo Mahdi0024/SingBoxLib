@@ -1,7 +1,14 @@
 ﻿namespace SingBoxLib.Configuration.Inbound;
 
+/// <summary>
+/// Represents a VMess inbound configuration.
+/// </summary>
 public sealed class VMessInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VMessInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public VMessInbound(string? tag = null)
     {
         Type = "vmess";
@@ -26,11 +33,20 @@ public sealed class VMessInbound : InboundConfig
     public TransportConfig? Transport { get; set; }
 }
 
-public class VMessUser
+/// <summary>
+/// Represents a user for the VMess protocol.
+/// </summary>
+public sealed class VMessUser
 {
+    /// <summary>
+    /// Gets or sets the username.
+    /// </summary>
     [JsonProperty("name")]
     public required string Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the UUID.
+    /// </summary>
     [JsonProperty("uuid")]
     public required string Uuid { get; set; }
 

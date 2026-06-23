@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class SocksOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SocksOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public SocksOutbound(string? tag = null)
     {
         Type = "socks";
@@ -52,7 +56,7 @@ public sealed class SocksOutbound : OutboundWithDialFields
     /// <summary>
     /// UDP over TCP configuration.
     /// See <see href="http://sing-box.sagernet.org/configuration/shared/udp-over-tcp/">UDP Over TCP</see> for details.
-    /// Conflict with <see cref="Multiplex"/>.
+    /// Conflict with multiplex.
     /// </summary>
     [JsonProperty("udp_over_tcp")]
     public bool? UdpOverTcp { get; set; }

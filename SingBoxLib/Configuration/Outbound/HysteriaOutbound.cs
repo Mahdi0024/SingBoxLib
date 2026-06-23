@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class HysteriaOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HysteriaOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public HysteriaOutbound(string? tag = null)
     {
         Type = "hysteria";
@@ -46,7 +50,7 @@ public sealed class HysteriaOutbound : OutboundWithDialFields
     [JsonProperty("up_mbps")]
     public int? UpMbps { get; set; }
 
-    ///// <summary>
+    /// <summary>
     /// Format: [Integer] [Unit] e.g. 100 Mbps, 640 KBps, 2 Gbps.
     /// Supported units (case sensitive, b = bits, B = bytes, 8b=1B):
     /// bps (bits per second)

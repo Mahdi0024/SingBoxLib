@@ -1,13 +1,23 @@
 ﻿namespace SingBoxLib.Configuration.Inbound;
 
+/// <summary>
+/// Represents a VLESS inbound configuration.
+/// </summary>
 public sealed class VLessInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VLessInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public VLessInbound(string? tag = null)
     {
         Type = "vless";
         Tag = tag ?? "vless-in";
     }
 
+    /// <summary>
+    /// Gets or sets the list of users allowed to connect.
+    /// </summary>
     [JsonProperty("users")]
     public List<VLessUser>? Users { get; set; }
 
@@ -30,11 +40,20 @@ public sealed class VLessInbound : InboundConfig
     public MultiplexConfig? Multiplex { get; set; }
 }
 
-public class VLessUser
+/// <summary>
+/// Represents a user for the VLESS protocol.
+/// </summary>
+public sealed class VLessUser
 {
+    /// <summary>
+    /// Gets or sets the username.
+    /// </summary>
     [JsonProperty("name")]
     public string? Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the UUID.
+    /// </summary>
     [JsonProperty("uuid")]
     public string? Uuid { get; set; }
 

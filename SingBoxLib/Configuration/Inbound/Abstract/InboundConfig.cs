@@ -1,10 +1,19 @@
 ﻿namespace SingBoxLib.Configuration.Inbound.Abstract;
 
+/// <summary>
+/// Represents the base class for inbound configurations.
+/// </summary>
 public abstract class InboundConfig
 {
+    /// <summary>
+    /// Gets or sets the inbound type.
+    /// </summary>
     [JsonProperty("type")]
     public string? Type { get; internal set; }
 
+    /// <summary>
+    /// Gets or sets the unique tag for the inbound.
+    /// </summary>
     [JsonProperty("tag")]
     public string? Tag { get; set; }
 

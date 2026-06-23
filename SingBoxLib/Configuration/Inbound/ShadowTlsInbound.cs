@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class ShadowTlsInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ShadowTlsInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public ShadowTlsInbound(string? tag = null)
     {
         Type = "shadowtls";

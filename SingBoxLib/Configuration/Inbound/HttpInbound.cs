@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class HttpInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HttpInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public HttpInbound(string? tag = null)
     {
         Type = "http";

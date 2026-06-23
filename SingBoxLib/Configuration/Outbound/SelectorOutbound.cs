@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class SelectorOutbound : OutboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SelectorOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public SelectorOutbound(string? tag = null)
     {
         Type = "selector";

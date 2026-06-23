@@ -44,13 +44,6 @@ public sealed class DnsConfig
     public bool? DisableExpire { get; set; }
 
     /// <summary>
-    /// Make each DNS server's cache independent for special purposes. 
-    /// If enabled, will slightly degrade performance.
-    /// </summary>
-    [JsonProperty("independent_cache")]
-    public bool? IndependentCache { get; set; }
-
-    /// <summary>
     /// LRU cache capacity. 
     /// Value less than 1024 will be ignored.
     /// </summary>
@@ -83,10 +76,28 @@ public sealed class DnsConfig
     [JsonProperty("fakeip")]
     public FakeIp? Fakeip { get; set; }
 }
+/// <summary>
+/// Constants representing DNS domain strategy.
+/// </summary>
 public static class DnsStrategy
 {
+    /// <summary>
+    /// Prefer resolving IPv4 addresses.
+    /// </summary>
     public const string PreferIpv4 = "prefer_ipv4";
+
+    /// <summary>
+    /// Prefer resolving IPv6 addresses.
+    /// </summary>
     public const string PreferIpv6 = "prefer_ipv6";
+
+    /// <summary>
+    /// Resolve IPv4 addresses only.
+    /// </summary>
     public const string Ipv4Only = "ipv4_only";
+
+    /// <summary>
+    /// Resolve IPv6 addresses only.
+    /// </summary>
     public const string Ipv6Only = "ipv6_only";
 }

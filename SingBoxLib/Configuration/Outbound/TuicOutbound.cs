@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class TuicOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TuicOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public TuicOutbound(string? tag = null)
     {
         Type = "tuic";
@@ -61,9 +65,15 @@ public sealed class TuicOutbound : OutboundWithDialFields
     [JsonProperty("udp_over_stream")]
     public bool? UdpOverStream { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether to use 0-RTT handshake.
+    /// </summary>
     [JsonProperty("zero_rtt_handshake")]
     public bool? ZeroRttHandshake { get; set; }
 
+    /// <summary>
+    /// Gets or sets the heartbeat interval.
+    /// </summary>
     [JsonProperty("heartbeat")]
     public string? Heartbeat { get; set; }
 

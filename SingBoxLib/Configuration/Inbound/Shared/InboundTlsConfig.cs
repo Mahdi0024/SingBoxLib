@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents configuration for inbound TLS settings.
 /// </summary>
-public class InboundTlsConfig
+public sealed class InboundTlsConfig
 {
     /// <summary>
     /// Indicates whether TLS is enabled.
@@ -74,12 +74,6 @@ public class InboundTlsConfig
     public string? KeyPath { get; set; }
 
     /// <summary>
-    /// Configuration for ACME (Automatic Certificate Management Environment).
-    /// </summary>
-    [JsonProperty("acme")]
-    public InboundAcmeConfig? Acme { get; set; }
-
-    /// <summary>
     /// Configuration for ECH (Encrypted Client Hello).
     /// </summary>
     [JsonProperty("ech")]
@@ -90,4 +84,16 @@ public class InboundTlsConfig
     /// </summary>
     [JsonProperty("reality")]
     public InboundRealityConfig? Reality { get; set; }
+
+    /// <summary>
+    /// Inline certificate provider configuration.
+    /// </summary>
+    [JsonProperty("certificate_provider")]
+    public object? CertificateProvider { get; set; }
+
+    /// <summary>
+    /// The tag of a shared certificate provider.
+    /// </summary>
+    [JsonProperty("certificate_provider_tag")]
+    public string? CertificateProviderTag { get; set; }
 }

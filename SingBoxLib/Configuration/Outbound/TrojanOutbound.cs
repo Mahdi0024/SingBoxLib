@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class TrojanOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TrojanOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public TrojanOutbound(string? tag = null)
     {
         Type = "trojan";

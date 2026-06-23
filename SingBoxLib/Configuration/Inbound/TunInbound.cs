@@ -1,7 +1,14 @@
 ﻿namespace SingBoxLib.Configuration.Inbound;
 
+/// <summary>
+/// Represents a Tun inbound configuration.
+/// </summary>
 public sealed class TunInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TunInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public TunInbound(string? tag = null)
     {
         Type = "tun";
@@ -157,7 +164,7 @@ public sealed class TunInbound : InboundConfig
 
     /// <summary>
     /// Limit android packages in route.
-    /// </summary
+    /// </summary>
     [JsonProperty("exclude_package")]
     public List<string>? ExcludePackage { get; set; }
 
@@ -186,34 +193,71 @@ public sealed class TunInbound : InboundConfig
     public TunPlatformSettings? Platform { get; set; }
 }
 
+/// <summary>
+/// Represents platform-specific settings for the TUN interface.
+/// </summary>
 public sealed class TunPlatformSettings
 {
-
+    /// <summary>
+    /// Gets or sets the HTTP proxy settings.
+    /// </summary>
     [JsonProperty("http_proxy")]
     public TunPlatformHttpServer? HttpProxy { get; set; }
+
+    /// <summary>
+    /// Represents the HTTP server settings for the TUN platform.
+    /// </summary>
     public sealed class TunPlatformHttpServer
     {
+        /// <summary>
+        /// Gets or sets whether the HTTP proxy server is enabled.
+        /// </summary>
         [JsonProperty("enabled")]
         public bool? Enabled { get; set; }
 
+        /// <summary>
+        /// Gets or sets the HTTP proxy server address.
+        /// </summary>
         [JsonProperty("server")]
         public string? Server { get; set; }
 
+        /// <summary>
+        /// Gets or sets the HTTP proxy server port.
+        /// </summary>
         [JsonProperty("server_port")]
         public int? ServerPort { get; set; }
 
+        /// <summary>
+        /// Gets or sets the domains to match for the proxy.
+        /// </summary>
         [JsonProperty("match_domain")]
         public List<string>? MatchDomain { get; set; }
 
+        /// <summary>
+        /// Gets or sets the domains to bypass the proxy.
+        /// </summary>
         [JsonProperty("bypass_domain")]
         public List<string>? BypassDomain { get; set; }
-
     }
 }
 
+/// <summary>
+/// Constants representing the network stacks supported by the TUN interface.
+/// </summary>
 public static class TunStacks
 {
+    /// <summary>
+    /// Use the system TCP/IP stack.
+    /// </summary>
     public const string System = "system";
+
+    /// <summary>
+    /// Use the gVisor user-space TCP/IP stack.
+    /// </summary>
     public const string gVisor = "gvisor";
+
+    /// <summary>
+    /// Use a mixed TCP/IP stack.
+    /// </summary>
     public const string Mixed = "mixed";
 }

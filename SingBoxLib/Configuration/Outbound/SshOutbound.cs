@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class SshOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SshOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public SshOutbound(string? tag = null)
     {
         Type = "ssh";

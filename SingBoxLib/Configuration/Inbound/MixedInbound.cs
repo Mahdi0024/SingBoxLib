@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class MixedInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MixedInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public MixedInbound(string? tag = null)
     {
         Type = "mixed";

@@ -1,5 +1,8 @@
 ﻿namespace SingBoxLib.Configuration.Log;
 
+/// <summary>
+/// Represents the configuration for sing-box logging.
+/// </summary>
 public sealed class LogConfig
 {
     /// <summary>
@@ -26,13 +29,43 @@ public sealed class LogConfig
     [JsonProperty("timestamp")]
     public bool? Timestamp { get; set; }
 }
+/// <summary>
+/// Predefined log level constants.
+/// </summary>
 public static class LogLevels
 {
+    /// <summary>
+    /// Trace log level.
+    /// </summary>
     public const string Trace = "trace";
+
+    /// <summary>
+    /// Debug log level.
+    /// </summary>
     public const string Debug = "debug";
+
+    /// <summary>
+    /// Info log level.
+    /// </summary>
     public const string Info = "info";
+
+    /// <summary>
+    /// Warn log level.
+    /// </summary>
     public const string Warn = "warn";
+
+    /// <summary>
+    /// Error log level.
+    /// </summary>
     public const string Error = "error";
+
+    /// <summary>
+    /// Fatal log level.
+    /// </summary>
     public const string Fatal = "fatal";
+
+    /// <summary>
+    /// Panic log level.
+    /// </summary>
     public const string Panic = "panic";
 }

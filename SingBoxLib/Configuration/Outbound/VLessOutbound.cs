@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class VLessOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VLessOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public VLessOutbound(string? tag = null)
     {
         Type = "vless";

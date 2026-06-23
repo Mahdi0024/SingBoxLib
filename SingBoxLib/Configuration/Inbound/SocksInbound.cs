@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class SocksInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SocksInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public SocksInbound(string? tag = null)
     {
         Type = "socks";

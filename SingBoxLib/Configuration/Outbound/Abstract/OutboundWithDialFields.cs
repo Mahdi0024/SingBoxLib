@@ -69,11 +69,10 @@ public abstract class OutboundWithDialFields : OutboundConfig
     public string? ConnectTimeout { get; set; }
 
     /// <summary>
-    /// Domain strategy. Available values: prefer_ipv4, prefer_ipv6, ipv4_only, ipv6_only.
-    /// If set, the requested domain name will be resolved to IP before connect.
+    /// Domain resolver.
     /// </summary>
-    [JsonProperty("domain_strategy")]
-    public string? DomainStrategy { get; set; }
+    [JsonProperty("domain_resolver")]
+    public object? DomainResolver { get; set; }
 
     /// <summary>
     /// Network types to use when using default or hybrid network strategy or preferred network types to

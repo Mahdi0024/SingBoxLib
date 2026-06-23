@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class ShadowsocksOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ShadowsocksOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public ShadowsocksOutbound(string? tag = null)
     {
         Type = "shadowsocks";

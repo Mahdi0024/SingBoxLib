@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class DirectInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DirectInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public DirectInbound(string? tag = null)
     {
         Type = "direct";

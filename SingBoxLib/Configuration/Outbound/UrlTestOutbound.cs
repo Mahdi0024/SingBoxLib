@@ -1,7 +1,14 @@
 ﻿namespace SingBoxLib.Configuration.Outbound;
 
+/// <summary>
+/// Represents a URL-test outbound configuration.
+/// </summary>
 public sealed class UrlTestOutbound : OutboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UrlTestOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public UrlTestOutbound(string? tag = null)
     {
         Type = "urltest";

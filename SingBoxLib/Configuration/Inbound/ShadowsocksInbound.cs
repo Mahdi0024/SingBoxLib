@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class ShadowsocksInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ShadowsocksInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public ShadowsocksInbound(string? tag = null)
     {
         Type = "shadowsocks";
@@ -33,6 +37,9 @@ public sealed class ShadowsocksInbound : InboundConfig
     public List<ProxyUserInbound>? Users { get; set; }
 
 
+    /// <summary>
+    /// Gets or sets the multiplex configuration.
+    /// </summary>
     [JsonProperty("multiplex")]
     public MultiplexConfig? Multiplex { get; set; }
 }

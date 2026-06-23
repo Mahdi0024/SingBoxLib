@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class HttpOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HttpOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public HttpOutbound(string? tag = null)
     {
         Type = "http";

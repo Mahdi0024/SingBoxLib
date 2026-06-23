@@ -1,5 +1,8 @@
 ﻿namespace SingBoxLib.Configuration.Shared;
 
+/// <summary>
+/// Represents Hysteria 2 obfuscation configuration.
+/// </summary>
 public sealed class Hysteria2Obfs
 {
     /// <summary>

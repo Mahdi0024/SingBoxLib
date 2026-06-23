@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class Hysteria2Outbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Hysteria2Outbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public Hysteria2Outbound(string? tag = null)
     {
         Type = "hysteria2";

@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class HysteriaInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HysteriaInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public HysteriaInbound(string? tag = null)
     {
         Type = "hysteria";
@@ -114,7 +118,7 @@ public sealed class HysteriaInbound : InboundConfig
 /// <summary>
 /// Represents a user configuration for Hysteria.
 /// </summary>
-public class HysteriaUser
+public sealed class HysteriaUser
 {
     /// <summary>
     /// User name or identifier.

@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class Hysteria2Inbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Hysteria2Inbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public Hysteria2Inbound(string? tag = null)
     {
         Type = "hysteria2";
@@ -80,7 +84,7 @@ public sealed class Hysteria2Inbound : InboundConfig
 /// <summary>
 /// Represents configuration for masquerading HTTP server behavior.
 /// </summary>
-public class Hysteria2Masquerade
+public sealed class Hysteria2Masquerade
 {
     /// <summary>
     /// The network scheme to use (e.g., "file", "http", "https").

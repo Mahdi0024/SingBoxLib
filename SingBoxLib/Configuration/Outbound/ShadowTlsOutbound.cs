@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class ShadowTlsOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ShadowTlsOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public ShadowTlsOutbound(string? tag = null)
     {
         Type = "shadowtls";

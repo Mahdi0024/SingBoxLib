@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class TuicInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TuicInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public TuicInbound(string? tag = null)
     {
         Type = "tuic";
@@ -55,11 +59,20 @@ public sealed class TuicInbound : InboundConfig
     public InboundTlsConfig? Tls { get; set; }
 }
 
-public class TuicUser
+/// <summary>
+/// Represents a user configuration for Tuic.
+/// </summary>
+public sealed class TuicUser
 {
+    /// <summary>
+    /// Gets or sets the UUID.
+    /// </summary>
     [JsonProperty("uuid")]
     public string? Uuid { get; set; }
 
+    /// <summary>
+    /// Gets or sets the password.
+    /// </summary>
     [JsonProperty("password")]
     public string? Password { get; set; }
 }

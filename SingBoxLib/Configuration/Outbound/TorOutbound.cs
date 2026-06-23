@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class TorOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TorOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public TorOutbound(string? tag = null)
     {
         Type = "tor";
@@ -38,8 +42,14 @@ public sealed class TorOutbound : OutboundWithDialFields
     public Torrc? Torrc { get; set; }
 }
 
+/// <summary>
+/// Represents torrc configuration options.
+/// </summary>
 public sealed class Torrc
 {
+    /// <summary>
+    /// Gets or sets ClientOnly option.
+    /// </summary>
     [JsonProperty("ClientOnly")]
     public int? ClientOnly { get; set; }
 }

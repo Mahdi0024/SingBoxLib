@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class VMessOutbound : OutboundWithDialFields
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VMessOutbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional outbound tag.</param>
     public VMessOutbound(string? tag = null)
     {
         Type = "vmess";
@@ -76,14 +80,38 @@ public sealed class VMessOutbound : OutboundWithDialFields
     [JsonProperty("multiplex")]
     public MultiplexConfig? Multiplex { get; set; }
 }
+/// <summary>
+/// Constants representing VMess security methods.
+/// </summary>
 public static class VMessSecurity
 {
+    /// <summary>
+    /// Auto encryption selector.
+    /// </summary>
     public static readonly string Auto = "auto";
+
+    /// <summary>
+    /// No encryption.
+    /// </summary>
     public static readonly string None = "none";
+
+    /// <summary>
+    /// Zero encryption.
+    /// </summary>
     public static readonly string Zero = "zero";
+
+    /// <summary>
+    /// AES-128-GCM encryption.
+    /// </summary>
     public static readonly string Aes128Gcm = "aes-128-gcm";
+
+    /// <summary>
+    /// ChaCha20-Poly1305 encryption.
+    /// </summary>
     public static readonly string Chacha20Poly1305 = "chacha20-poly1305";
 
-    // Legacy encryption methods
+    /// <summary>
+    /// AES-128-CTR encryption (legacy).
+    /// </summary>
     public static readonly string Aes128Ctr = "aes-128-ctr";
 }

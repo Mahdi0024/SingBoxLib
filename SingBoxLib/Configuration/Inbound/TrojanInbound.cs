@@ -6,6 +6,10 @@
 public sealed class TrojanInbound : InboundConfig
 {
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TrojanInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public TrojanInbound(string? tag = null)
     {
         Type = "trojan";

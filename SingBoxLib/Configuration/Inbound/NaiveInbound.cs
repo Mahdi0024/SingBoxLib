@@ -5,6 +5,10 @@
 /// </summary>
 public sealed class NaiveInbound : InboundConfig
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NaiveInbound"/> class.
+    /// </summary>
+    /// <param name="tag">The optional inbound tag.</param>
     public NaiveInbound(string? tag = null)
     {
         Type = "naive";
