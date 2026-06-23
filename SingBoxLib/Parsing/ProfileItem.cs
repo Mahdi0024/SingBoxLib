@@ -75,7 +75,7 @@ public class ProfileItem : IEquatable<ProfileItem>
             {
                 Server = Address,
                 Port = (int)Port,
-                Password = Id,
+                Password = Id!,
                 Transport = ParseTransport()!,
                 Tls = ParseTls()!,
             },
@@ -83,7 +83,7 @@ public class ProfileItem : IEquatable<ProfileItem>
             {
                 Server = Address,
                 ServerPort = (int)Port,
-                Uuid = Id,
+                Uuid = Id!,
                 Security = Encryption,
                 AlterId = AlterId,
                 Transport = ParseTransport(),
@@ -131,7 +131,7 @@ public class ProfileItem : IEquatable<ProfileItem>
                 Server = Address,
                 ServerPort = (int)Port,
                 Password = Password,
-                Uuid = Id,
+                Uuid = Id!,
                 CongestionControl = CongestionControl,
                 UdpRelayMode = UdpRelayMode,
                 Tls = ParseTls(),

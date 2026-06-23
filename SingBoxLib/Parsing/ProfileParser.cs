@@ -35,8 +35,15 @@ public static class ProfileParser
         {
             var profile = ParseProfileUrl(new Uri(url));
             profile.Type = ProfileType.Tuic;
-            var indexOfDoubleCoatation = profile.Id!.IndexOf(':');
-            (profile.Id, profile.Password) = (profile.Id!.Substring(0, indexOfDoubleCoatation), profile.Id!.Substring(indexOfDoubleCoatation + 1));
+
+            var indexOfSeparator = profile.Id?.IndexOf(':') ?? -1;
+            if (indexOfSeparator < 0)
+            {
+                return profile;
+            }
+
+            profile.Password = profile.Id!.Substring(indexOfSeparator + 1);
+            profile.Id = profile.Id!.Substring(0, indexOfSeparator);
             return profile;
         }
         if (url.StartsWith(Hysteria2Protocol))
@@ -80,11 +87,22 @@ public static class ProfileParser
         var address = url.IdnHost;
         var port = (ushort)url.Port;
         var name = url.GetComponents(UriComponents.Fragment, UriFormat.Unescaped);
+        var security = tls ? "tls" : null;
+
+        if (string.IsNullOrEmpty(url.UserInfo))
+        {
+            return new ProfileItem
+            {
+                Address = address,
+                Port = port,
+                Security = security,
+                Name = name
+            };
+        }
 
         var userPass = url.UserInfo.Split(':');
         var username = userPass[0];
-        var password = userPass[1];
-        var security = tls ? "tls" : null;
+        var password = userPass.Length > 1 ? userPass[1] : null;
 
         return new ProfileItem
         {
@@ -93,6 +111,7 @@ public static class ProfileParser
             Id = username,
             Password = password,
             Security = security,
+            Name = name
         };
     }
 
@@ -103,9 +122,20 @@ public static class ProfileParser
         var port = (ushort)url.Port;
         var name = url.GetComponents(UriComponents.Fragment, UriFormat.Unescaped);
 
+        if (string.IsNullOrEmpty(url.UserInfo))
+        {
+            return new ProfileItem
+            {
+                Address = address,
+                Port = port,
+                Version = version,
+                Name = name
+            };
+        }
+
         var userPass = url.UserInfo.Split(':');
         var username = userPass[0];
-        var password = userPass[1];
+        var password = userPass.Length > 1 ? userPass[1] : null;
 
         return new ProfileItem
         {
@@ -113,7 +143,8 @@ public static class ProfileParser
             Port = port,
             Id = username,
             Password = password,
-            Version = version
+            Version = version,
+            Name = name
         };
     }
 
@@ -177,7 +208,7 @@ public static class ProfileParser
             var data = dataAndName[0];
             var name = dataAndName[1];
 
-            return (data, name);
+            return (data, HttpUtility.UrlDecode(name));
         }
         (string data, string plugin, string pluginArgs) GetDataPlugin(string rawData)
         {

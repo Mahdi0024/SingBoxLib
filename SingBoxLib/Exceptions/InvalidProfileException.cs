@@ -1,7 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿namespace SingBoxLib.Exceptions;
 
-namespace SingBoxLib.Exceptions;
-[Serializable]
 internal class InvalidProfileException : Exception
 {
     public InvalidProfileException()
@@ -13,10 +11,6 @@ internal class InvalidProfileException : Exception
     }
 
     public InvalidProfileException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-
-    protected InvalidProfileException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
     }
 }

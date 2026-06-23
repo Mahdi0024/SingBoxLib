@@ -7,14 +7,12 @@ using SingBoxLib.Runtime.Api.Clash.Models;
 
 namespace SingBoxLib.Runtime.Api.Clash;
 
-public class ClashApiWrapper : IDisposable
+public sealed class ClashApiWrapper : IDisposable
 {
-    private HttpClient _client;
-    private string _apiUrl;
+    private readonly HttpClient _client;
 
     public ClashApiWrapper(string apiUrl, string? secret = null)
     {
-        _apiUrl = apiUrl;
         _client = new HttpClient();
         _client.BaseAddress = new Uri(apiUrl);
         if (secret is not null)
@@ -26,32 +24,27 @@ public class ClashApiWrapper : IDisposable
     public void Dispose()
     {
         _client.Dispose();
-        GC.SuppressFinalize(this);
     }
 
     public async IAsyncEnumerable<LogInfo> GetLogs([EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        using var stream = await _client.GetStreamAsync("/logs", cancellationToken);
-        using (var reader = new StreamReader(stream))
+        await using var stream = await _client.GetStreamAsync("/logs", cancellationToken);
+        using var       reader = new StreamReader(stream);
+        while (!reader.EndOfStream)
         {
-            while (!reader.EndOfStream)
-            {
-                var update = await reader.ReadLineAsync(cancellationToken);
-                yield return JsonSerializer.Deserialize(update!, SingBoxJsonContext.Default.LogInfo)!;
-            }
+            var update = await reader.ReadLineAsync(cancellationToken);
+            yield return JsonSerializer.Deserialize(update!, SingBoxJsonContext.Default.LogInfo)!;
         }
     }
 
     public async IAsyncEnumerable<TrafficInfo> GetTraffic([EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        using var stream = await _client.GetStreamAsync("/traffic", cancellationToken);
-        using (var reader = new StreamReader(stream))
+        await using var stream = await _client.GetStreamAsync("/traffic", cancellationToken);
+        using var       reader = new StreamReader(stream);
+        while (!reader.EndOfStream)
         {
-            while (!reader.EndOfStream)
-            {
-                var update = await reader.ReadLineAsync(cancellationToken);
-                yield return JsonSerializer.Deserialize(update!, SingBoxJsonContext.Default.TrafficInfo)!;
-            }
+            var update = await reader.ReadLineAsync(cancellationToken);
+            yield return JsonSerializer.Deserialize(update!, SingBoxJsonContext.Default.TrafficInfo)!;
         }
     }
 

@@ -25,7 +25,7 @@ public sealed class TunInbound : InboundConfig
     /// IPv4 and IPv6 prefix for the tun interface.
     /// </summary>
     [JsonPropertyName("address")]
-    public List<string> Address { get; set; }
+    public List<string>? Address { get; set; }
 
     /// <summary>
     /// The maximum transmission unit for the tun interface.

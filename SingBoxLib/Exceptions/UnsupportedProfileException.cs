@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace SingBoxLib.Exceptions;
+﻿namespace SingBoxLib.Exceptions;
 
 public sealed class UnsupportedProfileException : Exception
 {
@@ -13,10 +11,6 @@ public sealed class UnsupportedProfileException : Exception
     }
 
     public UnsupportedProfileException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-
-    protected UnsupportedProfileException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
     }
 }
