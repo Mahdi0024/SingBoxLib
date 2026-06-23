@@ -3,28 +3,29 @@
 /// <summary>
 /// Represents the base class for inbound configurations.
 /// </summary>
-[JsonDerivedType(typeof(DirectInbound))]
-[JsonDerivedType(typeof(HttpInbound))]
-[JsonDerivedType(typeof(HysteriaInbound))]
-[JsonDerivedType(typeof(Hysteria2Inbound))]
-[JsonDerivedType(typeof(MixedInbound))]
-[JsonDerivedType(typeof(NaiveInbound))]
-[JsonDerivedType(typeof(RedirectInbound))]
-[JsonDerivedType(typeof(ShadowsocksInbound))]
-[JsonDerivedType(typeof(ShadowTlsInbound))]
-[JsonDerivedType(typeof(SocksInbound))]
-[JsonDerivedType(typeof(TransparentProxyInbound))]
-[JsonDerivedType(typeof(TrojanInbound))]
-[JsonDerivedType(typeof(TuicInbound))]
-[JsonDerivedType(typeof(TunInbound))]
-[JsonDerivedType(typeof(VLessInbound))]
-[JsonDerivedType(typeof(VMessInbound))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+[JsonDerivedType(typeof(DirectInbound), "direct")]
+[JsonDerivedType(typeof(HttpInbound), "http")]
+[JsonDerivedType(typeof(HysteriaInbound), "hysteria")]
+[JsonDerivedType(typeof(Hysteria2Inbound), "hysteria2")]
+[JsonDerivedType(typeof(MixedInbound), "mixed")]
+[JsonDerivedType(typeof(NaiveInbound), "naive")]
+[JsonDerivedType(typeof(RedirectInbound), "redirect")]
+[JsonDerivedType(typeof(ShadowsocksInbound), "shadowsocks")]
+[JsonDerivedType(typeof(ShadowTlsInbound), "shadowtls")]
+[JsonDerivedType(typeof(SocksInbound), "socks")]
+[JsonDerivedType(typeof(TransparentProxyInbound), "tproxy")]
+[JsonDerivedType(typeof(TrojanInbound), "trojan")]
+[JsonDerivedType(typeof(TuicInbound), "tuic")]
+[JsonDerivedType(typeof(TunInbound), "tun")]
+[JsonDerivedType(typeof(VLessInbound), "vless")]
+[JsonDerivedType(typeof(VMessInbound), "vmess")]
 public abstract class InboundConfig
 {
     /// <summary>
     /// Gets or sets the inbound type.
     /// </summary>
-    [JsonPropertyName("type")]
+    [JsonIgnore]
     public string? Type { get; internal set; }
 
     /// <summary>

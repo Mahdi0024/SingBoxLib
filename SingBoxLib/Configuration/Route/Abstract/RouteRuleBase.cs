@@ -3,8 +3,7 @@
 /// <summary>
 /// Represents the base class for route rules.
 /// </summary>
-[JsonDerivedType(typeof(RouteRule))]
-[JsonDerivedType(typeof(RouteLogicalRule))]
+[JsonConverter(typeof(RouteRuleBaseConverter))]
 public abstract class RouteRuleBase
 {
 }

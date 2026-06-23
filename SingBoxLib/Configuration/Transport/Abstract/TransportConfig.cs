@@ -3,16 +3,17 @@
 /// <summary>
 /// Represents the base class for V2Ray transport configurations.
 /// </summary>
-[JsonDerivedType(typeof(GrpcTransport))]
-[JsonDerivedType(typeof(HttpTransport))]
-[JsonDerivedType(typeof(HttpUpgradeTransport))]
-[JsonDerivedType(typeof(QuicTransport))]
-[JsonDerivedType(typeof(WebSocketTransport))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+[JsonDerivedType(typeof(GrpcTransport), "grpc")]
+[JsonDerivedType(typeof(HttpTransport), "http")]
+[JsonDerivedType(typeof(HttpUpgradeTransport), "httpupgrade")]
+[JsonDerivedType(typeof(QuicTransport), "quic")]
+[JsonDerivedType(typeof(WebSocketTransport), "ws")]
 public abstract class TransportConfig
 {
     /// <summary>
     /// Gets or sets the transport type.
     /// </summary>
-    [JsonPropertyName("type")]
+    [JsonIgnore]
     public string? Type { get; set; }
 }

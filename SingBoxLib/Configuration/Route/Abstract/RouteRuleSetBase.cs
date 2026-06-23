@@ -3,15 +3,16 @@
 /// <summary>
 /// Represents the base class for route rule-sets.
 /// </summary>
-[JsonDerivedType(typeof(RouteRuleSetInline))]
-[JsonDerivedType(typeof(RouteRuleSetLocal))]
-[JsonDerivedType(typeof(RouteRuleSetRemote))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+[JsonDerivedType(typeof(RouteRuleSetInline), "inline")]
+[JsonDerivedType(typeof(RouteRuleSetLocal), "local")]
+[JsonDerivedType(typeof(RouteRuleSetRemote), "remote")]
 public abstract class RouteRuleSetBase
 {
     /// <summary>
     /// Gets or sets the rule-set type.
     /// </summary>
-    [JsonPropertyName("type")]
+    [JsonIgnore]
     public string Type { get; internal set; } = default!;
 
     /// <summary>

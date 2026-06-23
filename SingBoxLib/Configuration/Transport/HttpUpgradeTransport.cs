@@ -1,5 +1,5 @@
 ﻿namespace SingBoxLib.Configuration.Transport;
-internal class HttpUpgradeTransport : TransportConfig
+public class HttpUpgradeTransport : TransportConfig
 {
     public HttpUpgradeTransport()
     {

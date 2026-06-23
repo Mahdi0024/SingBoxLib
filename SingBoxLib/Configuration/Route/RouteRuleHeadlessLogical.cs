@@ -1,5 +1,5 @@
 ﻿namespace SingBoxLib.Configuration.Route;
-internal class RouteRuleHeadlessLogical : RouteRuleHeadlessBase
+public class RouteRuleHeadlessLogical : RouteRuleHeadlessBase
 {
     public RouteRuleHeadlessLogical()
     {

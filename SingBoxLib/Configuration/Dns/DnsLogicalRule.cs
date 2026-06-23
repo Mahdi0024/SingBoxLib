@@ -9,7 +9,7 @@ public sealed class DnsLogicalRule : DnsRuleBase
     /// Gets or sets the type of rule, which should be logical.
     /// </summary>
     [JsonPropertyName("type")]
-    public string? Type { get; set; }
+    public string? Type { get; set; } = "logical";
 
     /// <summary>
     /// Gets or sets the logical evaluation mode (e.g., and, or).

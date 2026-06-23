@@ -1,10 +1,11 @@
-﻿namespace SingBoxLib.Configuration.Dns.Abstract;
+﻿using System.Text.Json.Serialization;
+
+namespace SingBoxLib.Configuration.Dns.Abstract;
 
 /// <summary>
 /// Represents the base class for DNS rules in the sing-box configuration.
 /// </summary>
-[JsonDerivedType(typeof(DnsRule))]
-[JsonDerivedType(typeof(DnsLogicalRule))]
+[JsonConverter(typeof(DnsRuleBaseConverter))]
 public abstract class DnsRuleBase
 {
 }

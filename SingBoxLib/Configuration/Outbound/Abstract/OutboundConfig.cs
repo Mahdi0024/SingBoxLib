@@ -3,27 +3,28 @@
 /// <summary>
 /// Represents the base class for outbound configurations.
 /// </summary>
-[JsonDerivedType(typeof(DirectOutbound))]
-[JsonDerivedType(typeof(HttpOutbound))]
-[JsonDerivedType(typeof(HysteriaOutbound))]
-[JsonDerivedType(typeof(Hysteria2Outbound))]
-[JsonDerivedType(typeof(SelectorOutbound))]
-[JsonDerivedType(typeof(ShadowsocksOutbound))]
-[JsonDerivedType(typeof(ShadowTlsOutbound))]
-[JsonDerivedType(typeof(SocksOutbound))]
-[JsonDerivedType(typeof(SshOutbound))]
-[JsonDerivedType(typeof(TorOutbound))]
-[JsonDerivedType(typeof(TrojanOutbound))]
-[JsonDerivedType(typeof(TuicOutbound))]
-[JsonDerivedType(typeof(UrlTestOutbound))]
-[JsonDerivedType(typeof(VLessOutbound))]
-[JsonDerivedType(typeof(VMessOutbound))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+[JsonDerivedType(typeof(DirectOutbound), "direct")]
+[JsonDerivedType(typeof(HttpOutbound), "http")]
+[JsonDerivedType(typeof(HysteriaOutbound), "hysteria")]
+[JsonDerivedType(typeof(Hysteria2Outbound), "hysteria2")]
+[JsonDerivedType(typeof(SelectorOutbound), "selector")]
+[JsonDerivedType(typeof(ShadowsocksOutbound), "shadowsocks")]
+[JsonDerivedType(typeof(ShadowTlsOutbound), "shadowtls")]
+[JsonDerivedType(typeof(SocksOutbound), "socks")]
+[JsonDerivedType(typeof(SshOutbound), "ssh")]
+[JsonDerivedType(typeof(TorOutbound), "tor")]
+[JsonDerivedType(typeof(TrojanOutbound), "trojan")]
+[JsonDerivedType(typeof(TuicOutbound), "tuic")]
+[JsonDerivedType(typeof(UrlTestOutbound), "urltest")]
+[JsonDerivedType(typeof(VLessOutbound), "vless")]
+[JsonDerivedType(typeof(VMessOutbound), "vmess")]
 public abstract class OutboundConfig
 {
     /// <summary>
     /// Gets or sets the outbound type.
     /// </summary>
-    [JsonPropertyName("type")]
+    [JsonIgnore]
     public string? Type { get; internal set; }
 
     /// <summary>

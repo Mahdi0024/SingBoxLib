@@ -1,8 +1,11 @@
-﻿namespace SingBoxLib.Configuration.Route.Abstract;
+﻿using System.Text.Json.Serialization;
+
+namespace SingBoxLib.Configuration.Route.Abstract;
+
 /// <summary>
 /// Represents the base class for headless route rules.
 /// </summary>
-public abstract class RouteRuleHeadlessBase:RouteRuleBase
+[JsonConverter(typeof(RouteRuleHeadlessBaseConverter))]
+public abstract class RouteRuleHeadlessBase : RouteRuleBase
 {
 }
-

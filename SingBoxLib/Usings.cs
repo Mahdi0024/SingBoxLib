@@ -16,12 +16,11 @@ global using SingBoxLib.Configuration.Shared;
 global using SingBoxLib.Configuration.Transport.Abstract;
 global using SingBoxLib.Configuration.Transport;
 global using SingBoxLib.Configuration;
+global using SingBoxLib.Configuration.Serialization;
 global using SingBoxLib.Exceptions;
 global using SingBoxLib.Parsing.ProfileModels;
 global using SingBoxLib.Parsing;
 global using SingBoxLib.Runtime.Api.Clash.Models;
-global using SingBoxLib.Runtime.Testing;
-global using SingBoxLib.Runtime;
 global using SingBoxLib.Configuration.Endpoint.Abstract;
 global using SingBoxLib.Configuration.Endpoint;
 global using SingBoxLib.Configuration.Outbound.Shared;
@@ -34,3 +33,5 @@ global using System.Reflection;
 global using System.Text;
 global using System.Threading.Tasks;
 global using System;
+
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SingBoxLib.Tests")]

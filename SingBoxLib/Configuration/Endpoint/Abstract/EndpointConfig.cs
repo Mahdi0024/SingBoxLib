@@ -1,8 +1,9 @@
 ﻿namespace SingBoxLib.Configuration.Endpoint.Abstract;
+
 /// <summary>
 /// Represents the base class for endpoint configurations.
 /// </summary>
-[JsonDerivedType(typeof(WireGuardEndpoint))]
+[JsonConverter(typeof(EndpointConfigConverter))]
 public abstract class EndpointConfig : OutboundWithDialFields
 {
 }

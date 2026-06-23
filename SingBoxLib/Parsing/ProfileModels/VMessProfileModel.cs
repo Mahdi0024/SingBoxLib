@@ -1,6 +1,6 @@
 ﻿namespace SingBoxLib.Parsing.ProfileModels;
 
-internal sealed class VMessProfileModel
+public sealed class VMessProfileModel
 {
     [JsonPropertyName("v")]
     public string? Version { get; set; }

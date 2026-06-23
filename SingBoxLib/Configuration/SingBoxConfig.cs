@@ -65,11 +65,29 @@ public sealed class SingBoxConfig
     [JsonPropertyName("experimental")]
     public ExperimentalConfig? Experimental { get; set; }
 
+    private static readonly Lazy<SingBoxJsonContext> IndentedContext = new(() => new SingBoxJsonContext(new JsonSerializerOptions
+    {
+        WriteIndented = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    }));
+
     /// <summary>
     /// Serializes this configuration to a JSON string.
     /// </summary>
-    public string ToJson()
+    /// <param name="writeIndented">Whether to format the output with indentation.</param>
+    public string ToJson(bool writeIndented = false)
     {
-        return JsonSerializer.Serialize(this, SingBoxJsonContext.Default.SingBoxConfig);
+        var context = writeIndented ? IndentedContext.Value : SingBoxJsonContext.Default;
+        return JsonSerializer.Serialize(this, context.SingBoxConfig);
+    }
+
+    /// <summary>
+    /// Deserializes a JSON string into a <see cref="SingBoxConfig"/> instance.
+    /// </summary>
+    /// <param name="json">The JSON string representing the configuration.</param>
+    /// <returns>A <see cref="SingBoxConfig"/> instance, or null if deserialization fails.</returns>
+    public static SingBoxConfig? FromJson(string json)
+    {
+        return JsonSerializer.Deserialize(json, SingBoxJsonContext.Default.SingBoxConfig);
     }
 }
