@@ -1,10 +1,4 @@
-﻿using SingboxLib.Runtime.Api.Clash;
-using SingBoxLib.Configuration;
-using SingBoxLib.Configuration.Log;
-using SingBoxLib.Configuration.Outbound.Abstract;
-using SingBoxLib.Parsing;
-
-namespace SingBoxLib.Runtime.Testing;
+﻿namespace SingBoxLib.Runtime.Testing;
 
 public class ParallelUrlTester : IDisposable
 {

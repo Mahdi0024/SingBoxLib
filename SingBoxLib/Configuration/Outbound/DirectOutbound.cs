@@ -1,6 +1,4 @@
-﻿using SingBoxLib.Configuration.Outbound.Abstract;
-
-namespace SingBoxLib.Configuration.Outbound;
+﻿namespace SingBoxLib.Configuration.Outbound;
 
 /// <summary>
 /// direct outbound send requests directly.

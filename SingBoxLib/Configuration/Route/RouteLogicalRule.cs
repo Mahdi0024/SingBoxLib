@@ -1,6 +1,4 @@
-﻿using SingBoxLib.Configuration.Route.Abstract;
-
-namespace SingBoxLib.Configuration.Route;
+﻿namespace SingBoxLib.Configuration.Route;
 
 public sealed class RouteLogicalRule : RouteRuleBase
 {

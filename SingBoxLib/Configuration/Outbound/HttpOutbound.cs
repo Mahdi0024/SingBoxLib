@@ -1,7 +1,4 @@
-﻿using SingboxLib.Configuration.Outbound.Shared;
-using SingBoxLib.Configuration.Outbound.Abstract;
-
-namespace SingBoxLib.Configuration.Outbound;
+﻿namespace SingBoxLib.Configuration.Outbound;
 
 /// <summary>
 /// Represents configuration for a HTTP outbound.

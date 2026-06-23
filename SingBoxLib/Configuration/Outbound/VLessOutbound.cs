@@ -1,9 +1,4 @@
-﻿using SingboxLib.Configuration.Outbound.Shared;
-using SingBoxLib.Configuration.Outbound.Abstract;
-using SingBoxLib.Configuration.Shared;
-using SingBoxLib.Configuration.Transport.Abstract;
-
-namespace SingBoxLib.Configuration.Outbound;
+﻿namespace SingBoxLib.Configuration.Outbound;
 
 /// <summary>
 /// Represents configuration for a VLess outbound.

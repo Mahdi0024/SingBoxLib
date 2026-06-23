@@ -1,15 +1,4 @@
-﻿using SingboxLib.Configuration.Outbound.Shared;
-using SingboxLib.Configuration.Transport;
-using SingBoxLib.Configuration.Outbound;
-using SingBoxLib.Configuration.Outbound.Abstract;
-using SingBoxLib.Configuration.Shared;
-using SingBoxLib.Configuration.Transport;
-using SingBoxLib.Configuration.Transport.Abstract;
-using SingBoxLib.Exceptions;
-using System.Diagnostics;
-using System.Reflection;
-
-namespace SingBoxLib.Parsing;
+﻿namespace SingBoxLib.Parsing;
 
 [DebuggerDisplay("{DebugView()}")]
 public class ProfileItem : IEquatable<ProfileItem>

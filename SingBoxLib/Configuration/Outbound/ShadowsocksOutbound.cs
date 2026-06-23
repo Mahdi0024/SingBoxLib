@@ -1,7 +1,4 @@
-﻿using SingBoxLib.Configuration.Outbound.Abstract;
-using SingBoxLib.Configuration.Shared;
-
-namespace SingBoxLib.Configuration.Outbound;
+﻿namespace SingBoxLib.Configuration.Outbound;
 
 /// <summary>
 /// Represents configuration for a Shadowsocks outbound.

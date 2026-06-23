@@ -1,6 +1,4 @@
-﻿using SingBoxLib.Configuration.Shared;
-
-namespace SingboxLib.Configuration.Outbound.Shared;
+﻿namespace SingboxLib.Configuration.Outbound.Shared;
 
 public sealed class OutboundTlsConfig
 {

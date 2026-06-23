@@ -1,10 +1,4 @@
-﻿using SingBoxLib.Configuration;
-using SingBoxLib.Configuration.Inbound;
-using SingBoxLib.Configuration.Outbound.Abstract;
-using SingBoxLib.Parsing;
-using System.Net;
-
-namespace SingBoxLib.Runtime.Testing;
+﻿namespace SingBoxLib.Runtime.Testing;
 
 public class UrlTester
 {

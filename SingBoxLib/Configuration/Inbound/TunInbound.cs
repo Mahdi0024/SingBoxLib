@@ -1,6 +1,4 @@
-﻿using SingBoxLib.Configuration.Inbound.Abstract;
-
-namespace SingBoxLib.Configuration.Inbound;
+﻿namespace SingBoxLib.Configuration.Inbound;
 
 public sealed class TunInbound : InboundConfig
 {

@@ -1,7 +1,4 @@
-﻿using SingboxLib.Configuration.Inbound.Shared;
-using SingBoxLib.Configuration.Inbound.Abstract;
-
-namespace SingBoxLib.Configuration.Inbound;
+﻿namespace SingBoxLib.Configuration.Inbound;
 
 /// <summary>
 /// Represents configuration for a Tuic inbound server.

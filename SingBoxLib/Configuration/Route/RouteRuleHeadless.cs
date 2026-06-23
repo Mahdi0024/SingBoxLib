@@ -1,7 +1,4 @@
-﻿using SingboxLib.Configuration.Route.Abstract;
-using SingBoxLib.Configuration.Route.Abstract;
-
-namespace SingboxLib.Configuration.Route;
+﻿namespace SingboxLib.Configuration.Route;
 
 public class RouteRuleHeadless: RouteRuleHeadlessBase
 {

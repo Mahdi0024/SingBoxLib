@@ -1,5 +1,4 @@
 ﻿using CliWrap;
-using SingBoxLib.Configuration;
 
 namespace SingBoxLib.Runtime;
 

@@ -1,6 +1,4 @@
-﻿using SingBoxLib.Configuration.Transport.Abstract;
-
-namespace SingBoxLib.Configuration.Transport;
+﻿namespace SingBoxLib.Configuration.Transport;
 
 public sealed class WebSocketTransport : TransportConfig
 {

@@ -1,6 +1,4 @@
-﻿using SingBoxLib.Runtime.Api.Clash.Models;
-using System.Net;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 
 namespace SingboxLib.Runtime.Api.Clash;

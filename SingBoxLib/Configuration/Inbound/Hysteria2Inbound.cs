@@ -1,8 +1,4 @@
-﻿using SingboxLib.Configuration.Inbound.Shared;
-using SingBoxLib.Configuration.Inbound.Abstract;
-using SingBoxLib.Configuration.Shared;
-
-namespace SingBoxLib.Configuration.Inbound;
+﻿namespace SingBoxLib.Configuration.Inbound;
 
 /// <summary>
 /// Represents configuration for a Hysteria 2 inbound server.

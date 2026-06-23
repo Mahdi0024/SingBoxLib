@@ -1,9 +1,4 @@
-﻿using SingboxLib.Configuration.Inbound.Shared;
-using SingBoxLib.Configuration.Inbound.Abstract;
-using SingBoxLib.Configuration.Shared;
-using SingBoxLib.Configuration.Transport.Abstract;
-
-namespace SingBoxLib.Configuration.Inbound;
+﻿namespace SingBoxLib.Configuration.Inbound;
 
 /// <summary>
 /// Represents configuration for a Trojan inbound server.

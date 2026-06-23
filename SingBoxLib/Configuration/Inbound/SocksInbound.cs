@@ -1,7 +1,4 @@
-﻿using SingBoxLib.Configuration.Inbound.Abstract;
-using SingBoxLib.Configuration.Shared;
-
-namespace SingBoxLib.Configuration.Inbound;
+﻿namespace SingBoxLib.Configuration.Inbound;
 
 /// <summary>
 /// Represents configuration for a Socks4, Socks4a and Socks5 inbound server.

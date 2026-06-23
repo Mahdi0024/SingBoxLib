@@ -1,6 +1,4 @@
-﻿using SingBoxLib.Configuration.Dns.Abstract;
-
-namespace SingBoxLib.Configuration.Dns;
+﻿namespace SingBoxLib.Configuration.Dns;
 
 /// <summary>
 /// Represents the configuration for DNS resolution.

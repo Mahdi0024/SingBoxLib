@@ -1,7 +1,4 @@
-﻿using SingboxLib.Configuration.Dns;
-using SingBoxLib.Configuration.Dns.Abstract;
-
-namespace SingBoxLib.Configuration.Dns;
+﻿namespace SingBoxLib.Configuration.Dns;
 
 public sealed class DnsLogicalRule : DnsRuleBase
 {

@@ -1,8 +1,4 @@
-﻿using SingboxLib.Configuration.Inbound.Shared;
-using SingBoxLib.Configuration.Inbound.Abstract;
-using SingBoxLib.Configuration.Transport.Abstract;
-
-namespace SingBoxLib.Configuration.Inbound;
+﻿namespace SingBoxLib.Configuration.Inbound;
 
 public sealed class VMessInbound : InboundConfig
 {

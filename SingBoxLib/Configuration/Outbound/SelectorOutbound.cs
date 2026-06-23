@@ -1,6 +1,4 @@
-﻿using SingBoxLib.Configuration.Outbound.Abstract;
-
-namespace SingBoxLib.Configuration.Outbound;
+﻿namespace SingBoxLib.Configuration.Outbound;
 
 /// <summary>
 /// The selector can only be controlled through the Clash API currently.

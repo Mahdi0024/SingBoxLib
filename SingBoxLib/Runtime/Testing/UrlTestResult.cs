@@ -1,6 +1,4 @@
-﻿using SingBoxLib.Parsing;
-
-namespace SingBoxLib.Runtime.Testing;
+﻿namespace SingBoxLib.Runtime.Testing;
 
 public class UrlTestResult
 {

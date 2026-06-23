@@ -1,14 +1,4 @@
-﻿using SingboxLib.Configuration.Endpoint.Abstract;
-using SingBoxLib.Configuration.Dns;
-using SingBoxLib.Configuration.Experimental;
-using SingBoxLib.Configuration.Inbound.Abstract;
-using SingBoxLib.Configuration.Log;
-using SingBoxLib.Configuration.Ntp;
-using SingBoxLib.Configuration.Outbound.Abstract;
-using SingBoxLib.Configuration.Route;
-using System.Text.Json;
-
-namespace SingBoxLib.Configuration;
+﻿namespace SingBoxLib.Configuration;
 
 public sealed class SingBoxConfig
 {
