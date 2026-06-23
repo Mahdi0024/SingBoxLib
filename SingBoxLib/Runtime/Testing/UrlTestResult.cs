@@ -1,8 +1,8 @@
 ﻿namespace SingBoxLib.Runtime.Testing;
 
-public class UrlTestResult
+public readonly struct UrlTestResult
 {
-    public ProfileItem Profile { get; set; } = null!;
-    public int Delay { get; set; }
-    public bool Success { get; set; }
+    public required ProfileItem Profile { get; init; }
+    public          int         Delay   { get; init; }
+    public required bool        Success { get; init; }
 }
