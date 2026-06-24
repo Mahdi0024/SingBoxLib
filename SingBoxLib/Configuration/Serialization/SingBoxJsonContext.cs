@@ -1,5 +1,8 @@
 namespace SingBoxLib.Configuration.Serialization;
 
+/// <summary>
+/// Pre-compiled source-generated JSON serialization context for SingBoxLib models.
+/// </summary>
 [JsonSourceGenerationOptions(WriteIndented = false, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull)]
 [JsonSerializable(typeof(SingBoxConfig))]
 [JsonSerializable(typeof(InboundConfig))]

@@ -1,6 +1,12 @@
+using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using SingBoxLib.Configuration.Endpoint;
+using SingBoxLib.Configuration.Endpoint.Abstract;
+
 namespace SingBoxLib.Configuration.Serialization;
 
-public class EndpointConfigConverter : JsonConverter<EndpointConfig>
+internal class EndpointConfigConverter : JsonConverter<EndpointConfig>
 {
     public override EndpointConfig? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

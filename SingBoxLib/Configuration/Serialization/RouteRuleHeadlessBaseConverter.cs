@@ -1,6 +1,12 @@
+using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using SingBoxLib.Configuration.Route;
+using SingBoxLib.Configuration.Route.Abstract;
+
 namespace SingBoxLib.Configuration.Serialization;
 
-public class RouteRuleHeadlessBaseConverter : JsonConverter<RouteRuleHeadlessBase>
+internal class RouteRuleHeadlessBaseConverter : JsonConverter<RouteRuleHeadlessBase>
 {
     public override RouteRuleHeadlessBase? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

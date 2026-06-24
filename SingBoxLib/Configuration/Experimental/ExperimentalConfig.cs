@@ -18,8 +18,8 @@ public sealed class ExperimentalConfig
     public ClashApi? ClashApi { get; set; }
 
     /// <summary>
-    /// Configuration for V2Ray API.
+    /// Configuration for sing-box native/gRPC API.
     /// </summary>
-    [JsonPropertyName("v2ray_api")]
-    public V2rayApi? V2rayApi { get; set; }
+    [JsonPropertyName("api")]
+    public V2rayApi? Api { get; set; }
 }

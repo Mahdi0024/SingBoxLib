@@ -25,6 +25,7 @@ global using SingBoxLib.Configuration.Endpoint.Abstract;
 global using SingBoxLib.Configuration.Endpoint;
 global using SingBoxLib.Configuration.Outbound.Shared;
 global using SingBoxLib.Runtime.Api.Clash;
+global using SingBoxLib.Runtime.Api.Grpc;
 global using System.Collections.Generic;
 global using System.Diagnostics;
 global using System.Linq;

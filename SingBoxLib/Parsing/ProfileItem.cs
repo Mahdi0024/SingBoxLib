@@ -1,20 +1,77 @@
-﻿namespace SingBoxLib.Parsing;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using SingBoxLib.Configuration.Outbound;
+using SingBoxLib.Configuration.Outbound.Abstract;
+using SingBoxLib.Configuration.Shared;
+using SingBoxLib.Configuration.Transport.Abstract;
+using SingBoxLib.Configuration.Transport;
+using SingBoxLib.Exceptions;
 
+namespace SingBoxLib.Parsing;
+
+/// <summary>
+/// Represents parsed proxy connection parameters.
+/// </summary>
 [DebuggerDisplay("{DebugView()}")]
 public class ProfileItem : IEquatable<ProfileItem>
 {
+    /// <summary>
+    /// Gets or sets the profile proxy protocol type.
+    /// </summary>
     public ProfileType? Type { get; set; }
+
+    /// <summary>
+    /// Gets or sets the proxy node display name/remark.
+    /// </summary>
     public string? Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the server host name or IP address.
+    /// </summary>
     public string? Address { get; set; }
+
+    /// <summary>
+    /// Gets or sets the server port.
+    /// </summary>
     public ushort? Port { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user ID or UUID.
+    /// </summary>
     public string? Id { get; set; }
+
+    /// <summary>
+    /// Gets or sets the VMess AlterId.
+    /// </summary>
     public int? AlterId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the encryption method.
+    /// </summary>
     public string? Encryption { get; set; }
+
+    /// <summary>
+    /// Gets or sets the transport network type (e.g. tcp, ws, grpc).
+    /// </summary>
     public string? Network { get; set; }
+
+    /// <summary>
+    /// Gets or sets the header type.
+    /// </summary>
     public string? HeaderType { get; set; }
+
+    /// <summary>
+    /// Gets or sets the requested Host header.
+    /// </summary>
     public string? RequestHost { get; set; }
 
     private string? _path;
+
+    /// <summary>
+    /// Gets or sets the transport request path.
+    /// </summary>
     public string? Path
     {
         get
@@ -27,38 +84,132 @@ public class ProfileItem : IEquatable<ProfileItem>
         }
         set => _path = value;
     }
+
+    /// <summary>
+    /// Gets or sets the security type (e.g. tls, reality).
+    /// </summary>
     public string? Security { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether to allow insecure certificates.
+    /// </summary>
     public string? AllowInsecure { get; set; }
+
+    /// <summary>
+    /// Gets or sets the flow control option (VLESS XTLS).
+    /// </summary>
     public string? Flow { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Server Name Indication (SNI) string.
+    /// </summary>
     public string? Sni { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Application-Layer Protocol Negotiation (ALPN) values.
+    /// </summary>
     public string? Alpn { get; set; }
+
+    /// <summary>
+    /// Gets or sets the client fingerprint.
+    /// </summary>
     public string? Fingerprint { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Reality public key.
+    /// </summary>
     public string? PublicKey { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Reality ShortId.
+    /// </summary>
     public string? ShortId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Reality SpiderX value.
+    /// </summary>
     public string? SpiderX { get; set; }
+
+    /// <summary>
+    /// Gets or sets the QUIC security type.
+    /// </summary>
     public string? QuicSecurity { get; set; }
+
+    /// <summary>
+    /// Gets or sets the QUIC key.
+    /// </summary>
     public string? QuicKey { get; set; }
+
+    /// <summary>
+    /// Gets or sets the gRPC mode.
+    /// </summary>
     public string? GrpcMode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the gRPC service name.
+    /// </summary>
     public string? GrpcServiceName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the KCP seed.
+    /// </summary>
     public string? KcpSeed { get; set; }
+
+    /// <summary>
+    /// Gets or sets the proxy connection password.
+    /// </summary>
     public string? Password { get; set; }
+
+    /// <summary>
+    /// Gets or sets the shadowsocks plugin.
+    /// </summary>
     public string? Plugin { get; set; }
+
+    /// <summary>
+    /// Gets or sets the shadowsocks plugin arguments.
+    /// </summary>
     public string? PluginArgs { get; set; }
+
+    /// <summary>
+    /// Gets or sets the SOCKS protocol version.
+    /// </summary>
     public int? Version { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Hysteria obfuscation type.
+    /// </summary>
     public string? ObfsType { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Hysteria obfuscation password.
+    /// </summary>
     public string? ObfsPassword { get; set; }
+
+    /// <summary>
+    /// Gets or sets the TUIC/Hysteria congestion control algorithm.
+    /// </summary>
     public string? CongestionControl { get; set; }
+
+    /// <summary>
+    /// Gets or sets the TUIC UDP relay mode.
+    /// </summary>
     public string? UdpRelayMode { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether to disable SNI.
+    /// </summary>
     public string? DisableSni { get; set; }
 
-
+    /// <summary>
+    /// Converts the profile item into a sing-box compatible outbound configuration instance.
+    /// </summary>
+    /// <returns>A mapped <see cref="OutboundConfig"/> subclass.</returns>
     public OutboundConfig ToOutboundConfig()
     {
         if (Address is null || Port is null)
         {
             throw new InvalidProfileException("Address or port is null");
         }
-
 
         return Type switch
         {
@@ -200,6 +351,10 @@ public class ProfileItem : IEquatable<ProfileItem>
         } : null;
     }
 
+    /// <summary>
+    /// Computes the hash code of the profile item.
+    /// </summary>
+    /// <returns>A hash code.</returns>
     public override int GetHashCode()
     {
         var hash = new HashCode();
@@ -237,10 +392,16 @@ public class ProfileItem : IEquatable<ProfileItem>
         return hash.ToHashCode();
     }
 
+    /// <summary>
+    /// Compares two profile items for equality.
+    /// </summary>
+    /// <param name="left">The first item.</param>
+    /// <param name="right">The second item.</param>
+    /// <returns>True if equal; false otherwise.</returns>
     public static bool operator ==(ProfileItem? left, ProfileItem? right)
     {
         if (left is null || right is null)
-            return false;
+            return ReferenceEquals(left, right);
 
         return left.Type == right.Type &&
            left.Port == right.Port &&
@@ -274,16 +435,32 @@ public class ProfileItem : IEquatable<ProfileItem>
            String.Equals(left.UdpRelayMode, right.UdpRelayMode, StringComparison.OrdinalIgnoreCase);
     }
 
+    /// <summary>
+    /// Compares two profile items for inequality.
+    /// </summary>
+    /// <param name="left">The first item.</param>
+    /// <param name="right">The second item.</param>
+    /// <returns>True if not equal; false otherwise.</returns>
     public static bool operator !=(ProfileItem? left, ProfileItem? right)
     {
         return !(left == right);
     }
 
+    /// <summary>
+    /// Determines whether the specified object is equal to the current profile item.
+    /// </summary>
+    /// <param name="obj">The object to compare.</param>
+    /// <returns>True if equal; false otherwise.</returns>
     public override bool Equals(object? obj)
     {
         return this == obj as ProfileItem;
     }
 
+    /// <summary>
+    /// Determines whether the specified profile item is equal to the current profile item.
+    /// </summary>
+    /// <param name="other">The other item to compare.</param>
+    /// <returns>True if equal; false otherwise.</returns>
     public bool Equals(ProfileItem? other)
     {
         return this == other;

@@ -1,6 +1,12 @@
+using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using SingBoxLib.Configuration.Dns;
+using SingBoxLib.Configuration.Dns.Abstract;
+
 namespace SingBoxLib.Configuration.Serialization;
 
-public class DnsRuleBaseConverter : JsonConverter<DnsRuleBase>
+internal class DnsRuleBaseConverter : JsonConverter<DnsRuleBase>
 {
     public override DnsRuleBase? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

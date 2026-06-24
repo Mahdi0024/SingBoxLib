@@ -414,7 +414,7 @@ public sealed class ConfigurationSerializationTests
                     Path = "cache.db",
                     CacheId = "mycache"
                 },
-                V2rayApi = new V2rayApi
+                Api = new V2rayApi
                 {
                     Listen = "127.0.0.1:8080",
                     Stats = new Stats

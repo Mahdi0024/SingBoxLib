@@ -1,6 +1,12 @@
+using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using SingBoxLib.Configuration.Route;
+using SingBoxLib.Configuration.Route.Abstract;
+
 namespace SingBoxLib.Configuration.Serialization;
 
-public class RouteRuleBaseConverter : JsonConverter<RouteRuleBase>
+internal class RouteRuleBaseConverter : JsonConverter<RouteRuleBase>
 {
     public override RouteRuleBase? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

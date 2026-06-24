@@ -3,6 +3,9 @@ using System.Web;
 
 namespace SingBoxLib.Parsing;
 
+/// <summary>
+/// Parser class for translating proxy URL links to ProfileItem objects and vice-versa.
+/// </summary>
 public static class ProfileParser
 {
     //Implemented:
@@ -17,6 +20,11 @@ public static class ProfileParser
     private const string Hysteria2Protocol = "hy2://";
     private const string TuicProtocol = "tuic://";
 
+    /// <summary>
+    /// Parses a proxy profile link URL string.
+    /// </summary>
+    /// <param name="url">The raw profile link URL.</param>
+    /// <returns>A parsed <see cref="ProfileItem"/> representation.</returns>
     public static ProfileItem ParseProfileUrl(string url)
     {
         if (url.StartsWith(VLessProtocol))
@@ -283,6 +291,11 @@ public static class ProfileParser
         return profile;
     }
 
+    /// <summary>
+    /// Formats a <see cref="ProfileItem"/> to a proxy link URL string.
+    /// </summary>
+    /// <param name="profile">The profile instance to format.</param>
+    /// <returns>The formatted URL link string.</returns>
     public static string ToProfileUrl(this ProfileItem profile)
     {
         return profile.Type switch
