@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package singbox.grpc;
+
+option csharp_namespace = "SingBoxLib.Runtime.Api.Grpc";
+
+service BoxService {
+    rpc Reset (ResetRequest) returns (ResetResponse);
+    rpc Stop (StopRequest) returns (StopResponse);
+}
+
+message ResetRequest {
+    string config = 1;
+}
+
+message ResetResponse {
+}
+
+message StopRequest {
+}
+
+message StopResponse {
+}

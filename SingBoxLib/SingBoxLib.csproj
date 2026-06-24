@@ -5,14 +5,22 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<NoWarn>$(NoWarn);1591</NoWarn>
 		<LangVersion>14</LangVersion>
 		<TargetFramework>net10.0</TargetFramework>
+		<IsAotCompatible>true</IsAotCompatible>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CliWrap" Version="3.10.2" />
 		<PackageReference Include="UrlBase64" Version="2.0.0" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.67.0" />
+		<PackageReference Include="Google.Protobuf" Version="3.29.1" />
+		<PackageReference Include="Grpc.Tools" Version="2.68.1" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="Runtime/Api/Grpc/Protos/box.proto" GrpcServices="Client" />
+		<Protobuf Include="Runtime/Api/Grpc/Protos/stats.proto" GrpcServices="Client" />
 	</ItemGroup>
 
 	<PropertyGroup>

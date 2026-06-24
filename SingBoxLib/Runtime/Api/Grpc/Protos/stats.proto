@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package singbox.grpc;
+
+option csharp_namespace = "SingBoxLib.Runtime.Api.Grpc";
+
+service StatsService {
+    rpc Get (GetRequest) returns (GetResponse);
+    rpc GetQuery (GetQueryRequest) returns (GetQueryResponse);
+    rpc GetStats (GetStatsRequest) returns (stream GetStatsResponse);
+}
+
+message GetRequest {
+    string tag = 1;
+    bool reset = 2;
+}
+
+message GetResponse {
+    int64 stat = 1;
+}
+
+message GetQueryRequest {
+    string query = 1;
+    bool reset = 2;
+}
+
+message GetQueryResponse {
+    map<string, int64> stats = 1;
+}
+
+message GetStatsRequest {
+    int64 interval = 1;
+}
+
+message GetStatsResponse {
+    map<string, int64> stats = 1;
+}
