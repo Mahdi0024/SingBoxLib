@@ -8,7 +8,6 @@ namespace SingBoxLib.Runtime.Api.Grpc;
 public sealed class SingBoxGrpcClient : IDisposable
 {
     private readonly GrpcChannel _channel;
-    private readonly BoxService.BoxServiceClient _boxClient;
     private readonly StatsService.StatsServiceClient _statsClient;
 
     /// <summary>
@@ -18,64 +17,48 @@ public sealed class SingBoxGrpcClient : IDisposable
     public SingBoxGrpcClient(string address)
     {
         _channel = GrpcChannel.ForAddress(address);
-        _boxClient = new BoxService.BoxServiceClient(_channel);
         _statsClient = new StatsService.StatsServiceClient(_channel);
     }
 
     /// <summary>
-    /// Resets the sing-box instance with the provided configuration JSON.
+    /// Gets the statistics for a specific tag/name.
     /// </summary>
-    /// <param name="configJson">The new configuration JSON string.</param>
-    public async Task ResetAsync(string configJson)
-    {
-        await _boxClient.ResetAsync(new ResetRequest { Config = configJson });
-    }
-
-    /// <summary>
-    /// Gracefully stops the sing-box instance.
-    /// </summary>
-    public async Task StopAsync()
-    {
-        await _boxClient.StopAsync(new StopRequest());
-    }
-
-    /// <summary>
-    /// Gets the statistics for a specific tag.
-    /// </summary>
-    /// <param name="tag">The statistics category or tag.</param>
+    /// <param name="name">The name/tag of the stat counter.</param>
     /// <param name="reset">Whether to reset the stats counter after retrieving.</param>
     /// <returns>The stat value.</returns>
-    public async Task<long> GetStatsAsync(string tag, bool reset = false)
+    public async Task<long> GetStatsAsync(string name, bool reset = false)
     {
-        var response = await _statsClient.GetAsync(new GetRequest { Tag = tag, Reset = reset });
-        return response.Stat;
+        var response = await _statsClient.GetStatsAsync(new GetStatsRequest { Name = name, Reset = reset });
+        return response.Stat?.Value ?? 0;
     }
 
     /// <summary>
-    /// Queries the statistics using a search term or regex pattern.
+    /// Queries the statistics using search terms or regex patterns.
     /// </summary>
-    /// <param name="query">The query string.</param>
+    /// <param name="patterns">The patterns to match.</param>
+    /// <param name="regexp">Whether to treat the patterns as regular expressions.</param>
     /// <param name="reset">Whether to reset the stats counters after retrieving.</param>
     /// <returns>A dictionary containing matching tags and their stat values.</returns>
-    public async Task<IDictionary<string, long>> GetQueryStatsAsync(string query, bool reset = false)
+    public async Task<IDictionary<string, long>> QueryStatsAsync(IEnumerable<string> patterns, bool regexp = false, bool reset = false)
     {
-        var response = await _statsClient.GetQueryAsync(new GetQueryRequest { Query = query, Reset = reset });
-        return response.Stats;
+        var request = new QueryStatsRequest
+        {
+            Regexp = regexp,
+            Reset = reset
+        };
+        request.Patterns.AddRange(patterns);
+
+        var response = await _statsClient.QueryStatsAsync(request);
+        return response.Stat.ToDictionary(s => s.Name, s => s.Value);
     }
 
     /// <summary>
-    /// Streams real-time statistics updates from the sing-box instance.
+    /// Retrieves system statistics (memory, uptime, live objects, etc.).
     /// </summary>
-    /// <param name="intervalSeconds">The update interval in seconds.</param>
-    /// <param name="cancellationToken">The cancellation token to stop streaming.</param>
-    /// <returns>An async enumerable stream of statistics updates.</returns>
-    public async IAsyncEnumerable<IDictionary<string, long>> StreamStatsAsync(int intervalSeconds, [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken cancellationToken = default)
+    /// <returns>The system statistics response.</returns>
+    public async Task<SysStatsResponse> GetSysStatsAsync()
     {
-        using var streamingCall = _statsClient.GetStats(new GetStatsRequest { Interval = intervalSeconds }, cancellationToken: cancellationToken);
-        while (await streamingCall.ResponseStream.MoveNext(cancellationToken))
-        {
-            yield return streamingCall.ResponseStream.Current.Stats;
-        }
+        return await _statsClient.GetSysStatsAsync(new SysStatsRequest());
     }
 
     /// <summary>

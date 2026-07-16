@@ -138,8 +138,6 @@ var parallelTester = new ParallelUrlTester(
     new SingBoxWrapper("sing-box-path"),
     // local port for Clash API controller
     2080,
-    // local port for native gRPC API controller
-    2333,
     // max number of concurrent testing tasks
     6,
     // timeout in milliseconds
@@ -262,7 +260,7 @@ Measures latency for a single proxy profile.
 ### 8. `ParallelUrlTester` (Concurrent Latency Tester)
 Measures latency across a collection of profiles concurrently.
 * **Constructor:**
-  * `public ParallelUrlTester(SingBoxWrapper singBoxWrapper, int clashApiPort, int grpcPort, int maxConcurrency, int timeout, int testChunkCount, string? testUrl = null)`
+  * `public ParallelUrlTester(SingBoxWrapper singBoxWrapper, int clashApiPort, int maxConcurrency, int timeout, int testChunkCount, string? testUrl = null)`
 * **Methods:**
   * `public async Task ParallelTestAsync(IEnumerable<ProfileItem> profiles, IProgress<UrlTestResult> progressReporter, CancellationToken cancellationToken)`
 
@@ -293,11 +291,9 @@ Client for interacting with sing-box's native/V2Ray gRPC APIs.
 * **Constructor:**
   * `public SingBoxGrpcClient(string address)`
 * **Methods:**
-  * `public Task ResetAsync(string configJson)`
-  * `public Task StopAsync()`
-  * `public Task<long> GetStatsAsync(string tag, bool reset = false)`
-  * `public Task<IDictionary<string, long>> GetQueryStatsAsync(string query, bool reset = false)`
-  * `public IAsyncEnumerable<IDictionary<string, long>> StreamStatsAsync(int intervalSeconds, CancellationToken cancellationToken = default)`
+  * `public Task<long> GetStatsAsync(string name, bool reset = false)`
+  * `public Task<IDictionary<string, long>> QueryStatsAsync(IEnumerable<string> patterns, bool regexp = false, bool reset = false)`
+  * `public Task<SysStatsResponse> GetSysStatsAsync()`
 
 ---
 
@@ -392,11 +388,10 @@ var profiles = new List<ProfileItem>
     ProfileParser.ParseProfileUrl("trojan://pass3@server3.com:443?security=tls#Node3"),
 };
 
-// Create a parallel URL tester (uses Clash Api and gRPC Api under the hood)
+// Create a parallel URL tester (uses Clash Api under the hood)
 using var parallelTester = new ParallelUrlTester(
     singBoxWrapper: wrapper,
     clashApiPort: 9090,     // Clash API external controller port
-    grpcPort: 9091,         // Native gRPC API listening port
     maxConcurrency: 5,      // Max concurrent test tasks
     timeout: 3000,          // Request timeout in milliseconds
     testChunkCount: 10,     // Chunk size (number of proxies tested per batch)
@@ -464,21 +459,26 @@ How to communicate with sing-box's native gRPC API:
 ```csharp
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using SingBoxLib.Runtime.Api.Grpc;
 
-// 1. Initialize the client targeting the listening port
+// 1. Initialize the client targeting the listening port (v2ray_api listen address)
 using var client = new SingBoxGrpcClient("http://127.0.0.1:2333");
 
-// 2. Query statistics for a tag
-long downloadBytes = await client.GetStatsAsync("out-1");
+// 2. Query statistics for a tag/name
+long downloadBytes = await client.GetStatsAsync("outbound-tag");
 Console.WriteLine($"Downloaded: {downloadBytes} bytes");
 
-// 3. Reset/reload the configuration dynamically
-string newConfigJson = GetNewConfigJson();
-await client.ResetAsync(newConfigJson);
+// 3. Query multiple stats using search patterns/regexes
+var queryResult = await client.QueryStatsAsync(new[] { "outbound-tag", "direct" }, regexp: false);
+foreach (var (name, value) in queryResult)
+{
+    Console.WriteLine($"Stat {name}: {value} bytes");
+}
 
-// 4. Gracefully stop sing-box
-await client.StopAsync();
+// 4. Retrieve system metrics (memory allocation, uptime, etc.)
+var sysStats = await client.GetSysStatsAsync();
+Console.WriteLine($"Uptime: {sysStats.Uptime} seconds, Alloc: {sysStats.Alloc} bytes");
 ```
 ```
 

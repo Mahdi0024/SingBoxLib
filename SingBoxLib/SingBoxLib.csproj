@@ -19,7 +19,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="Runtime/Api/Grpc/Protos/box.proto" GrpcServices="Client" />
 		<Protobuf Include="Runtime/Api/Grpc/Protos/stats.proto" GrpcServices="Client" />
 	</ItemGroup>
 

@@ -7,7 +7,6 @@ public sealed class ParallelUrlTester : IDisposable
 {
     private readonly int             _maxConcurrency;
     private readonly int             _clashApiPort;
-    private readonly int             _grpcPort;
     private readonly int             _timeout;
     private readonly string          _testUrl;
     private readonly ClashApiWrapper _clashApi;
@@ -21,23 +20,20 @@ public sealed class ParallelUrlTester : IDisposable
     /// </summary>
     public int ActiveConcurrency => _activeConcurrency;
 
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ParallelUrlTester"/> class.
     /// </summary>
     /// <param name="singBoxWrapper">The wrapper instance for running sing-box.</param>
     /// <param name="clashApiPort">The local port for Clash API controller.</param>
-    /// <param name="grpcPort">The local port for the native gRPC API controller.</param>
     /// <param name="maxConcurrency">The maximum number of concurrent test tasks.</param>
     /// <param name="timeout">The request timeout in milliseconds.</param>
     /// <param name="testChunkCount">The number of proxies tested in each batch.</param>
     /// <param name="testUrl">The URL to test latency against. Defaults to Cloudflare CP.</param>
-    public ParallelUrlTester(SingBoxWrapper singBoxWrapper, int clashApiPort, int grpcPort, int maxConcurrency, int timeout, int testChunkCount, string? testUrl = null)
+    public ParallelUrlTester(SingBoxWrapper singBoxWrapper, int clashApiPort, int maxConcurrency, int timeout, int testChunkCount, string? testUrl = null)
     {
         _singBoxWrapper = singBoxWrapper;
         _maxConcurrency = maxConcurrency;
         _clashApiPort   = clashApiPort;
-        _grpcPort       = grpcPort;
         _timeout        = timeout;
         _testUrl        = testUrl ?? "http://cp.cloudflare.com/";
         _clashApi       = new ClashApiWrapper($"http://127.0.0.1:{_clashApiPort}");
@@ -58,32 +54,6 @@ public sealed class ParallelUrlTester : IDisposable
         }
 
         _running = true;
-
-        var singboxConfig = new SingBoxConfig
-        {
-            Outbounds = new List<OutboundConfig> { new DirectOutbound("direct") },
-            Log = new()
-            {
-                Level = LogLevels.Error
-            },
-            Experimental = new()
-            {
-                ClashApi = new()
-                {
-                    ExternalController = $"127.0.0.1:{_clashApiPort}",
-                },
-                Api = new()
-                {
-                    Listen = $"127.0.0.1:{_grpcPort}"
-                }
-            }
-        };
-
-        using var processCancellationToken               = new CancellationTokenSource();
-        using var processAndInputCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(processCancellationToken.Token, cancellationToken);
-
-        var       singBoxTask = _singBoxWrapper.StartAsync(singboxConfig, processAndInputCancellationTokenSource.Token);
-        using var grpcClient  = new SingBoxGrpcClient($"http://127.0.0.1:{_grpcPort}");
 
         try
         {
@@ -114,57 +84,117 @@ public sealed class ParallelUrlTester : IDisposable
                     }
                 }
 
-                singboxConfig.Outbounds = outbounds;
-                await grpcClient.ResetAsync(singboxConfig.ToJson());
-
-                await Parallel.ForEachAsync(chunk, new ParallelOptions { MaxDegreeOfParallelism = _maxConcurrency }, async (profile, token) =>
+                var singboxConfig = new SingBoxConfig
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
+                    Outbounds = outbounds,
+                    Log = new()
+                    {
+                        Level = LogLevels.Error
+                    },
+                    Experimental = new()
+                    {
+                        ClashApi = new()
+                        {
+                            ExternalController = $"127.0.0.1:{_clashApiPort}",
+                        }
+                    }
+                };
 
+                using var processCancellationToken               = new CancellationTokenSource();
+                using var processAndInputCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(processCancellationToken.Token, cancellationToken);
 
-                    using var requestTimeoutToken       = new CancellationTokenSource(_timeout);
-                    using var combinedCancellationToken = CancellationTokenSource.CreateLinkedTokenSource(processAndInputCancellationTokenSource.Token, requestTimeoutToken.Token);
+                var singBoxTask = _singBoxWrapper.StartAsync(singboxConfig, processAndInputCancellationTokenSource.Token);
 
-                    var delay   = 0;
-                    var success = false;
+                try
+                {
+                    // Wait for Clash API to start up
+                    var apiStarted = false;
+                    for (var i = 0; i < 20; i++)
+                    {
+                        if (singBoxTask.IsCompleted)
+                        {
+                            await singBoxTask;
+                            throw new InvalidOperationException("sing-box process exited prematurely during startup.");
+                        }
 
+                        try
+                        {
+                            using var initCts = new CancellationTokenSource(150);
+                            await _clashApi.GetVersion(initCts.Token);
+                            apiStarted = true;
+                            break;
+                        }
+                        catch
+                        {
+                            await Task.Delay(50, cancellationToken);
+                        }
+                    }
+
+                    if (!apiStarted)
+                    {
+                        if (singBoxTask.IsCompleted)
+                        {
+                            await singBoxTask;
+                        }
+                        throw new InvalidOperationException("sing-box Clash API failed to start within the timeout period.");
+                    }
+
+                    await Parallel.ForEachAsync(chunk, new ParallelOptions { MaxDegreeOfParallelism = _maxConcurrency }, async (profile, token) =>
+                    {
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        if (singBoxTask.IsCompleted)
+                        {
+                            await singBoxTask;
+                            throw new InvalidOperationException("sing-box process exited prematurely during testing.");
+                        }
+
+                        using var requestTimeoutToken       = new CancellationTokenSource(_timeout);
+                        using var combinedCancellationToken = CancellationTokenSource.CreateLinkedTokenSource(processAndInputCancellationTokenSource.Token, requestTimeoutToken.Token);
+
+                        var delay   = 0;
+                        var success = false;
+
+                        try
+                        {
+                            Interlocked.Increment(ref _activeConcurrency);
+                            var delayInfo = await _clashApi.GetProxyDelay(profileTagMap[profile].ToString(), _timeout, _testUrl, combinedCancellationToken.Token);
+                            delay   = delayInfo.Delay;
+                            success = delayInfo.Success;
+                        }
+                        catch
+                        {
+                            success = false;
+                        }
+                        finally
+                        {
+                            var result = new UrlTestResult
+                            {
+                                Profile = profile,
+                                Delay   = delay,
+                                Success = success
+                            };
+                            progressReporter.Report(result);
+                            Interlocked.Decrement(ref _activeConcurrency);
+                        }
+                    });
+                }
+                finally
+                {
+                    await processCancellationToken.CancelAsync();
                     try
                     {
-                        Interlocked.Increment(ref _activeConcurrency);
-                        var delayInfo = await _clashApi.GetProxyDelay(profileTagMap[profile].ToString(), _timeout, _testUrl, combinedCancellationToken.Token);
-                        delay   = delayInfo.Delay;
-                        success = delayInfo.Success;
+                        await singBoxTask;
                     }
                     catch
                     {
-                        success = false;
+                        // Suppress expected task cancellation exception on exit
                     }
-                    finally
-                    {
-                        var result = new UrlTestResult
-                        {
-                            Profile = profile,
-                            Delay   = delay,
-                            Success = success
-                        };
-                        progressReporter.Report(result);
-                        Interlocked.Decrement(ref _activeConcurrency);
-                    }
-                });
+                }
             }
         }
         finally
         {
-            await processCancellationToken.CancelAsync();
-            try
-            {
-                await singBoxTask;
-            }
-            catch
-            {
-                // Suppress expected task cancellation exception on exit
-            }
-
             _running = false;
         }
     }
