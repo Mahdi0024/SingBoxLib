@@ -138,6 +138,8 @@ var parallelTester = new ParallelUrlTester(
     new SingBoxWrapper("sing-box-path"),
     // local port for Clash API controller
     2080,
+    // local port for native gRPC API controller
+    2333,
     // max number of concurrent testing tasks
     6,
     // timeout in milliseconds
@@ -260,7 +262,7 @@ Measures latency for a single proxy profile.
 ### 8. `ParallelUrlTester` (Concurrent Latency Tester)
 Measures latency across a collection of profiles concurrently.
 * **Constructor:**
-  * `public ParallelUrlTester(SingBoxWrapper singBoxWrapper, int localPort, int maxConcurrency, int timeout, int testChunkCount, string? testUrl = null)`
+  * `public ParallelUrlTester(SingBoxWrapper singBoxWrapper, int clashApiPort, int grpcPort, int maxConcurrency, int timeout, int testChunkCount, string? testUrl = null)`
 * **Methods:**
   * `public async Task ParallelTestAsync(IEnumerable<ProfileItem> profiles, IProgress<UrlTestResult> progressReporter, CancellationToken cancellationToken)`
 
@@ -285,6 +287,17 @@ Helper extension methods providing a fluent syntax for assigning tags to configu
 * **Methods:**
   * `public static T WithTag<T>(this T inbound, string tag) where T : InboundConfig`
   * `public static T WithTag<T>(this T outbound, string tag) where T : OutboundConfig`
+
+### 12. `SingBoxGrpcClient` (Native gRPC API Client)
+Client for interacting with sing-box's native/V2Ray gRPC APIs.
+* **Constructor:**
+  * `public SingBoxGrpcClient(string address)`
+* **Methods:**
+  * `public Task ResetAsync(string configJson)`
+  * `public Task StopAsync()`
+  * `public Task<long> GetStatsAsync(string tag, bool reset = false)`
+  * `public Task<IDictionary<string, long>> GetQueryStatsAsync(string query, bool reset = false)`
+  * `public IAsyncEnumerable<IDictionary<string, long>> StreamStatsAsync(int intervalSeconds, CancellationToken cancellationToken = default)`
 
 ---
 
@@ -379,10 +392,11 @@ var profiles = new List<ProfileItem>
     ProfileParser.ParseProfileUrl("trojan://pass3@server3.com:443?security=tls#Node3"),
 };
 
-// Create a parallel URL tester (uses Clash Api under the hood)
+// Create a parallel URL tester (uses Clash Api and gRPC Api under the hood)
 using var parallelTester = new ParallelUrlTester(
     singBoxWrapper: wrapper,
-    localPort: 9090,        // Clash API external controller port
+    clashApiPort: 9090,     // Clash API external controller port
+    grpcPort: 9091,         // Native gRPC API listening port
     maxConcurrency: 5,      // Max concurrent test tasks
     timeout: 3000,          // Request timeout in milliseconds
     testChunkCount: 10,     // Chunk size (number of proxies tested per batch)
@@ -442,6 +456,29 @@ List<OutboundConfig>? outbounds = JsonSerializer.Deserialize(jsonList, SingBoxJs
 
 // Deserializing an array of polymorphic outbounds
 OutboundConfig[]? outboundsArray = JsonSerializer.Deserialize(jsonList, SingBoxJsonContext.Default.OutboundConfigArray);
+```
+
+### 5. Using SingBoxGrpcClient (Native gRPC API)
+How to communicate with sing-box's native gRPC API:
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using SingBoxLib.Runtime.Api.Grpc;
+
+// 1. Initialize the client targeting the listening port
+using var client = new SingBoxGrpcClient("http://127.0.0.1:2333");
+
+// 2. Query statistics for a tag
+long downloadBytes = await client.GetStatsAsync("out-1");
+Console.WriteLine($"Downloaded: {downloadBytes} bytes");
+
+// 3. Reset/reload the configuration dynamically
+string newConfigJson = GetNewConfigJson();
+await client.ResetAsync(newConfigJson);
+
+// 4. Gracefully stop sing-box
+await client.StopAsync();
 ```
 ```
 
