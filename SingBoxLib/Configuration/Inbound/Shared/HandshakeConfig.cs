@@ -88,4 +88,34 @@ public sealed class HandshakeConfig
     /// </summary>
     [JsonPropertyName("fallback_delay")]
     public string? FallbackDelay { get; set; }
+
+    /// <summary>
+    /// Do not reserve a port when binding to a source address. Only supported on Linux.
+    /// </summary>
+    [JsonPropertyName("bind_address_no_port")]
+    public bool? BindAddressNoPort { get; set; }
+
+    /// <summary>
+    /// Set network namespace, name or path. Only supported on Linux.
+    /// </summary>
+    [JsonPropertyName("netns")]
+    public string? Netns { get; set; }
+
+    /// <summary>
+    /// Disable TCP keep alive.
+    /// </summary>
+    [JsonPropertyName("disable_tcp_keep_alive")]
+    public bool? DisableTcpKeepAlive { get; set; }
+
+    /// <summary>
+    /// TCP keep alive initial period.
+    /// </summary>
+    [JsonPropertyName("tcp_keep_alive")]
+    public string? TcpKeepAlive { get; set; }
+
+    /// <summary>
+    /// TCP keep alive interval.
+    /// </summary>
+    [JsonPropertyName("tcp_keep_alive_interval")]
+    public string? TcpKeepAliveInterval { get; set; }
 }

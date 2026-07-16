@@ -1,7 +1,12 @@
 #pragma warning disable MSTEST0037
 
 using System.Text.Json;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SingBoxLib.Configuration;
+using SingBoxLib.Configuration.Certificate;
+using SingBoxLib.Configuration.Service;
+using SingBoxLib.Configuration.Service.Abstract;
+using SingBoxLib.Configuration.Service.Models;
 using SingBoxLib.Configuration.Dns;
 using SingBoxLib.Configuration.Dns.Abstract;
 using SingBoxLib.Configuration.Endpoint;
@@ -14,11 +19,18 @@ using SingBoxLib.Configuration.Log;
 using SingBoxLib.Configuration.Ntp;
 using SingBoxLib.Configuration.Outbound;
 using SingBoxLib.Configuration.Outbound.Abstract;
+using SingBoxLib.Configuration.Outbound.Shared;
 using SingBoxLib.Configuration.Route;
 using SingBoxLib.Configuration.Route.Abstract;
 using SingBoxLib.Configuration.Serialization;
 using SingBoxLib.Configuration.Shared;
 using SingBoxLib.Configuration.Transport;
+using SingBoxLib.Configuration.NetworkNamespace;
+using SingBoxLib.Configuration.NetworkNamespace.Abstract;
+using SingBoxLib.Configuration.CertificateProvider;
+using SingBoxLib.Configuration.CertificateProvider.Abstract;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SingBoxLib.Tests;
 
@@ -82,6 +94,28 @@ public sealed class ConfigurationSerializationTests
                     },
                     UdpTimeout = "5m",
                     Workers = 4
+                },
+                new TailscaleEndpoint
+                {
+                    Tag = "ts-ep",
+                    StateDirectory = "/var/lib/tailscale",
+                    AuthKey = "tskey-auth-...",
+                    ControlUrl = "https://controlplane.tailscale.com",
+                    Ephemeral = true,
+                    Hostname = "sing-box",
+                    AcceptRoutes = true,
+                    ExitNode = "exit-node",
+                    ExitNodeAllowLanAccess = true,
+                    AdvertiseRoutes = new List<string> { "10.0.0.0/24" },
+                    AdvertiseExitNode = true,
+                    AdvertiseTags = new List<string> { "tag:server" },
+                    RelayServerPort = 41641,
+                    RelayServerStaticEndpoints = new List<string> { "127.0.0.1:41641" },
+                    SystemInterface = true,
+                    SystemInterfaceName = "tailscale0",
+                    SystemInterfaceMtu = 1280,
+                    UdpTimeout = "5m",
+                    SshServer = new TailscaleSshServerConfig { Enabled = true, DisablePty = false }
                 }
             },
             Inbounds = new List<InboundConfig>
@@ -185,6 +219,27 @@ public sealed class ConfigurationSerializationTests
                     Listen = "127.0.0.1",
                     ListenPort = 8447,
                     Users = new List<VMessUser> { new VMessUser { Name = "user1", Uuid = "vmessuuid", AlterId = 0 } }
+                },
+                new CloudflaredInbound
+                {
+                    Tag = "cloudflared-in",
+                    Token = "my-cloudflare-token",
+                    HaConnections = 2,
+                    Protocol = "quic"
+                },
+                new SnellInbound
+                {
+                    Tag = "snell-in",
+                    Version = 6,
+                    Psk = "password12345",
+                    Mode = "default",
+                    Users = new List<SnellUser> { new SnellUser { Name = "user1", UserKey = "key1" } }
+                },
+                new AnyTlsInbound
+                {
+                    Tag = "anytls-in",
+                    Users = new List<AnyTlsUser> { new AnyTlsUser { Name = "user1", Password = "password" } },
+                    PaddingScheme = new List<string> { "stop=8" }
                 }
             },
             Outbounds = new List<OutboundConfig>
@@ -285,6 +340,40 @@ public sealed class ConfigurationSerializationTests
                     ServerPort = 8447,
                     Uuid = "vmessuuid",
                     Security = "auto"
+                },
+                new AnyTlsOutbound
+                {
+                    Tag = "anytls-out",
+                    Server = "127.0.0.1",
+                    ServerPort = 1080,
+                    Password = "password",
+                    Tls = new OutboundTlsConfig { Enabled = true }
+                },
+                new SnellOutbound
+                {
+                    Tag = "snell-out",
+                    Server = "127.0.0.1",
+                    ServerPort = 1080,
+                    Version = 6,
+                    Psk = "password12345",
+                    Mode = "default"
+                },
+                new BridgeOutbound
+                {
+                    Tag = "bridge-out",
+                    Interface = "eth0",
+                    BridgeName = "br0"
+                },
+                new BlockOutbound
+                {
+                    Tag = "block-out"
+                },
+                new WireGuardOutbound
+                {
+                    Tag = "wireguard-out",
+                    Server = "127.0.0.1",
+                    ServerPort = 51820,
+                    PrivateKey = "private-key"
                 }
             },
             Route = new RouteConfig
@@ -298,6 +387,9 @@ public sealed class ConfigurationSerializationTests
                 DefaultNetworkType = new List<string> { "wifi" },
                 DefaultFallbackNetworkType = new List<string> { "cellular" },
                 DefaultFallbackDelay = "300ms",
+                FindProcess = true,
+                FindNeighbor = true,
+                DhcpLeaseFiles = new List<string> { "/var/lib/dhcp/dhcpd.leases" },
                 Rules = new List<RouteRuleBase>
                 {
                     new RouteRule
@@ -311,7 +403,7 @@ public sealed class ConfigurationSerializationTests
                     {
                         Mode = "and",
                         Invert = false,
-                        Outbound = "direct-out",
+                        Action = new RuleAction { Action = "route", Outbound = "direct-out" },
                         Rules = new List<RouteRuleBase>
                         {
                             new RouteRule
@@ -362,13 +454,93 @@ public sealed class ConfigurationSerializationTests
                 ClientSubnet = "1.1.1.1",
                 Servers = new List<DnsServer>
                 {
-                    new DnsServer
+                    new LocalDnsServer
                     {
                         Tag = "local-dns",
-                        Server = "https://1.1.1.1/dns-query",
-                        Strategy = "prefer_ipv4",
-                        Detour = "direct-out",
-                        ClientSubnet = "1.1.1.1"
+                        PreferGo = true,
+                        NeighborDomain = new List<string> { ".lan" }
+                    },
+                    new HostsDnsServer
+                    {
+                        Tag = "hosts-dns",
+                        Path = new List<string> { "/etc/hosts" },
+                        Predefined = new Dictionary<string, object>
+                        {
+                            { "example.com", "127.0.0.1" }
+                        }
+                    },
+                    new TcpDnsServer
+                    {
+                        Tag = "tcp-dns",
+                        Server = "8.8.8.8",
+                        ServerPort = 53
+                    },
+                    new UdpDnsServer
+                    {
+                        Tag = "udp-dns",
+                        Server = "8.8.4.4",
+                        ServerPort = 53
+                    },
+                    new TlsDnsServer
+                    {
+                        Tag = "tls-dns",
+                        Server = "1.1.1.1",
+                        ServerPort = 853,
+                        Tls = new OutboundTlsConfig { Enabled = true, ServerName = "cloudflare-dns.com" }
+                    },
+                    new QuicDnsServer
+                    {
+                        Tag = "quic-dns",
+                        Server = "9.9.9.9",
+                        ServerPort = 853,
+                        Tls = new OutboundTlsConfig { Enabled = true, ServerName = "dns.quad9.net" }
+                    },
+                    new HttpsDnsServer
+                    {
+                        Tag = "https-dns",
+                        Server = "1.1.1.1",
+                        ServerPort = 443,
+                        Path = "/dns-query",
+                        Headers = new Dictionary<string, string> { { "User-Agent", "sing-box" } },
+                        Tls = new OutboundTlsConfig { Enabled = true }
+                    },
+                    new H3DnsServer
+                    {
+                        Tag = "h3-dns",
+                        Server = "1.1.1.1",
+                        ServerPort = 443,
+                        Path = "/dns-query",
+                        Headers = new Dictionary<string, string> { { "User-Agent", "sing-box" } },
+                        Tls = new OutboundTlsConfig { Enabled = true }
+                    },
+                    new DhcpDnsServer
+                    {
+                        Tag = "dhcp-dns",
+                        Interface = "eth0"
+                    },
+                    new MdnsDnsServer
+                    {
+                        Tag = "mdns-dns",
+                        Interface = new List<string> { "eth0" }
+                    },
+                    new FakeIpDnsServer
+                    {
+                        Tag = "fakeip-dns",
+                        Inet4Range = "198.18.0.0/15",
+                        Inet6Range = "fc00::/18"
+                    },
+                    new TailscaleDnsServer
+                    {
+                        Tag = "tailscale-dns",
+                        Endpoint = "ts-ep",
+                        AcceptDefaultResolvers = true,
+                        AcceptSearchDomain = true
+                    },
+                    new ResolvedDnsServer
+                    {
+                        Tag = "resolved-dns",
+                        Service = "resolved-service",
+                        AcceptDefaultResolvers = true
                     }
                 },
                 Rules = new List<DnsRuleBase>
@@ -389,7 +561,7 @@ public sealed class ConfigurationSerializationTests
                                 Domain = new List<string> { "sub.example.com" }
                             }
                         },
-                        Server = "local-dns"
+                        Action = new DnsAction { Action = "route", Server = "local-dns" }
                     }
                 },
                 Fakeip = new FakeIp
@@ -412,7 +584,9 @@ public sealed class ConfigurationSerializationTests
                 {
                     Enabled = true,
                     Path = "cache.db",
-                    CacheId = "mycache"
+                    CacheId = "mycache",
+                    StoreRdrc = true,
+                    RdrcTimeout = "7d"
                 },
                 Api = new V2rayApi
                 {
@@ -423,6 +597,133 @@ public sealed class ConfigurationSerializationTests
                         Inbounds = new List<string> { "socks-in" },
                         Outbounds = new List<string> { "direct-out" }
                     }
+                }
+            },
+            Certificate = new CertificateConfig
+            {
+                Store = "mozilla",
+                Certificate = new List<string> { "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----" },
+                CertificatePath = new List<string> { "/etc/ssl/certs/ca-certificates.crt" }
+            },
+            Services = new List<ServiceConfig>
+            {
+                new ApiServiceConfig
+                {
+                    Tag = "api-service",
+                    Secret = "mysecret",
+                    Dashboard = true
+                },
+                new CcmServiceConfig
+                {
+                    Tag = "ccm-service",
+                    CredentialPath = "/path/to/creds.json",
+                    UsagesPath = "/path/to/usages.json",
+                    Users = new List<CcmUser> { new CcmUser { Name = "alice", Token = "tok1" } },
+                    Headers = new Dictionary<string, string> { { "Custom-Header", "Value" } }
+                },
+                new DerpServiceConfig
+                {
+                    Tag = "derp-service",
+                    ConfigPath = "derper.key",
+                    VerifyClientEndpoint = new List<string> { "wg-endpoint" },
+                    VerifyClientUrl = "https://example.com/verify",
+                    Home = "blank",
+                    MeshWith = new List<DerpMeshServer>
+                    {
+                        new DerpMeshServer
+                        {
+                            Server = "127.0.0.1",
+                            ServerPort = "8080",
+                            Host = "derp-mesh",
+                            Tls = new OutboundTlsConfig { Enabled = true }
+                        }
+                    },
+                    MeshPsk = "secret-psk",
+                    Stun = 3478
+                },
+                new HysteriaRealmServiceConfig
+                {
+                    Tag = "hysteria-realm-service",
+                    Users = new List<HysteriaRealmUser> { new HysteriaRealmUser { Name = "realm-user", Token = "realm-tok", MaxRealms = 5 } }
+                },
+                new OcmServiceConfig
+                {
+                    Tag = "ocm-service",
+                    CredentialPath = "/path/to/ocm.json",
+                    UsagesPath = "/path/to/ocm-usages.json",
+                    Users = new List<OcmUser> { new OcmUser { Name = "bob", Token = "ocm-tok" } },
+                    Headers = new Dictionary<string, string> { { "Ocm-Header", "Val" } }
+                },
+                new ResolvedServiceConfig
+                {
+                    Tag = "resolved-service",
+                    Listen = "127.0.0.53",
+                    ListenPort = 53
+                },
+                new SsmApiServiceConfig
+                {
+                    Tag = "ssm-api-service",
+                    Servers = new Dictionary<string, string> { { "/", "ss-in" } },
+                    CachePath = "/path/to/ssm-cache.json"
+                },
+                new UsbipServerServiceConfig
+                {
+                    Tag = "usbip-server-service",
+                    Provider = "default",
+                    Devices = new List<UsbDeviceMatch> { new UsbDeviceMatch { BusId = "1-2", VendorId = 123, ProductId = 456, Serial = "12345" } }
+                },
+                new UsbipClientServiceConfig
+                {
+                    Tag = "usbip-client-service",
+                    Server = "127.0.0.1",
+                    ServerPort = 3240,
+                    Devices = new List<UsbDeviceMatch> { new UsbDeviceMatch { BusId = "1-2", VendorId = 123, ProductId = 456, Serial = "12345" } }
+                }
+            },
+            HttpClients = new List<HttpClientConfig>
+            {
+                new HttpClientConfig
+                {
+                    Tag = "my-http-client",
+                    Engine = "go",
+                    Version = 2,
+                    DisableVersionFallback = false,
+                    Headers = new Dictionary<string, string> { { "User-Agent", "sing-box" } },
+                    Detour = "direct"
+                }
+            },
+            CertificateProviders = new List<CertificateProviderConfig>
+            {
+                new AcmeCertificateProvider
+                {
+                    Tag = "acme-prov",
+                    Domain = new List<string> { "example.com" },
+                    Email = "admin@example.com",
+                    Provider = "letsencrypt"
+                },
+                new TailscaleCertificateProvider
+                {
+                    Tag = "ts-prov",
+                    Endpoint = "ts-ep"
+                },
+                new CloudflareOriginCaCertificateProvider
+                {
+                    Tag = "cf-prov",
+                    Domain = new List<string> { "example.com" },
+                    ApiToken = "token"
+                }
+            },
+            NetworkNamespaces = new List<NetworkNamespaceConfig>
+            {
+                new DefaultNetworkNamespace
+                {
+                    Tag = "netns-default",
+                    Path = "sing"
+                },
+                new UnshareNetworkNamespace
+                {
+                    Tag = "netns-unshare",
+                    PidFile = "sing.pid"
                 }
             }
         };
@@ -451,11 +752,12 @@ public sealed class ConfigurationSerializationTests
         Assert.AreEqual("time.google.com", ntpProp.GetProperty("server").GetString());
 
         Assert.IsTrue(root.TryGetProperty("endpoints", out var endpointsProp));
-        Assert.AreEqual(1, endpointsProp.GetArrayLength());
+        Assert.AreEqual(2, endpointsProp.GetArrayLength());
         Assert.AreEqual("wg-endpoint", endpointsProp[0].GetProperty("tag").GetString());
+        Assert.AreEqual("ts-ep", endpointsProp[1].GetProperty("tag").GetString());
 
         Assert.IsTrue(root.TryGetProperty("inbounds", out var inboundsProp));
-        Assert.AreEqual(16, inboundsProp.GetArrayLength());
+        Assert.AreEqual(19, inboundsProp.GetArrayLength());
 
         // Verify every inbound type serialized correctly
         var inboundTypes = inboundsProp.EnumerateArray().Select(x => x.GetProperty("type").GetString()).ToList();
@@ -475,9 +777,12 @@ public sealed class ConfigurationSerializationTests
         CollectionAssert.Contains(inboundTypes, "tun");
         CollectionAssert.Contains(inboundTypes, "vless");
         CollectionAssert.Contains(inboundTypes, "vmess");
+        CollectionAssert.Contains(inboundTypes, "cloudflared");
+        CollectionAssert.Contains(inboundTypes, "snell");
+        CollectionAssert.Contains(inboundTypes, "anytls");
 
         Assert.IsTrue(root.TryGetProperty("outbounds", out var outboundsProp));
-        Assert.AreEqual(15, outboundsProp.GetArrayLength());
+        Assert.AreEqual(20, outboundsProp.GetArrayLength());
 
         // Verify every outbound type serialized correctly
         var outboundTypes = outboundsProp.EnumerateArray().Select(x => x.GetProperty("type").GetString()).ToList();
@@ -496,6 +801,11 @@ public sealed class ConfigurationSerializationTests
         CollectionAssert.Contains(outboundTypes, "urltest");
         CollectionAssert.Contains(outboundTypes, "vless");
         CollectionAssert.Contains(outboundTypes, "vmess");
+        CollectionAssert.Contains(outboundTypes, "anytls");
+        CollectionAssert.Contains(outboundTypes, "snell");
+        CollectionAssert.Contains(outboundTypes, "bridge");
+        CollectionAssert.Contains(outboundTypes, "block");
+        CollectionAssert.Contains(outboundTypes, "wireguard");
 
         Assert.IsTrue(root.TryGetProperty("route", out var routeProp));
         Assert.AreEqual("direct-out", routeProp.GetProperty("final").GetString());
@@ -504,12 +814,53 @@ public sealed class ConfigurationSerializationTests
 
         Assert.IsTrue(root.TryGetProperty("dns", out var dnsProp));
         Assert.AreEqual("local-dns", dnsProp.GetProperty("final").GetString());
-        Assert.AreEqual(1, dnsProp.GetProperty("servers").GetArrayLength());
+        Assert.AreEqual(13, dnsProp.GetProperty("servers").GetArrayLength());
         Assert.AreEqual(2, dnsProp.GetProperty("rules").GetArrayLength());
+
+        var serverTypes = dnsProp.GetProperty("servers").EnumerateArray().Select(x => x.GetProperty("type").GetString()).ToList();
+        CollectionAssert.Contains(serverTypes, "local");
+        CollectionAssert.Contains(serverTypes, "hosts");
+        CollectionAssert.Contains(serverTypes, "tcp");
+        CollectionAssert.Contains(serverTypes, "udp");
+        CollectionAssert.Contains(serverTypes, "tls");
+        CollectionAssert.Contains(serverTypes, "quic");
+        CollectionAssert.Contains(serverTypes, "https");
+        CollectionAssert.Contains(serverTypes, "h3");
+        CollectionAssert.Contains(serverTypes, "dhcp");
+        CollectionAssert.Contains(serverTypes, "mdns");
+        CollectionAssert.Contains(serverTypes, "fakeip");
+        CollectionAssert.Contains(serverTypes, "tailscale");
+        CollectionAssert.Contains(serverTypes, "resolved");
+
+        Assert.IsTrue(root.TryGetProperty("certificate", out var certProp));
+        Assert.AreEqual("mozilla", certProp.GetProperty("store").GetString());
+
+        Assert.IsTrue(root.TryGetProperty("services", out var servicesProp));
+        Assert.AreEqual(9, servicesProp.GetArrayLength());
+
+        var serviceTypes = servicesProp.EnumerateArray().Select(x => x.GetProperty("type").GetString()).ToList();
+        CollectionAssert.Contains(serviceTypes, "api");
+        CollectionAssert.Contains(serviceTypes, "ccm");
+        CollectionAssert.Contains(serviceTypes, "derp");
+        CollectionAssert.Contains(serviceTypes, "hysteria-realm");
+        CollectionAssert.Contains(serviceTypes, "ocm");
+        CollectionAssert.Contains(serviceTypes, "resolved");
+        CollectionAssert.Contains(serviceTypes, "ssm-api");
+        CollectionAssert.Contains(serviceTypes, "usbip-server");
+        CollectionAssert.Contains(serviceTypes, "usbip-client");
 
         Assert.IsTrue(root.TryGetProperty("experimental", out var expProp));
         Assert.IsTrue(expProp.TryGetProperty("clash_api", out var clashProp));
         Assert.AreEqual("127.0.0.1:9090", clashProp.GetProperty("external_controller").GetString());
+
+        Assert.IsTrue(root.TryGetProperty("network_namespaces", out var netnsProp));
+        Assert.AreEqual(2, netnsProp.GetArrayLength());
+
+        Assert.IsTrue(root.TryGetProperty("certificate_providers", out var certProvProp));
+        Assert.AreEqual(3, certProvProp.GetArrayLength());
+
+        Assert.IsTrue(root.TryGetProperty("http_clients", out var httpClientsProp));
+        Assert.AreEqual(1, httpClientsProp.GetArrayLength());
     }
 
     [TestMethod]
@@ -531,7 +882,7 @@ public sealed class ConfigurationSerializationTests
         Assert.AreEqual("time.google.com", deserialized.Ntp.Server);
 
         Assert.IsNotNull(deserialized.Endpoints, "Deserialized Endpoints should not be null.");
-        Assert.AreEqual(1, deserialized.Endpoints.Count);
+        Assert.AreEqual(2, deserialized.Endpoints.Count);
         var endpoint = deserialized.Endpoints[0] as WireGuardEndpoint;
         Assert.IsNotNull(endpoint, "Deserialized endpoint should be a WireGuardEndpoint.");
         Assert.AreEqual("wg-endpoint", endpoint.Tag);
@@ -539,11 +890,16 @@ public sealed class ConfigurationSerializationTests
         Assert.AreEqual(1, endpoint.Peers.Count);
         Assert.AreEqual("198.51.100.1", endpoint.Peers[0].Address);
 
+        var tsEndpoint = deserialized.Endpoints[1] as TailscaleEndpoint;
+        Assert.IsNotNull(tsEndpoint, "Deserialized endpoint should be a TailscaleEndpoint.");
+        Assert.AreEqual("ts-ep", tsEndpoint.Tag);
+        Assert.AreEqual("/var/lib/tailscale", tsEndpoint.StateDirectory);
+
         Assert.IsNotNull(deserialized.Inbounds, "Deserialized Inbounds should not be null.");
-        Assert.AreEqual(16, deserialized.Inbounds.Count);
-        
+        Assert.AreEqual(19, deserialized.Inbounds.Count);
+
         Assert.IsNotNull(deserialized.Outbounds, "Deserialized Outbounds should not be null.");
-        Assert.AreEqual(15, deserialized.Outbounds.Count);
+        Assert.AreEqual(20, deserialized.Outbounds.Count);
 
         Assert.IsNotNull(deserialized.Route, "Deserialized Route should not be null.");
         Assert.AreEqual("direct-out", deserialized.Route.Final);
@@ -555,15 +911,103 @@ public sealed class ConfigurationSerializationTests
         Assert.IsNotNull(deserialized.Dns, "Deserialized Dns should not be null.");
         Assert.AreEqual("local-dns", deserialized.Dns.Final);
         Assert.IsNotNull(deserialized.Dns.Servers, "Deserialized Dns.Servers should not be null.");
-        Assert.AreEqual(1, deserialized.Dns.Servers.Count);
+        Assert.AreEqual(13, deserialized.Dns.Servers.Count);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[0], typeof(LocalDnsServer));
+        Assert.AreEqual(true, ((LocalDnsServer)deserialized.Dns.Servers[0]).PreferGo);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[1], typeof(HostsDnsServer));
+        Assert.AreEqual("/etc/hosts", ((HostsDnsServer)deserialized.Dns.Servers[1]).Path?[0]);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[2], typeof(TcpDnsServer));
+        Assert.AreEqual("8.8.8.8", ((TcpDnsServer)deserialized.Dns.Servers[2]).Server);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[3], typeof(UdpDnsServer));
+        Assert.AreEqual("8.8.4.4", ((UdpDnsServer)deserialized.Dns.Servers[3]).Server);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[4], typeof(TlsDnsServer));
+        Assert.AreEqual("cloudflare-dns.com", ((TlsDnsServer)deserialized.Dns.Servers[4]).Tls?.ServerName);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[5], typeof(QuicDnsServer));
+        Assert.AreEqual("dns.quad9.net", ((QuicDnsServer)deserialized.Dns.Servers[5]).Tls?.ServerName);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[6], typeof(HttpsDnsServer));
+        Assert.AreEqual("/dns-query", ((HttpsDnsServer)deserialized.Dns.Servers[6]).Path);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[7], typeof(H3DnsServer));
+        Assert.AreEqual("/dns-query", ((H3DnsServer)deserialized.Dns.Servers[7]).Path);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[8], typeof(DhcpDnsServer));
+        Assert.AreEqual("eth0", ((DhcpDnsServer)deserialized.Dns.Servers[8]).Interface);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[9], typeof(MdnsDnsServer));
+        Assert.AreEqual("eth0", ((MdnsDnsServer)deserialized.Dns.Servers[9]).Interface?[0]);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[10], typeof(FakeIpDnsServer));
+        Assert.AreEqual("198.18.0.0/15", ((FakeIpDnsServer)deserialized.Dns.Servers[10]).Inet4Range);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[11], typeof(TailscaleDnsServer));
+        Assert.AreEqual("ts-ep", ((TailscaleDnsServer)deserialized.Dns.Servers[11]).Endpoint);
+
+        Assert.IsInstanceOfType(deserialized.Dns.Servers[12], typeof(ResolvedDnsServer));
+        Assert.AreEqual("resolved-service", ((ResolvedDnsServer)deserialized.Dns.Servers[12]).Service);
+
         Assert.IsNotNull(deserialized.Dns.Rules, "Deserialized Dns.Rules should not be null.");
         Assert.AreEqual(2, deserialized.Dns.Rules.Count);
         Assert.IsNotNull(deserialized.Dns.Fakeip, "Deserialized Dns.Fakeip should not be null.");
         Assert.IsTrue(deserialized.Dns.Fakeip.Enabled == true);
 
+        Assert.IsNotNull(deserialized.Certificate, "Deserialized Certificate should not be null.");
+        Assert.AreEqual("mozilla", deserialized.Certificate.Store);
+
+        Assert.IsNotNull(deserialized.Services, "Deserialized Services should not be null.");
+        Assert.AreEqual(9, deserialized.Services.Count);
+
+        Assert.IsInstanceOfType(deserialized.Services[0], typeof(ApiServiceConfig));
+        Assert.AreEqual("mysecret", ((ApiServiceConfig)deserialized.Services[0]).Secret);
+
+        Assert.IsInstanceOfType(deserialized.Services[1], typeof(CcmServiceConfig));
+        Assert.AreEqual("/path/to/creds.json", ((CcmServiceConfig)deserialized.Services[1]).CredentialPath);
+
+        Assert.IsInstanceOfType(deserialized.Services[2], typeof(DerpServiceConfig));
+        Assert.AreEqual("derper.key", ((DerpServiceConfig)deserialized.Services[2]).ConfigPath);
+
+        Assert.IsInstanceOfType(deserialized.Services[3], typeof(HysteriaRealmServiceConfig));
+        Assert.AreEqual("hysteria-realm-service", ((HysteriaRealmServiceConfig)deserialized.Services[3]).Tag);
+
+        Assert.IsInstanceOfType(deserialized.Services[4], typeof(OcmServiceConfig));
+        Assert.AreEqual("/path/to/ocm.json", ((OcmServiceConfig)deserialized.Services[4]).CredentialPath);
+
+        Assert.IsInstanceOfType(deserialized.Services[5], typeof(ResolvedServiceConfig));
+        Assert.AreEqual("127.0.0.53", ((ResolvedServiceConfig)deserialized.Services[5]).Listen);
+
+        Assert.IsInstanceOfType(deserialized.Services[6], typeof(SsmApiServiceConfig));
+        Assert.AreEqual("/path/to/ssm-cache.json", ((SsmApiServiceConfig)deserialized.Services[6]).CachePath);
+
+        Assert.IsInstanceOfType(deserialized.Services[7], typeof(UsbipServerServiceConfig));
+        Assert.AreEqual("default", ((UsbipServerServiceConfig)deserialized.Services[7]).Provider);
+
+        Assert.IsInstanceOfType(deserialized.Services[8], typeof(UsbipClientServiceConfig));
+        Assert.AreEqual("127.0.0.1", ((UsbipClientServiceConfig)deserialized.Services[8]).Server);
+
         Assert.IsNotNull(deserialized.Experimental, "Deserialized Experimental should not be null.");
         Assert.IsNotNull(deserialized.Experimental.ClashApi, "ClashApi should not be null.");
         Assert.AreEqual("127.0.0.1:9090", deserialized.Experimental.ClashApi.ExternalController);
+
+        Assert.IsNotNull(deserialized.NetworkNamespaces);
+        Assert.AreEqual(2, deserialized.NetworkNamespaces.Count);
+        Assert.IsInstanceOfType(deserialized.NetworkNamespaces[0], typeof(DefaultNetworkNamespace));
+        Assert.IsInstanceOfType(deserialized.NetworkNamespaces[1], typeof(UnshareNetworkNamespace));
+
+        Assert.IsNotNull(deserialized.CertificateProviders);
+        Assert.AreEqual(3, deserialized.CertificateProviders.Count);
+        Assert.IsInstanceOfType(deserialized.CertificateProviders[0], typeof(AcmeCertificateProvider));
+        Assert.IsInstanceOfType(deserialized.CertificateProviders[1], typeof(TailscaleCertificateProvider));
+        Assert.IsInstanceOfType(deserialized.CertificateProviders[2], typeof(CloudflareOriginCaCertificateProvider));
+
+        Assert.IsNotNull(deserialized.HttpClients);
+        Assert.AreEqual(1, deserialized.HttpClients.Count);
+        Assert.IsInstanceOfType(deserialized.HttpClients[0], typeof(HttpClientConfig));
 
         // Serialize again
         string secondJson = deserialized.ToJson();
@@ -582,7 +1026,7 @@ public sealed class ConfigurationSerializationTests
 
         // Assert
         Assert.IsTrue(indentedJson.Contains("\n") || indentedJson.Contains("\r"), "Indented JSON should contain newline characters.");
-        
+
         // Deserialize it back
         var deserialized = SingBoxConfig.FromJson(indentedJson);
         Assert.IsNotNull(deserialized, "Deserialized config from indented JSON should not be null.");
@@ -591,7 +1035,7 @@ public sealed class ConfigurationSerializationTests
     }
 
     [TestMethod]
-    public void SingBoxConfig_ShouldDeserializeListAndArrayOfOutboundsAndInbounds()
+    public void SingBoxConfig_ShouldDeserializeListOfOutboundsAndInbounds()
     {
         var outboundsJson = """
         [
@@ -599,7 +1043,7 @@ public sealed class ConfigurationSerializationTests
             { "type": "socks", "tag": "out2", "server": "1.1.1.1", "server_port": 1080 }
         ]
         """;
-        
+
         var inboundsJson = """
         [
             { "type": "direct", "tag": "in1", "listen": "127.0.0.1", "listen_port": 8080 },
@@ -623,23 +1067,10 @@ public sealed class ConfigurationSerializationTests
         Assert.IsInstanceOfType(inboundsList[1], typeof(HttpInbound));
         Assert.AreEqual("in1", inboundsList[0].Tag);
         Assert.AreEqual("in2", inboundsList[1].Tag);
-
-        // Act & Assert for Arrays
-        var outboundsArray = JsonSerializer.Deserialize(outboundsJson, SingBoxJsonContext.Default.OutboundConfigArray);
-        Assert.IsNotNull(outboundsArray);
-        Assert.AreEqual(2, outboundsArray.Length);
-        Assert.IsInstanceOfType(outboundsArray[0], typeof(DirectOutbound));
-        Assert.IsInstanceOfType(outboundsArray[1], typeof(SocksOutbound));
-
-        var inboundsArray = JsonSerializer.Deserialize(inboundsJson, SingBoxJsonContext.Default.InboundConfigArray);
-        Assert.IsNotNull(inboundsArray);
-        Assert.AreEqual(2, inboundsArray.Length);
-        Assert.IsInstanceOfType(inboundsArray[0], typeof(DirectInbound));
-        Assert.IsInstanceOfType(inboundsArray[1], typeof(HttpInbound));
     }
 
     [TestMethod]
-    public void SingBoxConfig_ShouldDeserializeListAndArrayOfAllConfigBases()
+    public void SingBoxConfig_ShouldDeserializeListOfAllConfigBases()
     {
         var routeRulesJson = """
         [
@@ -664,7 +1095,29 @@ public sealed class ConfigurationSerializationTests
 
         var endpointsJson = """
         [
-            { "tag": "wg1", "system": false }
+            { "type": "wireguard", "tag": "wg1", "system": false },
+            { "type": "tailscale", "tag": "ts1", "state_directory": "state" }
+        ]
+        """;
+
+        var netnsJson = """
+        [
+            { "type": "default", "tag": "n1", "path": "sing" },
+            { "type": "unshare", "tag": "n2", "pid_file": "pid" }
+        ]
+        """;
+
+        var certProvidersJson = """
+        [
+            { "type": "acme", "tag": "acme1", "domain": ["example.com"] },
+            { "type": "tailscale", "tag": "ts1", "endpoint": "ts-ep" },
+            { "type": "cloudflare-origin-ca", "tag": "cf1", "domain": ["example.com"] }
+        ]
+        """;
+
+        var httpClientsJson = """
+        [
+            { "tag": "hc1", "engine": "go" }
         ]
         """;
 
@@ -692,7 +1145,29 @@ public sealed class ConfigurationSerializationTests
         // Endpoints
         var endpointsList = JsonSerializer.Deserialize(endpointsJson, SingBoxJsonContext.Default.ListEndpointConfig);
         Assert.IsNotNull(endpointsList);
-        Assert.AreEqual(1, endpointsList.Count);
+        Assert.AreEqual(2, endpointsList.Count);
         Assert.IsInstanceOfType(endpointsList[0], typeof(WireGuardEndpoint));
+        Assert.IsInstanceOfType(endpointsList[1], typeof(TailscaleEndpoint));
+
+        // Network Namespaces
+        var netnsList = JsonSerializer.Deserialize(netnsJson, SingBoxJsonContext.Default.ListNetworkNamespaceConfig);
+        Assert.IsNotNull(netnsList);
+        Assert.AreEqual(2, netnsList.Count);
+        Assert.IsInstanceOfType(netnsList[0], typeof(DefaultNetworkNamespace));
+        Assert.IsInstanceOfType(netnsList[1], typeof(UnshareNetworkNamespace));
+
+        // Certificate Providers
+        var certProvidersList = JsonSerializer.Deserialize(certProvidersJson, SingBoxJsonContext.Default.ListCertificateProviderConfig);
+        Assert.IsNotNull(certProvidersList);
+        Assert.AreEqual(3, certProvidersList.Count);
+        Assert.IsInstanceOfType(certProvidersList[0], typeof(AcmeCertificateProvider));
+        Assert.IsInstanceOfType(certProvidersList[1], typeof(TailscaleCertificateProvider));
+        Assert.IsInstanceOfType(certProvidersList[2], typeof(CloudflareOriginCaCertificateProvider));
+
+        // HTTP Clients
+        var httpClientsList = JsonSerializer.Deserialize(httpClientsJson, SingBoxJsonContext.Default.ListHttpClientConfig);
+        Assert.IsNotNull(httpClientsList);
+        Assert.AreEqual(1, httpClientsList.Count);
+        Assert.IsInstanceOfType(httpClientsList[0], typeof(HttpClientConfig));
     }
 }

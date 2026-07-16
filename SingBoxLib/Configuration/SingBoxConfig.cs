@@ -24,6 +24,12 @@ public sealed class SingBoxConfig
     public NtpConfig? Ntp { get; set; }
 
     /// <summary>
+    /// Configuration for top-level certificates to trust.
+    /// </summary>
+    [JsonPropertyName("certificate")]
+    public CertificateConfig? Certificate { get; set; }
+
+    /// <summary>
     /// List of endpoint configurations.
     /// </summary>
     [JsonPropertyName("endpoints")]
@@ -51,13 +57,25 @@ public sealed class SingBoxConfig
     /// List of top-level HTTP client configurations.
     /// </summary>
     [JsonPropertyName("http_clients")]
-    public List<object>? HttpClients { get; set; }
+    public List<HttpClientConfig>? HttpClients { get; set; }
 
     /// <summary>
     /// List of top-level certificate provider configurations.
     /// </summary>
     [JsonPropertyName("certificate_providers")]
-    public List<object>? CertificateProviders { get; set; }
+    public List<CertificateProviderConfig>? CertificateProviders { get; set; }
+
+    /// <summary>
+    /// List of top-level services.
+    /// </summary>
+    [JsonPropertyName("services")]
+    public List<ServiceConfig>? Services { get; set; }
+
+    /// <summary>
+    /// List of network namespace configurations.
+    /// </summary>
+    [JsonPropertyName("network_namespaces")]
+    public List<NetworkNamespaceConfig>? NetworkNamespaces { get; set; }
 
     /// <summary>
     /// Configuration for experimental features.

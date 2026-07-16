@@ -180,6 +180,60 @@ public sealed class RouteRule : RouteRuleBase
     public List<string>? WifiBSSID { get; set; }
 
     /// <summary>
+    /// Gets or sets the list of sniffed client types.
+    /// </summary>
+    [JsonPropertyName("client")]
+    public List<string>? Client { get; set; }
+
+    /// <summary>
+    /// Gets or sets the list of android package name regular expressions.
+    /// </summary>
+    [JsonPropertyName("package_name_regex")]
+    public List<string>? PackageNameRegex { get; set; }
+
+    /// <summary>
+    /// Gets or sets the interface addresses.
+    /// </summary>
+    [JsonPropertyName("interface_address")]
+    public Dictionary<string, List<string>>? InterfaceAddress { get; set; }
+
+    /// <summary>
+    /// Gets or sets the network interface addresses.
+    /// </summary>
+    [JsonPropertyName("network_interface_address")]
+    public Dictionary<string, List<string>>? NetworkInterfaceAddress { get; set; }
+
+    /// <summary>
+    /// Gets or sets the default interface addresses.
+    /// </summary>
+    [JsonPropertyName("default_interface_address")]
+    public List<string>? DefaultInterfaceAddress { get; set; }
+
+    /// <summary>
+    /// Gets or sets the preferred routes.
+    /// </summary>
+    [JsonPropertyName("preferred_by")]
+    public List<string>? PreferredBy { get; set; }
+
+    /// <summary>
+    /// Gets or sets the source MAC addresses.
+    /// </summary>
+    [JsonPropertyName("source_mac_address")]
+    public List<string>? SourceMacAddress { get; set; }
+
+    /// <summary>
+    /// Gets or sets the source hostnames.
+    /// </summary>
+    [JsonPropertyName("source_hostname")]
+    public List<string>? SourceHostname { get; set; }
+
+    /// <summary>
+    /// Gets or sets the rule-set tags.
+    /// </summary>
+    [JsonPropertyName("rule_set")]
+    public List<string>? RuleSet { get; set; }
+
+    /// <summary>
     /// Gets or sets whether to match the source IP in rule-set IP CIDRs.
     /// </summary>
     [JsonPropertyName("rule_set_ip_cidr_match_source")]

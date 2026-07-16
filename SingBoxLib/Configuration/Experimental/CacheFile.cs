@@ -33,4 +33,16 @@ public sealed class CacheFile
     /// </summary>
     [JsonPropertyName("store_dns")]
     public bool StoreDns { get; set; }
+
+    /// <summary>
+    /// Store rejected DNS response cache.
+    /// </summary>
+    [JsonPropertyName("store_rdrc")]
+    public bool? StoreRdrc { get; set; }
+
+    /// <summary>
+    /// Timeout of rejected DNS response cache.
+    /// </summary>
+    [JsonPropertyName("rdrc_timeout")]
+    public string? RdrcTimeout { get; set; }
 }

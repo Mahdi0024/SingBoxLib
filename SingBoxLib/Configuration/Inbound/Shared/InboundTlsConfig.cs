@@ -96,4 +96,52 @@ public sealed class InboundTlsConfig
     /// </summary>
     [JsonPropertyName("certificate_provider_tag")]
     public string? CertificateProviderTag { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Supported key exchange mechanisms.
+    /// </summary>
+    [JsonPropertyName("curve_preferences")]
+    public List<string>? CurvePreferences { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Client authentication mode.
+    /// </summary>
+    [JsonPropertyName("client_authentication")]
+    public string? ClientAuthentication { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Client certificate.
+    /// </summary>
+    [JsonPropertyName("client_certificate")]
+    public List<string>? ClientCertificate { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Client certificate paths.
+    /// </summary>
+    [JsonPropertyName("client_certificate_path")]
+    public List<string>? ClientCertificatePath { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Client certificate public key hashes.
+    /// </summary>
+    [JsonPropertyName("client_certificate_public_key_sha256")]
+    public List<string>? ClientCertificatePublicKeySha256 { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Enable kernel TLS transmit support.
+    /// </summary>
+    [JsonPropertyName("kernel_tx")]
+    public bool? KernelTx { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Enable kernel TLS receive support.
+    /// </summary>
+    [JsonPropertyName("kernel_rx")]
+    public bool? KernelRx { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. TLS handshake timeout.
+    /// </summary>
+    [JsonPropertyName("handshake_timeout")]
+    public string? HandshakeTimeout { get; set; }
 }

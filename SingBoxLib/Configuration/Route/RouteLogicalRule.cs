@@ -30,8 +30,8 @@ public sealed class RouteLogicalRule : RouteRuleBase
     public bool? Invert { get; set; }
 
     /// <summary>
-    /// Gets or sets the target outbound tag.
+    /// Gets or sets the action to perform when the rule matches.
     /// </summary>
-    [JsonPropertyName("outbound")]
-    public string? Outbound { get; set; }
+    [JsonPropertyName("action")]
+    public RuleAction? Action { get; set; }
 }

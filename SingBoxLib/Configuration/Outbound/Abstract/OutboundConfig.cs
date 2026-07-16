@@ -19,6 +19,11 @@
 [JsonDerivedType(typeof(UrlTestOutbound), "urltest")]
 [JsonDerivedType(typeof(VLessOutbound), "vless")]
 [JsonDerivedType(typeof(VMessOutbound), "vmess")]
+[JsonDerivedType(typeof(AnyTlsOutbound), "anytls")]
+[JsonDerivedType(typeof(SnellOutbound), "snell")]
+[JsonDerivedType(typeof(BridgeOutbound), "bridge")]
+[JsonDerivedType(typeof(BlockOutbound), "block")]
+[JsonDerivedType(typeof(WireGuardOutbound), "wireguard")]
 public abstract class OutboundConfig
 {
     /// <summary>

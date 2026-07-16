@@ -24,6 +24,10 @@ global using SingBoxLib.Runtime.Api.Clash.Models;
 global using SingBoxLib.Configuration.Endpoint.Abstract;
 global using SingBoxLib.Configuration.Endpoint;
 global using SingBoxLib.Configuration.Outbound.Shared;
+global using SingBoxLib.Configuration.Certificate;
+global using SingBoxLib.Configuration.Service;
+global using SingBoxLib.Configuration.Service.Abstract;
+global using SingBoxLib.Configuration.Service.Models;
 global using SingBoxLib.Runtime.Api.Clash;
 global using SingBoxLib.Runtime.Api.Grpc;
 global using System.Collections.Generic;
@@ -33,5 +37,9 @@ global using System.Net;
 global using System.Text;
 global using System.Threading.Tasks;
 global using System;
+global using SingBoxLib.Configuration.NetworkNamespace.Abstract;
+global using SingBoxLib.Configuration.NetworkNamespace;
+global using SingBoxLib.Configuration.CertificateProvider.Abstract;
+global using SingBoxLib.Configuration.CertificateProvider;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SingBoxLib.Tests")]

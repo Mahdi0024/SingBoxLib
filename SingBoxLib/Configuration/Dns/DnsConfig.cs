@@ -75,6 +75,18 @@ public sealed class DnsConfig
     /// </summary>
     [JsonPropertyName("fakeip")]
     public FakeIp? Fakeip { get; set; }
+
+    /// <summary>
+    /// Enable optimistic DNS caching. Can be bool or DnsOptimisticConfig object.
+    /// </summary>
+    [JsonPropertyName("optimistic")]
+    public object? Optimistic { get; set; }
+
+    /// <summary>
+    /// Default timeout for each DNS query.
+    /// </summary>
+    [JsonPropertyName("timeout")]
+    public string? Timeout { get; set; }
 }
 /// <summary>
 /// Constants representing DNS domain strategy.

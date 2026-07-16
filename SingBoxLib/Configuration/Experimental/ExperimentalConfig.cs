@@ -20,6 +20,6 @@ public sealed class ExperimentalConfig
     /// <summary>
     /// Configuration for sing-box native/gRPC API.
     /// </summary>
-    [JsonPropertyName("api")]
+    [JsonPropertyName("v2ray_api")]
     public V2rayApi? Api { get; set; }
 }

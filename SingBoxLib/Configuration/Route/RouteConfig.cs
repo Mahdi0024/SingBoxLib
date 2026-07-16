@@ -70,4 +70,34 @@ public sealed class RouteConfig
     /// </summary>
     [JsonPropertyName("default_fallback_delay")]
     public string? DefaultFallbackDelay { get; set; }
+
+    /// <summary>
+    /// The default HTTP client.
+    /// </summary>
+    [JsonPropertyName("default_http_client")]
+    public string? DefaultHttpClient { get; set; }
+
+    /// <summary>
+    /// The default domain resolver.
+    /// </summary>
+    [JsonPropertyName("default_domain_resolver")]
+    public object? DefaultDomainResolver { get; set; }
+
+    /// <summary>
+    /// Enable process search for logging.
+    /// </summary>
+    [JsonPropertyName("find_process")]
+    public bool? FindProcess { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. Enable neighbor resolution for logging.
+    /// </summary>
+    [JsonPropertyName("find_neighbor")]
+    public bool? FindNeighbor { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. Custom DHCP lease file paths.
+    /// </summary>
+    [JsonPropertyName("dhcp_lease_files")]
+    public List<string>? DhcpLeaseFiles { get; set; }
 }

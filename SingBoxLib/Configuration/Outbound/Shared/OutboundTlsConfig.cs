@@ -50,7 +50,7 @@ public sealed class OutboundTlsConfig
     /// <summary>
     /// Gets or sets the list of TLS cipher suites.
     /// </summary>
-    [JsonPropertyName("cipher_suits")]
+    [JsonPropertyName("cipher_suites")]
     public List<string>? CipherSuites { get; set; }
 
     /// <summary>
@@ -82,6 +82,96 @@ public sealed class OutboundTlsConfig
     /// </summary>
     [JsonPropertyName("reality")]
     public OutboundRealityConfig? Reality { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. TLS engine to use (e.g. go, apple, windows).
+    /// </summary>
+    [JsonPropertyName("engine")]
+    public string? Engine { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Supported key exchange mechanisms.
+    /// </summary>
+    [JsonPropertyName("curve_preferences")]
+    public List<string>? CurvePreferences { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. SHA-256 hashes of server certificate public keys.
+    /// </summary>
+    [JsonPropertyName("certificate_public_key_sha256")]
+    public List<string>? CertificatePublicKeySha256 { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Client certificate.
+    /// </summary>
+    [JsonPropertyName("client_certificate")]
+    public List<string>? ClientCertificate { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Path to client certificate.
+    /// </summary>
+    [JsonPropertyName("client_certificate_path")]
+    public string? ClientCertificatePath { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Client private key.
+    /// </summary>
+    [JsonPropertyName("client_key")]
+    public List<string>? ClientKey { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Path to client private key.
+    /// </summary>
+    [JsonPropertyName("client_key_path")]
+    public string? ClientKeyPath { get; set; }
+
+    /// <summary>
+    /// Since 1.12.0. Fragment TLS handshakes to bypass firewalls.
+    /// </summary>
+    [JsonPropertyName("fragment")]
+    public bool? Fragment { get; set; }
+
+    /// <summary>
+    /// Since 1.12.0. Fallback value when TLS segmentation cannot automatically determine wait time.
+    /// </summary>
+    [JsonPropertyName("fragment_fallback_delay")]
+    public string? FragmentFallbackDelay { get; set; }
+
+    /// <summary>
+    /// Since 1.12.0. Fragment TLS handshake into multiple TLS records.
+    /// </summary>
+    [JsonPropertyName("record_fragment")]
+    public bool? RecordFragment { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. SNI for forged segment.
+    /// </summary>
+    [JsonPropertyName("spoof")]
+    public string? Spoof { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. How forged segment is rejected by real server.
+    /// </summary>
+    [JsonPropertyName("spoof_method")]
+    public string? SpoofMethod { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Enable kernel TLS transmit support.
+    /// </summary>
+    [JsonPropertyName("kernel_tx")]
+    public bool? KernelTx { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Enable kernel TLS receive support.
+    /// </summary>
+    [JsonPropertyName("kernel_rx")]
+    public bool? KernelRx { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. TLS handshake timeout.
+    /// </summary>
+    [JsonPropertyName("handshake_timeout")]
+    public string? HandshakeTimeout { get; set; }
 }
 
 /// <summary>

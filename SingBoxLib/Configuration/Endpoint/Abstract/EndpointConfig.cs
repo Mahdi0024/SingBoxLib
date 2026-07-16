@@ -1,9 +1,13 @@
-﻿namespace SingBoxLib.Configuration.Endpoint.Abstract;
+﻿using System.Text.Json.Serialization;
+
+namespace SingBoxLib.Configuration.Endpoint.Abstract;
 
 /// <summary>
 /// Represents the base class for endpoint configurations.
 /// </summary>
-[JsonConverter(typeof(EndpointConfigConverter))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+[JsonDerivedType(typeof(WireGuardEndpoint), "wireguard")]
+[JsonDerivedType(typeof(TailscaleEndpoint), "tailscale")]
 public abstract class EndpointConfig : OutboundWithDialFields
 {
 }

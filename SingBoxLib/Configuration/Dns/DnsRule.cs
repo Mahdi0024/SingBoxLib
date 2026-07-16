@@ -174,6 +174,78 @@ public sealed class DnsRule : DnsRuleBase
     public List<string>? RuleSet { get; set; }
 
     /// <summary>
+    /// Matches android package name using regular expression.
+    /// </summary>
+    [JsonPropertyName("package_name_regex")]
+    public List<string>? PackageNameRegex { get; set; }
+
+    /// <summary>
+    /// Match interface address.
+    /// </summary>
+    [JsonPropertyName("interface_address")]
+    public Dictionary<string, List<string>>? InterfaceAddress { get; set; }
+
+    /// <summary>
+    /// Matches network interface address.
+    /// </summary>
+    [JsonPropertyName("network_interface_address")]
+    public Dictionary<string, List<string>>? NetworkInterfaceAddress { get; set; }
+
+    /// <summary>
+    /// Match default interface address.
+    /// </summary>
+    [JsonPropertyName("default_interface_address")]
+    public List<string>? DefaultInterfaceAddress { get; set; }
+
+    /// <summary>
+    /// Match source device MAC address.
+    /// </summary>
+    [JsonPropertyName("source_mac_address")]
+    public List<string>? SourceMacAddress { get; set; }
+
+    /// <summary>
+    /// Match source device hostname.
+    /// </summary>
+    [JsonPropertyName("source_hostname")]
+    public List<string>? SourceHostname { get; set; }
+
+    /// <summary>
+    /// Match specified DNS servers' preferred domains.
+    /// </summary>
+    [JsonPropertyName("preferred_by")]
+    public List<string>? PreferredBy { get; set; }
+
+    /// <summary>
+    /// Match when the DNS query response contains at least one address.
+    /// </summary>
+    [JsonPropertyName("ip_accept_any")]
+    public bool? IpAcceptAny { get; set; }
+
+    /// <summary>
+    /// Match DNS response code.
+    /// </summary>
+    [JsonPropertyName("response_rcode")]
+    public string? ResponseRcode { get; set; }
+
+    /// <summary>
+    /// Match DNS answer records.
+    /// </summary>
+    [JsonPropertyName("response_answer")]
+    public List<string>? ResponseAnswer { get; set; }
+
+    /// <summary>
+    /// Match DNS name server records.
+    /// </summary>
+    [JsonPropertyName("response_ns")]
+    public List<string>? ResponseNs { get; set; }
+
+    /// <summary>
+    /// Match DNS extra records.
+    /// </summary>
+    [JsonPropertyName("response_extra")]
+    public List<string>? ResponseExtra { get; set; }
+
+    /// <summary>
     /// Inverts the match.
     /// </summary>
     [JsonPropertyName("invert")]
@@ -196,4 +268,34 @@ public sealed class DnsRule : DnsRuleBase
     /// </summary>
     [JsonPropertyName("action")]
     public DnsAction? Action { get; set; }
+
+    /// <summary>
+    /// Matches process paths using regular expression.
+    /// </summary>
+    [JsonPropertyName("process_path_regex")]
+    public List<string>? ProcessPathRegex { get; set; }
+
+    /// <summary>
+    /// Matches IP CIDRs in response.
+    /// </summary>
+    [JsonPropertyName("ip_cidr")]
+    public List<string>? IpCidr { get; set; }
+
+    /// <summary>
+    /// Matches if IP in response is private.
+    /// </summary>
+    [JsonPropertyName("ip_is_private")]
+    public bool? IpIsPrivate { get; set; }
+
+    /// <summary>
+    /// Make ip_cidr rules in rule-sets accept empty query response.
+    /// </summary>
+    [JsonPropertyName("rule_set_ip_cidr_accept_empty")]
+    public bool? RuleSetIpCidrAcceptEmpty { get; set; }
+
+    /// <summary>
+    /// Matches outbounds.
+    /// </summary>
+    [JsonPropertyName("outbound")]
+    public List<string>? Outbound { get; set; }
 }

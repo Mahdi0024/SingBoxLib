@@ -16,4 +16,16 @@ public sealed class OutboundEchConfig
     /// </summary>
     [JsonPropertyName("config")]
     public string? Config { get; set; }
+
+    /// <summary>
+    /// The path to ECH configuration, in PEM format.
+    /// </summary>
+    [JsonPropertyName("config_path")]
+    public string? ConfigPath { get; set; }
+
+    /// <summary>
+    /// Overrides the domain name used for ECH HTTPS record queries.
+    /// </summary>
+    [JsonPropertyName("query_server_name")]
+    public string? QueryServerName { get; set; }
 }

@@ -132,6 +132,24 @@ public sealed class RouteRuleHeadless: RouteRuleHeadlessBase
     public List<string>? WifiBssid { get; set; }
 
     /// <summary>
+    /// Gets or sets the list of android package name regular expressions.
+    /// </summary>
+    [JsonPropertyName("package_name_regex")]
+    public List<string>? PackageNameRegex { get; set; }
+
+    /// <summary>
+    /// Gets or sets the network interface addresses.
+    /// </summary>
+    [JsonPropertyName("network_interface_address")]
+    public Dictionary<string, List<string>>? NetworkInterfaceAddress { get; set; }
+
+    /// <summary>
+    /// Gets or sets the default interface addresses.
+    /// </summary>
+    [JsonPropertyName("default_interface_address")]
+    public List<string>? DefaultInterfaceAddress { get; set; }
+
+    /// <summary>
     /// Gets or sets whether to invert the rule match.
     /// </summary>
     [JsonPropertyName("invert")]

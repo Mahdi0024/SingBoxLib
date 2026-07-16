@@ -29,9 +29,5 @@ public sealed class DnsLogicalRule : DnsRuleBase
     [JsonPropertyName("action")]
     public DnsAction? Action { get; set; }
 
-    /// <summary>
-    /// Gets or sets the DNS server to route to.
-    /// </summary>
-    [JsonPropertyName("server")]
-    public string? Server { get; set; }
+
 }

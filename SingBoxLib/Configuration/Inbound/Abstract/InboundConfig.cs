@@ -20,6 +20,9 @@
 [JsonDerivedType(typeof(TunInbound), "tun")]
 [JsonDerivedType(typeof(VLessInbound), "vless")]
 [JsonDerivedType(typeof(VMessInbound), "vmess")]
+[JsonDerivedType(typeof(CloudflaredInbound), "cloudflared")]
+[JsonDerivedType(typeof(SnellInbound), "snell")]
+[JsonDerivedType(typeof(AnyTlsInbound), "anytls")]
 public abstract class InboundConfig
 {
     /// <summary>
@@ -69,7 +72,49 @@ public abstract class InboundConfig
     /// 5m will be used by default.
     /// </summary>
     [JsonPropertyName("udp_timeout")]
-    public int? UdpTimeout { get; set; }
+    public string? UdpTimeout { get; set; }
+
+    /// <summary>
+    /// Since 1.12.0. The network interface to bind to.
+    /// </summary>
+    [JsonPropertyName("bind_interface")]
+    public string? BindInterface { get; set; }
+
+    /// <summary>
+    /// Since 1.12.0. Set netfilter routing mark. Only supported on Linux.
+    /// </summary>
+    [JsonPropertyName("routing_mark")]
+    public int? RoutingMark { get; set; }
+
+    /// <summary>
+    /// Since 1.12.0. Reuse listener address.
+    /// </summary>
+    [JsonPropertyName("reuse_addr")]
+    public bool? ReuseAddress { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. Set network namespace, name or path. Only supported on Linux.
+    /// </summary>
+    [JsonPropertyName("netns")]
+    public string? Netns { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. Disable TCP keep alive.
+    /// </summary>
+    [JsonPropertyName("disable_tcp_keep_alive")]
+    public bool? DisableTcpKeepAlive { get; set; }
+
+    /// <summary>
+    /// Since 1.13.0. TCP keep alive initial period.
+    /// </summary>
+    [JsonPropertyName("tcp_keep_alive")]
+    public string? TcpKeepAlive { get; set; }
+
+    /// <summary>
+    /// TCP keep alive interval.
+    /// </summary>
+    [JsonPropertyName("tcp_keep_alive_interval")]
+    public string? TcpKeepAliveInterval { get; set; }
 
     /// <summary>
     /// If set, connections will be forwarded to the specified inbound.]

@@ -94,4 +94,58 @@ public sealed class RuleAction
     /// </summary>
     [JsonPropertyName("server")]
     public string? Server { get; set; }
+
+    /// <summary>
+    /// Disable cache and save cache in this query.
+    /// </summary>
+    [JsonPropertyName("disable_cache")]
+    public bool? DisableCache { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. Disable optimistic DNS caching in this query.
+    /// </summary>
+    [JsonPropertyName("disable_optimistic_cache")]
+    public bool? DisableOptimisticCache { get; set; }
+
+    /// <summary>
+    /// Rewrite TTL in DNS responses.
+    /// </summary>
+    [JsonPropertyName("rewrite_ttl")]
+    public int? RewriteTtl { get; set; }
+
+    /// <summary>
+    /// Append edns0-subnet OPT record.
+    /// </summary>
+    [JsonPropertyName("client_subnet")]
+    public string? ClientSubnet { get; set; }
+
+    /// <summary>
+    /// Since 1.12.0. Fragment TLS handshakes to bypass firewalls.
+    /// </summary>
+    [JsonPropertyName("tls_fragment")]
+    public bool? TlsFragment { get; set; }
+
+    /// <summary>
+    /// Since 1.12.0. Fallback value used when TLS segmentation cannot automatically determine wait time.
+    /// </summary>
+    [JsonPropertyName("tls_fragment_fallback_delay")]
+    public string? TlsFragmentFallbackDelay { get; set; }
+
+    /// <summary>
+    /// Since 1.12.0. Fragment TLS handshake into multiple TLS records.
+    /// </summary>
+    [JsonPropertyName("tls_record_fragment")]
+    public bool? TlsRecordFragment { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. Inject a forged TLS ClientHello SNI.
+    /// </summary>
+    [JsonPropertyName("tls_spoof")]
+    public string? TlsSpoof { get; set; }
+
+    /// <summary>
+    /// Since 1.14.0. How forged segment is rejected by real server.
+    /// </summary>
+    [JsonPropertyName("tls_spoof_method")]
+    public string? TlsSpoofMethod { get; set; }
 }

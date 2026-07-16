@@ -29,6 +29,48 @@ public sealed class DnsAction
     public string? ClientSubnet { get; set; }
 
     /// <summary>
+    /// Gets or sets the domain strategy.
+    /// </summary>
+    [JsonPropertyName("strategy")]
+    public string? Strategy { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether optimistic cache is disabled.
+    /// </summary>
+    [JsonPropertyName("disable_optimistic_cache")]
+    public bool? DisableOptimisticCache { get; set; }
+
+    /// <summary>
+    /// Gets or sets the query timeout.
+    /// </summary>
+    [JsonPropertyName("timeout")]
+    public string? Timeout { get; set; }
+
+    /// <summary>
+    /// Gets or sets the rcode.
+    /// </summary>
+    [JsonPropertyName("rcode")]
+    public string? Rcode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the predefined answers.
+    /// </summary>
+    [JsonPropertyName("answer")]
+    public List<string>? Answer { get; set; }
+
+    /// <summary>
+    /// Gets or sets the predefined name servers.
+    /// </summary>
+    [JsonPropertyName("ns")]
+    public List<string>? Ns { get; set; }
+
+    /// <summary>
+    /// Gets or sets the predefined extra records.
+    /// </summary>
+    [JsonPropertyName("extra")]
+    public List<string>? Extra { get; set; }
+
+    /// <summary>
     /// Gets or sets whether cache is disabled.
     /// </summary>
     [JsonPropertyName("disable_cache")]
